@@ -11,7 +11,7 @@ public class Market {
     }
 
     public MarketEquity[] search(String query, String type, String seachTarget) {
-        return ;
+        return marketEquities;
     }
 
 
