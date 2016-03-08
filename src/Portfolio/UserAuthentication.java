@@ -4,7 +4,8 @@ import View.View;
 import java.io.File;
 
 /**
- * Created by Brian on 3/8/2016.
+ * Handles user creation, logging in and creating portfolio. Contains
+ * the main.
  */
 public class UserAuthentication {
     public static void main(String[] args) {
