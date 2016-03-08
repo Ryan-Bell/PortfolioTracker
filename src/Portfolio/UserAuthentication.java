@@ -11,8 +11,10 @@ public class UserAuthentication {
     public static void main(String[] args) {
         System.out.println("program Start");
 
-        //TODO call createUI to handle this and switch to login view
-        View.launch(View.class); //Calls the static version of launch
+        //create a instance to be able to call methods
+        UserAuthentication userAuthentication = new UserAuthentication();
+        //create the login page
+        userAuthentication.createUI();
     }
 
 
@@ -40,7 +42,7 @@ public class UserAuthentication {
     }
 
     void createUI(){
-
+        View.launch(View.class); //Calls the static version of launch
     }
 
     void createPortfolio(){
