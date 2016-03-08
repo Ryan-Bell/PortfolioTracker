@@ -49,6 +49,12 @@ public class View extends Application {
         hbLoginBtn.getChildren().add(loginBtn);
         grid.add(hbLoginBtn, 1, 4);
 
+        Button registerBtn = new Button("Register");
+        HBox hbRegisterBtn = new HBox(10);
+        hbRegisterBtn.setAlignment(Pos.BOTTOM_RIGHT);
+        hbRegisterBtn.getChildren().add(registerBtn);
+        grid.add(hbRegisterBtn, 0, 4);
+
         Scene scene = new Scene(grid, 500, 475);
         primaryStage.setScene(scene);
 
