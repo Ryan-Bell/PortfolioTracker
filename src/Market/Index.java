@@ -15,7 +15,7 @@ public class Index extends MarketEquity {
     public void addChildren(MarketEquity child) {
 
     }
-    
+
     /**
      * Gets the children field
      * @return  children    the array of MarketEquities
@@ -28,6 +28,7 @@ public class Index extends MarketEquity {
      * Gets the added value of all the children
      * @return  value   the value of all children
      */
+    @Override
     public float getValue() {
         float value = 0;
 

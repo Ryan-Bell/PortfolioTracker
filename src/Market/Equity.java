@@ -14,11 +14,11 @@ public class Equity extends MarketEquity {
 
     /**
      * Constructor.
-     * @param tickerSymbol  The equity's name symbol
-     * @param name          The equity's name
-     * @param value         The equity's value
-     * @param sector        The sector the equity belongs to
-     * @param index         The index the equity belongs to
+     * @param tickerSymbol  the equity's name symbol
+     * @param name          the equity's name
+     * @param value         the equity's value
+     * @param sector        the sector the equity belongs to
+     * @param index         the index the equity belongs to
      */
     public Equity(String tickerSymbol, String name, float value, String sector, String index) {
         this.tickerSymbol = tickerSymbol;
@@ -32,6 +32,7 @@ public class Equity extends MarketEquity {
      * Gets the value of this Equity
      * @return  value   the value of this Equity
      */
+    @Override
     public float getValue() {
         return value;
     }

@@ -1,22 +1,38 @@
 package MarketSimulation;
 
+import java.util.ArrayList;
+
 /**
- * Created by ms8565 on 3/8/2016.
+ *  The Strategy interface for the strategy design pattern
  */
-
-
 public class Simulation {
+    enum StepTypes{ Day, Month, Year }
+
     private float percentage;
     private int steps;
     private float equitiesValue;
+    ArrayList<Float> equityValuesAtStep;
 
-    private Step stepType;
-    private float[] equityValuesAtStep;
+    /**
+     * Evaluates the new values for each step based on the value and percentage.
+     * @return  equityValuesAtStep   the array of values at each step interval
+     */
+    public ArrayList<Float> evaluate() {
+        for(int i = 0; i < this.steps; i++) {
+            float value = (this.equitiesValue *= 1 + this.percentage); //TODO: multiply by stepType
+            this.equityValuesAtStep.add(value);
 
-    public enum Step{
-        Day, Month, Year
+            this.equitiesValue = value;
+        }
+
+        return this.equityValuesAtStep;
     }
-    public float[] evaluate(){
-        return equityValuesAtStep;
+
+    /**
+     * Gets the equitiesValue
+     * @return  equitiesValue   the array of values mapped to each step
+     */
+    public float getEquitiesValue() {
+        return this.equitiesValue;
     }
 }

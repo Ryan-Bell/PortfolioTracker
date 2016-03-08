@@ -11,11 +11,11 @@ public class Market {
     /**
      * Creates and adds a MarketEquity to the
      * marketEquities Array.
-     * @param tickerSymbol  The equity's name symbol
-     * @param name          The equity's name
-     * @param value         The equity's value
-     * @param sector        The sector the equity belongs to
-     * @param Index         The index the equity belongs to
+     * @param tickerSymbol  the equity's name symbol
+     * @param name          the equity's name
+     * @param value         the equity's value
+     * @param sector        the sector the equity belongs to
+     * @param Index         the index the equity belongs to
      */
     public void addMarketEquity(String tickerSymbol, String name, float value, String sector, String Index) {
 
@@ -27,7 +27,7 @@ public class Market {
      * @param query
      * @param type
      * @param seachTarget
-     * @return  query       The Array of matching MarketEquities based on the search params
+     * @return  query       the Array of matching MarketEquities based on the search params
      */
     public MarketEquity[] search(String query, String type, String seachTarget) {
         return marketEquities;
