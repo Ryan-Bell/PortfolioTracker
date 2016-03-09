@@ -5,8 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -17,6 +16,8 @@ import java.util.stream.Stream;
  * the main.
  */
 public class UserAuthentication {
+    //Todo - file gathered in checkPassword is thrown away but could instead be saved if the
+        //Todo checkpassword and getPOFromId were both called in a login function
 
     /**
      * Takes in plain text password and checks it against portfolio file hashed password
@@ -49,9 +50,22 @@ public class UserAuthentication {
         return portfolio;
     }
 
-
+    /**
+     * Responsible for deleting the portfolio file associated with a ggiven id
+     * @param id the filename / identifier of the  portfolio to be deleted
+     */
     public void deleteId(String id){
-
+        Path path = Paths.get("./portfolios/" + id + ".txt");
+        try {
+            Files.delete(path);
+         } catch (NoSuchFileException x) {
+            System.err.format("%s: no such" + " file or directory%n", path);
+        } catch (DirectoryNotEmptyException x) {
+            System.err.format("%s not empty%n", path);
+        } catch (IOException x) {
+            // File permission problems are caught here.
+            System.err.println(x);
+        }
     }
 
     public void createId(String id, String pass){
@@ -92,7 +106,7 @@ public class UserAuthentication {
         return null;
     }
 
-    public void createPortfolio(){
+    public void createPortfolio(String id){
 
     }
 
