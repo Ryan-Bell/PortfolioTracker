@@ -63,10 +63,8 @@ public class View extends Application {
             //call back to userAuth to check that id and pass are correct
             //use return type for errors or new state
             if (userAuthentication.checkPassword(userTextField.getText(), pwBox.getText())){
-                //login is successful
                 System.out.println("Login is successful");
             }  else{
-                //login is unsuccessful
                 System.out.println("Login is NOT successful");
             }
 
