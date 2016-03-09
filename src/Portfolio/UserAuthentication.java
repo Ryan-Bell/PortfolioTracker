@@ -68,8 +68,24 @@ public class UserAuthentication {
         }
     }
 
+    /**
+     * Creates a new file and sets the password as the  first line in that file
+     * @param id the filename / identifier
+     * @param pass the plaintext password to be hashed and written in
+     */
     public void createId(String id, String pass){
-
+        String filepath = "./portfolios/" + id + ".txt";
+        File newFile = new File(filepath);
+        if(!newFile.isFile()) {
+            ArrayList<String> lines = new ArrayList<>();
+            lines.add(hash(pass));
+            try {
+                Files.createFile(Paths.get("./portfolios/" + id + ".txt"));
+                Files.write(Paths.get("./portfolios/" + id + ".txt"), lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     /**
@@ -106,9 +122,11 @@ public class UserAuthentication {
         return null;
     }
 
+    //Todo - determine what this method was supposed to do and if it is neccessary
+    /*
     public void createPortfolio(String id){
 
-    }
+    }*/
 
 
 }

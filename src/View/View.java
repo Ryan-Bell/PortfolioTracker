@@ -62,6 +62,7 @@ public class View extends Application {
         loginBtn.setOnAction((event -> {
             //call back to userAuth to check that id and pass are correct
             //use return type for errors or new state
+            //TODO what to do when login is successful and if it is unsuccessful
             if (userAuthentication.checkPassword(userTextField.getText(), pwBox.getText())){
                 System.out.println("Login is successful");
             }  else{
@@ -78,6 +79,9 @@ public class View extends Application {
         registerBtn.setOnAction((event -> {
             //call back to createId to make account
             //use return type for errors or new portfolio
+            userAuthentication.createId(userTextField.getText(), pwBox.getText());
+            //TODO determine what to do after the portfolio has been created
+
         }));
 
         Scene scene = new Scene(grid, 500, 475);
