@@ -136,9 +136,6 @@ public class Parser {
             }
 
         }
-
-        market.addMarketEquity(sector);
-        market.addMarketEquity(index);
         market.addMarketEquity(tickerSymbol, name, value, sector, index);
     }
 
