@@ -74,6 +74,19 @@ public class UserAuthentication {
      * @param pass the plaintext password to be hashed and written in
      */
     public void createId(String id, String pass){
+        //check that the portfolios directory exist
+        String dirPath = "./portfolios/";
+        File dirFile = new File(dirPath);
+        if(!dirFile.exists()){
+            try{
+                dirFile.mkdir();
+            }
+            catch(SecurityException se){
+                System.out.println(se.getMessage());
+            }
+        }
+
+
         String filepath = "./portfolios/" + id + ".txt";
         File newFile = new File(filepath);
         if(!newFile.isFile()) {
