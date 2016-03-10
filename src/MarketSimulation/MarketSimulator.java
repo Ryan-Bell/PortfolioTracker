@@ -14,22 +14,23 @@ public class MarketSimulator {
      * @return  memento the memento
      */
     public PortfolioMemento createMemento(float percent, int steps, Simulation.StepTypes stepType, String type){
+
         Simulation simulation;
         switch (type) {
             case "bear":
-                simulation = new BearSimulation(percent, steps, this.basePortfolioValue);
+                simulation = new BearSimulation(percent, steps, this.basePortfolioValue, stepType);
                 break;
 
             case "bull":
-                simulation = new BullSimulation(percent, steps, this.basePortfolioValue);
+                simulation = new BullSimulation(percent, steps, this.basePortfolioValue, stepType);
                 break;
 
             case "nogrowth":
-                simulation = new NoGrowthSimulation(percent, steps, this.basePortfolioValue);
+                simulation = new NoGrowthSimulation(percent, steps, this.basePortfolioValue, stepType);
                 break;
 
             default:
-                simulation = new NoGrowthSimulation(percent, steps, this.basePortfolioValue);
+                simulation = new NoGrowthSimulation(percent, steps, this.basePortfolioValue, stepType);
                 break;
         }
 
