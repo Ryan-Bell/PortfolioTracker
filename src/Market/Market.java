@@ -27,6 +27,8 @@ public class Market {
         if(!marketEquities.contains(newEquity)){
             marketEquities.add(newEquity);
         }
+        //add this to the index / sector it is associated with
+
     }
 
     /**
@@ -35,6 +37,9 @@ public class Market {
      * @param name the name of the index
      */
     public void addMarketEquity(String name){
+        if (name == null){
+            return;
+        }
         //create the index
         MarketEquity newEquity = new Index(name);
 
