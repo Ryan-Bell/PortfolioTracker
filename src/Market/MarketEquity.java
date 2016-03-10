@@ -6,8 +6,8 @@ package Market;
  * Indexes and Equities to be treated the same.
  */
 public class MarketEquity {
-    private String identifier;
-    private float value;
+    protected String name;
+    protected float value;
 
     /**
      * Gets the value of this Equity
