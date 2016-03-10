@@ -121,12 +121,7 @@ public class UserAuthentication {
         //the conversion failed
         return null;
     }
-
-    //Todo - determine what this method was supposed to do and if it is neccessary
-    /*
-    public void createPortfolio(String id){
-
-    }*/
+    
 
 
 }
