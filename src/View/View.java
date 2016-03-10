@@ -71,7 +71,7 @@ public class View extends Application {
 
         }));
 
-        Button registerBtn = new Button("Register");
+        Button registerBtn = new Button("Create Portfolio");
         HBox hbRegisterBtn = new HBox(10);
         hbRegisterBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbRegisterBtn.getChildren().add(registerBtn);
