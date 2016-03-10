@@ -20,15 +20,25 @@ public class Market {
      * @param index         the index the equity belongs to
      */
     public void addMarketEquity(String tickerSymbol, String name, float value, String sector, String index) {
+        //create the equity
         MarketEquity newEquity = new Equity(tickerSymbol, name, value, sector, index);
+
+        //add to the marketEquities array if it isn't already in there
         if(!marketEquities.contains(newEquity)){
             marketEquities.add(newEquity);
         }
     }
 
-    
+    /**
+     * Provides a method for adding a MarketEquity to the
+     * marketEquities Array when adding a sector / index
+     * @param name the name of the index
+     */
     public void addMarketEquity(String name){
+        //create the index
         MarketEquity newEquity = new Index(name);
+
+        //add to the marketEquities array iif it isn't already in there
         if(!marketEquities.contains(newEquity)){
             marketEquities.add(newEquity);
         }
