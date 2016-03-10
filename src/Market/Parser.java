@@ -138,6 +138,11 @@ public class Parser {
      * @return
      */
     private String processName(String raw){
+        //run through to handle unicode
+        //run through again for whitespace and other cleaning
+
+
+
         //stub - can cause null pointer exception
         return null;
     }
@@ -148,7 +153,23 @@ public class Parser {
      * @return
      */
     private String processPrice(String raw){
-        //stub - number so it can be casted
-        return "4";
+        //regex pattern to capture numbers on either side off a period (with only two after the period)
+        String pattern = "([0-9]+[.]?[0-9]{2})";
+
+        //create the pattern object
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(raw);
+
+        //determine if there was a carrot or not (otherwise group(1) will throw an error)
+        if(matcher.find()) {
+            //return the captured characters after stripping whitespace
+            System.out.println(matcher.group(1).replaceAll("\\s+",  ""));
+            return matcher.group(1).replaceAll("\\s+",  "");
+        } else{
+            //note ---- this should never be reached -----
+            //return the full field after removing whitespace
+            return raw.replaceAll("\\s+","");
+        }
+
     }
 }
