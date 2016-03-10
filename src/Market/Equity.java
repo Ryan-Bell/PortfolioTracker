@@ -36,11 +36,27 @@ public class Equity extends MarketEquity {
         return value;
     }
 
+    /**
+     * getter for tickerSymbol
+     * @return the ticker symbol
+     */
     public String getTickerSymbol(){return tickerSymbol;}
 
+    /**
+     * getter for name
+     * @return the name
+     */
     public String getName(){return name;}
 
+    /**
+     * getter for sector
+     * @return the sector
+     */
     public String getSector(){return sector;}
 
+    /**
+     * getter for index
+     * @return the index
+     */
     public String getIndex(){return index;}
 }
