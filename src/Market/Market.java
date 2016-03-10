@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class Market {
     private ArrayList<MarketEquity> marketEquities;
 
+    public Market(){
+        marketEquities = new ArrayList<>();
+    }
+
     /**
      * Creates and adds a MarketEquity to the
      * marketEquities Array.
@@ -20,6 +24,30 @@ public class Market {
      * @param index         the index the equity belongs to
      */
     public void addMarketEquity(String tickerSymbol, String name, float value, String sector, String index) {
+
+
+        //create the index
+        MarketEquity newIndex = null;
+        MarketEquity newSector = null;
+        MarketEquity newEquity = null;
+
+        ArrayList<MarketEquity> searchResults = null;
+
+        if ((searchResults = search(QueryType.TICKER, name, MatchType.EXACT)).isEmpty()){
+            newEquity = new Equity(tickerSymbol, name, value, sector, index);
+            if(sector != null && (searchResults = search(QueryType.SECTOR, sector, MatchType.EXACT)).isEmpty()){
+                newSector = new Index(sector);
+                System.out.println(sector + " was newly created");
+                ((Index)newSector).addChildren(newEquity);
+            }
+            if(index != null && (searchResults = search(QueryType.INDEX, index, MatchType.EXACT)).isEmpty()){
+                newIndex = new Index(index);
+                System.out.println(index + " was newly created");
+                ((Index)newIndex).addChildren(newEquity);
+            }
+        }
+
+/*
         //create the equity
         MarketEquity newEquity = new Equity(tickerSymbol, name, value, sector, index);
 
@@ -27,26 +55,28 @@ public class Market {
         if(!marketEquities.contains(newEquity)){
             marketEquities.add(newEquity);
         }
-        //add this to the index / sector it is associated with
 
-    }
-
-    /**
-     * Provides a method for adding a MarketEquity to the
-     * marketEquities Array when adding a sector / index
-     * @param name the name of the index
-     */
-    public void addMarketEquity(String name){
-        if (name == null){
-            return;
+        if(sector != null) {
+            newSector = new Index(sector);
+            //add to the marketEquities array iif it isn't already in there
+            if(!marketEquities.contains(newSector)){
+                System.out.println(sector + " is newly added");
+                marketEquities.add(newSector);
+            }
+            ((Index)marketEquities.get(marketEquities.indexOf(newSector))).addChildren(newEquity);
         }
-        //create the index
-        MarketEquity newEquity = new Index(name);
 
-        //add to the marketEquities array iif it isn't already in there
-        if(!marketEquities.contains(newEquity)){
-            marketEquities.add(newEquity);
+        if(index != null){
+            newIndex = new Index(index);
+            //add to the marketEquities array iif it isn't already in there
+            if(!marketEquities.contains(newIndex)){
+                System.out.println(index + " is newly added");
+                marketEquities.add(newIndex);
+            }
+            ((Index)marketEquities.get(marketEquities.indexOf(newIndex))).addChildren(newEquity);
         }
+*/
+
     }
 
     /**
