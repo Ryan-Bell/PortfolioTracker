@@ -37,12 +37,15 @@ public class Market {
             newEquity = new Equity(tickerSymbol, name, value, sector, index);
             if(sector != null && (searchResults = search(QueryType.SECTOR, sector, MatchType.EXACT)).isEmpty()){
                 newSector = new Index(sector);
+                marketEquities.add(newSector);
                 System.out.println(sector + " was newly created");
                 ((Index)newSector).addChildren(newEquity);
             }
             if(index != null && (searchResults = search(QueryType.INDEX, index, MatchType.EXACT)).isEmpty()){
                 newIndex = new Index(index);
+                marketEquities.add(newIndex);
                 System.out.println(index + " was newly created");
+                //System.out.print(searchResults);
                 ((Index)newIndex).addChildren(newEquity);
             }
         }
@@ -85,7 +88,7 @@ public class Market {
      * @param query
      * @param type
      * @param matchType
-     * @return  query       the Array of matching MarketEquities based on the search params
+     * @return  query the Array of matching MarketEquities based on the search params
      */
     public ArrayList<MarketEquity> search(QueryType type, String query, MatchType matchType) {
         ArrayList<MarketEquity> results = new ArrayList<>();
@@ -100,12 +103,12 @@ public class Market {
                                 }
                                 break;
                             case BEGIN:
-                                if(((Equity)equity).getTickerSymbol().equals(query)){
+                                if(((Equity)equity).getTickerSymbol().startsWith(query)){
                                     results.add(equity);
                                 }
                                 break;
                             case CONTAINED:
-                                if(((Equity)equity).getTickerSymbol().equals(query)){
+                                if(((Equity)equity).getTickerSymbol().contains(query)){
                                     results.add(equity);
                                 }
                                 break;
@@ -143,12 +146,12 @@ public class Market {
                                 }
                                 break;
                             case BEGIN:
-                                if(((Equity)equity).getSector().equals(query)){
+                                if(((Equity)equity).getSector().startsWith(query)){
                                     results.add(equity);
                                 }
                                 break;
                             case CONTAINED:
-                                if(((Equity)equity).getSector().equals(query)){
+                                if(((Equity)equity).getSector().contains(query)){
                                     results.add(equity);
                                 }
                                 break;
@@ -159,20 +162,22 @@ public class Market {
                 break;
             case INDEX:
                 for(MarketEquity equity : marketEquities){
+                    System.out.println("Searcch for index");
                     if (equity instanceof Equity){
                         switch (matchType) {
                             case EXACT:
                                 if(((Equity)equity).getIndex().equals(query)){
                                     results.add(equity);
+                                    System.out.println(((Equity)equity).getIndex().equals(query) + " as DENOTED IN SEARCH");
                                 }
                                 break;
                             case BEGIN:
-                                if(((Equity)equity).getIndex().equals(query)){
+                                if(((Equity)equity).getIndex().startsWith(query)){
                                     results.add(equity);
                                 }
                                 break;
                             case CONTAINED:
-                                if(((Equity)equity).getIndex().equals(query)){
+                                if(((Equity)equity).getIndex().contains(query)){
                                     results.add(equity);
                                 }
                                 break;
