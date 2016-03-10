@@ -8,7 +8,6 @@ package Market;
 public class Equity extends MarketEquity {
     private String tickerSymbol;
     private String name;
-    private float value;
     private String sector;
     private String index;
 
@@ -36,4 +35,12 @@ public class Equity extends MarketEquity {
     public float getValue() {
         return value;
     }
+
+    public String getTickerSymbol(){return tickerSymbol;}
+
+    public String getName(){return name;}
+
+    public String getSector(){return sector;}
+
+    public String getIndex(){return index;}
 }
