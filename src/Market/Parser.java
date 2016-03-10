@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -22,6 +23,9 @@ public class Parser {
     //reference to the market object to use the creation methods
     Market market;
 
+    //Really bad but seemingly necessary evil hard-coded array of the only two indexes in the csv file
+    ArrayList<String> indicies;
+
     /**
      * Constructor
      * @param market reference to the market object
@@ -30,6 +34,9 @@ public class Parser {
     public Parser(Market market, String marketPath){
         this.market = market;
         this.marketPath = marketPath;
+        indicies = new ArrayList<>();
+        indicies.add("NASDAAQ100");
+        indicies.add("DOW");
     }
 
     /**
@@ -92,21 +99,47 @@ public class Parser {
             //switch on the current field for regex logic
             switch (fieldCount){
                 case 1:
-                    tickerSymbol = processTicker(s);
+                    tickerSymbol = s;
+                    System.out.println("Ticker:\t" + tickerSymbol);
                     break;
                 case 2:
                     name = processName(s);
+                    System.out.println("Name:\t" + name);
                     break;
                 case 3:
-                    value = Float.parseFloat(processPrice(s));
+                    value = Float.parseFloat(s);
+                    System.out.println("Value:\t" + value);
                     break;
                 case 4:
                     //first check if there is another match after this one (5th column
-                    //otherwise, determine if it is a sector or an index
+                    String col4 = s;
+                    if (matcher.find()){
+                        //save the captured field
+                        String col5 = matcher.group(1);
+
+                        //strip the double quotes that were also captured
+                        col5 = col5.replace("\"", "");
+
+                        sector = col4;
+                        index = col5;
+                    } else {
+                        //check whether  the fourth column is a sector or an index by checking the hard-coded arraylist
+                        if(indicies.contains(col4)){
+                            //the column is an index
+                            index = col4;
+
+                        } else {
+                            sector = col4;
+                        }
+                    }
                     break;
             }
 
         }
+
+        market.addMarketEquity(sector);
+        market.addMarketEquity(index);
+        market.addMarketEquity(tickerSymbol, name, value, sector, index);
     }
 
     /**
@@ -133,23 +166,20 @@ public class Parser {
     }
 
     /**
-     *
-     * @param raw
+     * Handles parsing the company name and escapes the unicode
+     * @param raw the string to be parsed
      * @return
      */
     private String processName(String raw){
-        //run through to handle unicode
-        //run through again for whitespace and other cleaning
-
-
-
-        //stub - can cause null pointer exception
-        return null;
+        Pattern compiledPattern = Pattern.compile("(&#39;)");
+        Matcher matcher = compiledPattern.matcher(raw);
+        raw = matcher.replaceAll("'");
+        return raw;
     }
 
     /**
-     *
-     * @param raw
+     * Handles parsing the price and restricts the number of decimals to two
+     * @param raw the raw field string to be parsed
      * @return
      */
     private String processPrice(String raw){
@@ -163,13 +193,11 @@ public class Parser {
         //determine if there was a carrot or not (otherwise group(1) will throw an error)
         if(matcher.find()) {
             //return the captured characters after stripping whitespace
-            System.out.println(matcher.group(1).replaceAll("\\s+",  ""));
             return matcher.group(1).replaceAll("\\s+",  "");
         } else{
             //note ---- this should never be reached -----
             //return the full field after removing whitespace
             return raw.replaceAll("\\s+","");
         }
-
     }
 }
