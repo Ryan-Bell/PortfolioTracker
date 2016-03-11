@@ -57,6 +57,7 @@ public class Parser {
                 System.out.println(e.getMessage());
             }
         }
+        
     }
 
     /**
@@ -100,15 +101,12 @@ public class Parser {
             switch (fieldCount){
                 case 1:
                     tickerSymbol = s;
-                    System.out.println("Ticker:\t" + tickerSymbol);
                     break;
                 case 2:
                     name = processName(s);
-                    System.out.println("Name:\t" + name);
                     break;
                 case 3:
                     value = Float.parseFloat(s);
-                    System.out.println("Value:\t" + value);
                     break;
                 case 4:
                     //first check if there is another match after this one (5th column

@@ -38,48 +38,14 @@ public class Market {
             if(sector != null && (searchResults = search(QueryType.SECTOR, sector, MatchType.EXACT)).isEmpty()){
                 newSector = new Index(sector);
                 marketEquities.add(newSector);
-                System.out.println(sector + " was newly created");
                 ((Index)newSector).addChildren(newEquity);
             }
             if(index != null && (searchResults = search(QueryType.INDEX, index, MatchType.EXACT)).isEmpty()){
                 newIndex = new Index(index);
                 marketEquities.add(newIndex);
-                System.out.println(index + " was newly created");
-                //System.out.print(searchResults);
                 ((Index)newIndex).addChildren(newEquity);
             }
         }
-
-/*
-        //create the equity
-        MarketEquity newEquity = new Equity(tickerSymbol, name, value, sector, index);
-
-        //add to the marketEquities array if it isn't already in there
-        if(!marketEquities.contains(newEquity)){
-            marketEquities.add(newEquity);
-        }
-
-        if(sector != null) {
-            newSector = new Index(sector);
-            //add to the marketEquities array iif it isn't already in there
-            if(!marketEquities.contains(newSector)){
-                System.out.println(sector + " is newly added");
-                marketEquities.add(newSector);
-            }
-            ((Index)marketEquities.get(marketEquities.indexOf(newSector))).addChildren(newEquity);
-        }
-
-        if(index != null){
-            newIndex = new Index(index);
-            //add to the marketEquities array iif it isn't already in there
-            if(!marketEquities.contains(newIndex)){
-                System.out.println(index + " is newly added");
-                marketEquities.add(newIndex);
-            }
-            ((Index)marketEquities.get(marketEquities.indexOf(newIndex))).addChildren(newEquity);
-        }
-*/
-
     }
 
     /**
@@ -156,19 +122,35 @@ public class Market {
                                 }
                                 break;
                         }
-
+                    }
+                    if (equity instanceof Index){
+                        switch (matchType){
+                            case EXACT:
+                                if (equity.name.equals(query)){
+                                    results.add(equity);
+                                }
+                                break;
+                            case BEGIN:
+                                if (equity.name.startsWith(query)){
+                                    results.add(equity);
+                                }
+                                break;
+                            case CONTAINED:
+                                if (equity.name.contains(query)){
+                                    results.add(equity);
+                                }
+                                break;
+                        }
                     }
                 }
                 break;
             case INDEX:
                 for(MarketEquity equity : marketEquities){
-                    System.out.println("Searcch for index");
                     if (equity instanceof Equity){
                         switch (matchType) {
                             case EXACT:
                                 if(((Equity)equity).getIndex().equals(query)){
                                     results.add(equity);
-                                    System.out.println(((Equity)equity).getIndex().equals(query) + " as DENOTED IN SEARCH");
                                 }
                                 break;
                             case BEGIN:
@@ -182,7 +164,25 @@ public class Market {
                                 }
                                 break;
                         }
-
+                    }
+                    if (equity instanceof Index){
+                        switch (matchType){
+                            case EXACT:
+                                if (equity.name.equals(query)){
+                                    results.add(equity);
+                                }
+                                break;
+                            case BEGIN:
+                                if (equity.name.startsWith(query)){
+                                    results.add(equity);
+                                }
+                                break;
+                            case CONTAINED:
+                                if (equity.name.contains(query)){
+                                    results.add(equity);
+                                }
+                                break;
+                        }
                     }
                 }
                 break;
