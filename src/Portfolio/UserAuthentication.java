@@ -29,7 +29,11 @@ public class UserAuthentication {
         String hashedPass = hash(pass);
         ArrayList<String> portfolio = getPOFromId(id);
         //check that the portfolio has the same hash
-        return (portfolio.get(0).equals(hashedPass));
+        try {
+            return (portfolio.get(0).equals(hashedPass));
+        } catch(Exception e){
+            return false;
+        }
     }
 
     /**
