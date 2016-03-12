@@ -53,6 +53,14 @@ public class PortfolioView extends View {
 
         }));
 
+        //button to go to market view
+        Button markView = new Button("Market View");
+        grid.add(markView, 0, 5);
+
+        markView.setOnAction((event -> {
+            context.setView(context.getMarketView());
+        }));
+
         Scene newScene = new Scene(grid, 500, 475);
         primaryStage.setScene(newScene);
 
