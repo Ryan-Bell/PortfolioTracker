@@ -25,10 +25,10 @@ public class UserAuthentication {
      */
     public boolean checkPassword(String id, String pass){
         String hashedPass = hash(pass);
-        ArrayList<String> portfolio = getPOFromId(id);
+        Portfolio portfolio = getPOFromId(id);
         //check that the portfolio has the same hash
         try {
-            return (portfolio.get(0).equals(hashedPass));
+            return (portfolio.getPassword().equals(hashedPass));
         } catch(Exception e){
             return false;
         }
