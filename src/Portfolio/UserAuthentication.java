@@ -1,9 +1,6 @@
 package Portfolio;
-import View.View;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.security.MessageDigest;
@@ -16,6 +13,7 @@ import java.util.stream.Stream;
  * the main.
  */
 public class UserAuthentication {
+
     //Todo - file gathered in checkPassword is thrown away but could instead be saved if the
         //Todo checkpassword and getPOFromId were both called in a login function
 
@@ -41,17 +39,20 @@ public class UserAuthentication {
      * @param id The id / filename of the portfolio that needs to be read in
      * @return arraylist of strings for each line in the file
      */
-    public ArrayList<String> getPOFromId(String id){
-        ArrayList<String> portfolio = new ArrayList<>();
-        try (Stream<String> lines = Files.lines(Paths.get("./portfolios/" + id + ".txt"), Charset.defaultCharset())) {
-            lines.forEach(portfolio::add);
+    public Portfolio getPOFromId(String id){
+        Portfolio readPort = null;
+        try {
+            readPort = Portfolio.deserialize("./portfolios/" + id + ".port");
+        } catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());
         } catch(IOException e){
             System.out.println(e.getMessage());
         } catch (SecurityException e){
             //access to the file is denied
             System.out.println(e.getMessage());
         }
-        return portfolio;
+
+        return readPort;
     }
 
     /**

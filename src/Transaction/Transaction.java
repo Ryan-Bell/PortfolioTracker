@@ -5,7 +5,7 @@ package Transaction;
  * cashAccounts. Used as the controller in MVC design. Implemented by
  * concrete transactions.
  */
-public interface Transaction {
+public interface Transaction{
 
     /**
      * default method to run a concrete transaction
