@@ -12,6 +12,11 @@ public class CashAccount {
     private float balance;
     private LocalDateTime dateAdded;
 
+    /**
+     * Constructor.
+     * @param name      name of cash account
+     * @param balance   initial balance of cash account
+     */
     public CashAccount(String name, float balance) {
         this.name = name;
         this.balance = balance;
