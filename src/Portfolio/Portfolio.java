@@ -10,6 +10,10 @@ public class Portfolio {
     CashAccount[] cashAccounts;
 
     public void buyEquity(MarketEquity target, int numShares){
-        //add target equity to EquityHolding with numShares4
+        //add target equity to EquityHolding with numShares
+    }
+
+    public void sellEquity(MarketEquity target, int numShares){
+        //remove target number of shares from Equity holding, **if shares goes to 0 delete object?
     }
 }
