@@ -20,7 +20,7 @@ public class SimulationView extends View{
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
-        Scene newScene = new Scene(grid, 500, 475);
+        Scene newScene = new Scene(borderPane, 500, 475);
         primaryStage.setScene(newScene);
     }
 }

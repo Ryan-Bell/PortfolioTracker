@@ -1,6 +1,7 @@
 package View;
 
 import Portfolio.UserAuthentication;
+import com.sun.corba.se.impl.orb.ParserTable;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -25,8 +28,10 @@ public class View{
     protected GridPane grid;
     protected Stage primaryStage;
     protected HBox toolbar;
+    protected BorderPane borderPane;
 
     public View() {
+        this.borderPane = new BorderPane();
         this.grid = new GridPane();
     }
 
@@ -48,7 +53,19 @@ public class View{
 //            toolbar.getChildren().add(new Button("Click me"));
 //        }
 
+        Text pageTitle = new Text("Financial Portfolio Tracking System");
+        pageTitle.setId("FPTS");
+        pageTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+
+
         grid.add(toolbar, 0, 0);
+        borderPane.setCenter(grid);
+        borderPane.setTop(pageTitle);
+        borderPane.setAlignment(pageTitle,Pos.TOP_CENTER);
+
+
+
+
 
     }
 
