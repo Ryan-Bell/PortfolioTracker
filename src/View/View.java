@@ -24,26 +24,15 @@ public class View{
     protected ArrayList<Node> dynamicContent;
     protected GridPane grid;
     protected Stage primaryStage;
+    protected HBox toolbar;
 
     public View() {
         this.grid = new GridPane();
     }
 
-    public void startUp(Stage primaryStage){
-//        this.primaryStage = primaryStage;
-//        GridPane grid = new GridPane();
-//
-//        Scene scene = new Scene(grid, 500, 475);
-//        this.primaryStage.setScene(scene);
-//        this.primaryStage.show();
-    }
-
     public void display(Context context){
         dynamicContent = new ArrayList<Node>();
-//        this.context = context;
-//        if(context.getStage().getScene() == null){
-//            startUp(context.getStage());
-//        }
+
         this.context = context; //TODO: not needed?
         this.primaryStage = context.getStage();
 
@@ -51,6 +40,16 @@ public class View{
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+
+        toolbar = new HBox(10);
+        toolbar.setAlignment(Pos.TOP_CENTER);
+
+//        for (int i = 0; i < 10; i++) {
+//            toolbar.getChildren().add(new Button("Click me"));
+//        }
+
+        grid.add(toolbar, 0, 0);
+
     }
 
     public void updateDisplay(Context context){

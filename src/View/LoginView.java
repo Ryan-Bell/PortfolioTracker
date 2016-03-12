@@ -24,19 +24,10 @@ public class LoginView extends View {
 
     @Override
     public void display(Context context){
-//        Stage primaryStage = context.getStage();
         //Automatically calls the logic for checking if a preliminary scene has been created
         super.display(context);
 
-//        GridPane grid = new GridPane();
-
         primaryStage.setTitle("Login");
-
-        //GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setHgap(10);
-//        grid.setVgap(10);
-//        grid.setPadding(new Insets(25, 25, 25, 25));
 
         Text scenetitle = new Text("Welcome");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
