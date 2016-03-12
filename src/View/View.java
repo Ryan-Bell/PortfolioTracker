@@ -54,6 +54,15 @@ public class View implements Observer{
         pageTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 
         Button logout = new Button("Logout");
+        logout.setOnAction((event1 -> {
+            //automatically save the portfolio
+            try {
+                Portfolio.serialize(context.getPortfolio(), "./portfolios/" + context.getPortfolio().getId() + ".port");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            System.exit(0);
+        }));
 
         Button save = new Button("Save");
         save.setOnAction((event -> {

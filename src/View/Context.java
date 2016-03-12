@@ -52,12 +52,13 @@ public class Context extends Application{
         portfolioView = new PortfolioView();
         simulationView = new SimulationView();
         marketView = new MarketView();
+        loginView = new LoginView();
 
         //run the parser on the csv to fill out the market object
 
         parser.parseFile();
 
-        setView (new LoginView());
+        setView (loginView);
     }
 
     public void setView(View newView){
