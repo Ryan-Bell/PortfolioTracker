@@ -63,7 +63,7 @@ public class MarketView extends View {
             }
         });
 
-        Scene newScene = new Scene(grid, 500, 475);
+        Scene newScene = new Scene(borderPane, 500, 475);
         primaryStage.setScene(newScene);
     }
 
