@@ -1,6 +1,8 @@
 package Portfolio;
 
 import Market.MarketEquity;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -8,18 +10,17 @@ import java.util.Date;
  */
 public class HoldingEquity extends MarketEquity {
     private int numShares;
-    private Date datePurchased;
+    private LocalDateTime datePurchased;
     private float pricePerShare;
 
     /**
      * Constructor.
      * @param numShares         the number of shares
-     * @param datePurchased     the date purchased
      * @param pricePerShare     the value of each share
      */
-    public HoldingEquity(int numShares, Date datePurchased, float pricePerShare) {
+    public HoldingEquity(int numShares, float pricePerShare) {
         this.numShares = numShares;
-        this.datePurchased = datePurchased;
+        this.datePurchased = LocalDateTime.now();
         this.pricePerShare = pricePerShare;
     }
 
@@ -31,7 +32,7 @@ public class HoldingEquity extends MarketEquity {
         return numShares;
     }
 
-    public Date getDatePurchased() {
+    public LocalDateTime getDatePurchased() {
         return datePurchased;
     }
 
