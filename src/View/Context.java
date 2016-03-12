@@ -3,6 +3,8 @@ package View;
 /**
  * The first
  */
+import Market.Market;
+import Market.Parser;
 import MarketSimulation.Simulation;
 import Portfolio.UserAuthentication;
 import javafx.application.Application;
@@ -17,10 +19,13 @@ public class Context extends Application{
     private LoginView loginView;
     private PortfolioView portfolioView;
     private SimulationView simulationView;
+    private MarketView marketView;
 
     //Collection of Models
     private UserAuthentication userAuthentication;
     private Portfolio portfolio;
+    private Market market;
+    private Parser parser;
 
     public static void main(String[] args) {
         if (args.length > 1 && args[0].equals("-delete")){
@@ -37,10 +42,17 @@ public class Context extends Application{
 
         //Create necessary model objects
         userAuthentication = new UserAuthentication();
+        market = new Market();
+        parser = new Parser(market, "./market.csv");
 
         //Create necessary view
         portfolioView = new PortfolioView();
         simulationView = new SimulationView();
+        marketView = new MarketView();
+
+        //run the parser on the csv to fill out the market object
+
+        parser.parseFile();
 
         setView (new LoginView());
     }
@@ -73,6 +85,10 @@ public class Context extends Application{
     public UserAuthentication getUserAuthentication() {
         return userAuthentication;
     }
+
+    public Market getMarket(){return market; }
+
+    public MarketView getMarketView(){ return marketView;}
 
     public Portfolio getPortfolio() {
         return portfolio;
