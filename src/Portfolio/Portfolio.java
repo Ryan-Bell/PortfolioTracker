@@ -15,13 +15,24 @@ public class Portfolio implements Serializable{
     private ArrayList<Transaction> transactionLog;
     private String password;
 
+    /**
+     * Constructor
+     * @param password the hashed password to be associated with this object
+     */
     public Portfolio(String password){
+        //create default array lists
         holdingEquities =  new ArrayList<>();
         cashAccounts = new ArrayList<>();
         transactionLog = new ArrayList<>();
+
+        //save the hashed password
         this.password = password;
     }
 
+    /**
+     * returns the password
+     * @return the password
+     */
     public String getPassword(){ return password; }
 
     /**
@@ -63,7 +74,13 @@ public class Portfolio implements Serializable{
         cashAccounts.remove(index);
     }
 
-
+    /**
+     * Static method that handles reading in portfolio objects from file
+     * @param fileName the file to read in
+     * @return the portfolio object
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static Portfolio deserialize(String fileName) throws IOException,
             ClassNotFoundException {
         FileInputStream fis = new FileInputStream(fileName);
@@ -73,6 +90,12 @@ public class Portfolio implements Serializable{
         return (Portfolio)obj;
     }
 
+    /**
+     * Static method that handles writing portfolio objects to a file
+     * @param obj the object to be serialized
+     * @param fileName the name of the file that will be written
+     * @throws IOException
+     */
     public static void serialize(Object obj, String fileName)
             throws IOException {
         FileOutputStream fos = new FileOutputStream(fileName);
