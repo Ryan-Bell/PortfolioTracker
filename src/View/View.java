@@ -17,21 +17,32 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class View{
-    protected Context context;
+    protected Context context; //TODO: not needed?
+    protected GridPane grid;
+    protected Stage primaryStage;
 
+    public View() {
+        this.grid = new GridPane();
+    }
 
     public void startUp(Stage primaryStage){
-        GridPane grid = new GridPane();
-        Scene scene = new Scene(grid, 500, 475);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+//        this.primaryStage = primaryStage;
+//        GridPane grid = new GridPane();
+//
+//        Scene scene = new Scene(grid, 500, 475);
+//        this.primaryStage.setScene(scene);
+//        this.primaryStage.show();
     }
 
     public void display(Context context){
-        this.context = context;
-        if(context.getStage().getScene() == null){
-            startUp(context.getStage());
-        }
+        this.context = context; //TODO: not needed?
+        this.primaryStage = context.getStage();
+
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+
     }
 
     public void updateDisplay(Context context){
