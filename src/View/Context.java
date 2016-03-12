@@ -3,6 +3,7 @@ package View;
 /**
  * The first
  */
+import MarketSimulation.Simulation;
 import Portfolio.UserAuthentication;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,11 +13,10 @@ public class Context extends Application{
     private View view;
     private Stage primaryStage;
 
-
-
     //Collection of States
     private LoginView loginView;
     private PortfolioView portfolioView;
+    private SimulationView simulationView;
 
     //Collection of Models
     private UserAuthentication userAuthentication;
@@ -29,6 +29,7 @@ public class Context extends Application{
             launch(args);
         }
     }
+
     @Override
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
@@ -38,6 +39,7 @@ public class Context extends Application{
 
         //Create necessary view
         portfolioView = new PortfolioView();
+        simulationView = new SimulationView();
 
         setView (new LoginView());
     }
@@ -61,6 +63,10 @@ public class Context extends Application{
 
     public PortfolioView getPortfolioView() {
         return portfolioView;
+    }
+
+    public SimulationView getSimulationView() {
+        return simulationView;
     }
 
     public UserAuthentication getUserAuthentication() {

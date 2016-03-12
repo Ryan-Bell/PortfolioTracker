@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -40,6 +41,13 @@ public class PortfolioView extends View {
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
+        Button simView = new Button("Simulation View");
+        grid.add(simView, 0, 4);
+
+        simView.setOnAction((event -> {
+            context.setView(context.getSimulationView());
+
+        }));
 
         Scene newScene = new Scene(grid, 500, 475);
         primaryStage.setScene(newScene);

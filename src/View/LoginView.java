@@ -20,8 +20,6 @@ import javafx.stage.Stage;
 /**
  * Created by Meg on 3/9/2016.
  */
-
-
 public class LoginView extends View {
 
     @Override
