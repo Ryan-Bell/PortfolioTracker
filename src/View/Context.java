@@ -23,8 +23,8 @@ public class Context extends Application{
     private Portfolio portfolio;
 
     public static void main(String[] args) {
-        if (args.length > 0){
-
+        if (args.length > 1 && args[0].equals("-delete")){
+            UserAuthentication.deleteId(args[1]);
         } else {
             launch(args);
         }

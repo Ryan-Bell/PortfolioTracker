@@ -59,7 +59,7 @@ public class UserAuthentication {
      * Responsible for deleting the portfolio file associated with a ggiven id
      * @param id the filename / identifier of the  portfolio to be deleted
      */
-    public void deleteId(String id){
+    public static void deleteId(String id){
         Path path = Paths.get("./portfolios/" + id + ".port");
         try {
             Files.delete(path);
