@@ -60,7 +60,7 @@ public class UserAuthentication {
      * @param id the filename / identifier of the  portfolio to be deleted
      */
     public void deleteId(String id){
-        Path path = Paths.get("./portfolios/" + id + ".txt");
+        Path path = Paths.get("./portfolios/" + id + ".port");
         try {
             Files.delete(path);
          } catch (NoSuchFileException x) {
@@ -92,15 +92,13 @@ public class UserAuthentication {
         }
 
 
-        String filepath = "./portfolios/" + id + ".txt";
+        String filepath = "./portfolios/" + id + ".port";
         File newFile = new File(filepath);
         if(!newFile.isFile()) {
-            ArrayList<String> lines = new ArrayList<>();
-            lines.add(hash(pass));
+            Portfolio newPort = new Portfolio(hash(pass));
             try {
-                Files.createFile(Paths.get("./portfolios/" + id + ".txt"));
-                Files.write(Paths.get("./portfolios/" + id + ".txt"), lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-            } catch (IOException e) {
+                Portfolio.serialize(newPort, filepath);
+            } catch (IOException e){
                 System.out.println(e.getMessage());
             }
         }
