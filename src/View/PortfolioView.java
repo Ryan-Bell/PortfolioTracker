@@ -22,24 +22,18 @@ import javafx.stage.Stage;
  */
 public class PortfolioView extends View {
 
-    private Text scenetitle;
-
     @Override
     public void display(Context context){
         //Automatically calls the logic for checking if a preliminary scene has been created
         super.display(context);
 
-//        GridPane grid = new GridPane();
-        //UserAuthentication userAuthentication = new UserAuthentication();
-
         primaryStage.setTitle("Portfolio");
 
-        Text scenetitle = new Text("PORTFOLIO, HOPEFULLY");
-
-        scenetitle = new Text("PORTFOLIO, HOPEFULLY2");
+        Text scenetitle = new Text("Portfolio. Display hashed password: " + context.getPortfolio().getPassword());
         scenetitle.setId("scenetitle");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
+        dynamicContent.add(scenetitle);
 
         Button simView = new Button("Simulation View");
         grid.add(simView, 0, 4);
@@ -58,10 +52,11 @@ public class PortfolioView extends View {
     @Override
     public void updateDisplay(Context context){
         for(int i = 0; i< dynamicContent.size(); i++){
+            System.out.println("ID: "+dynamicContent.get(i).getId());
             switch(dynamicContent.get(i).getId()){
                 case "scenetitle":
                     Text sceneTitle = (Text)dynamicContent.get(i);
-                    sceneTitle.setText("Testing this portfolio");
+                    //sceneTitle.setText("Testing this portfolio");
                     context.getStage().setTitle("Testing");
             }
         }
