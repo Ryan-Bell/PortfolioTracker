@@ -1,5 +1,6 @@
 package View;
 
+import MarketSimulation.MarketSimulator;
 import MarketSimulation.Simulation;
 import MarketSimulation.SimulationType;
 import javafx.collections.FXCollections;
@@ -42,18 +43,22 @@ public class SimulationView extends View{
         ));
         grid.add(stepCB, 0, 1); //TODO: add to correct place
 
+        TextField percentageTF =  new TextField();
+        percentageTF.setPromptText("Enter Percentage");
+        grid.add(percentageTF, 0, 3); //TODO: add to correct place
+
         TextField numberOfStepsTF =  new TextField();
         numberOfStepsTF.setPromptText("Enter Number of Steps");
-        grid.add(numberOfStepsTF, 0, 2); //TODO: add to correct place
+        grid.add(numberOfStepsTF, 0, 4); //TODO: add to correct place
 
         Button runSimBtn = new Button("Run Simulation");
         runSimBtn.setOnAction((event -> {
             SimulationType strategy = (SimulationType)strategyCB.getValue();
             Simulation.StepTypes stepType = (Simulation.StepTypes)stepCB.getValue();
+            int percent = Integer.parseInt(percentageTF.getText());
             int steps = Integer.parseInt(numberOfStepsTF.getText());
 
-            System.out.println(strategy.toString() + " " + stepType.toString() + " " + steps);
-
+//            MarketSimulator.runSimulation(percent, steps, stepType, strategy);
         }));
         grid.add(runSimBtn, 0, 3); //TODO
 
