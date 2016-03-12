@@ -16,7 +16,11 @@ public class Context extends Application{
     //public
 
     public static void main(String[] args) {
-        launch(args);
+        if (args.length > 0){
+
+        } else {
+            launch(args);
+        }
     }
     @Override
     public void start(Stage primaryStage){
