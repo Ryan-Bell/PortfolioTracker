@@ -18,8 +18,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class View{
+public class View implements Observer{
     protected Context context;
     protected ArrayList<Node> dynamicContent;
     protected GridPane grid;
@@ -50,9 +52,11 @@ public class View{
 
         grid.add(toolbar, 0, 0);
 
+
     }
 
-    public void updateDisplay(Context context){
+    @Override
+    public void update(Observable o, Object arg) {
 
     }
 }
