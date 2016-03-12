@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
  * from a portfolio and *optional deposite money
  * from a holding account.
  */
-public class Sell implements Transaction{
+public class SellTransaction implements Transaction{
 
     private MarketEquity target;
     private int amount;
     private LocalDateTime date;
     private Portfolio portfolio;
 
-    public Sell(MarketEquity target, int amount, Portfolio portfolio) {
+    public SellTransaction(MarketEquity target, int amount, Portfolio portfolio) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();

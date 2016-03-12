@@ -2,19 +2,18 @@ package Transaction;
 
 import Portfolio.CashAccount;
 
-
 import java.time.LocalDateTime;
 
 /**
- * A concrete command. Removes money from a CashAccount.
+ * A concrete command. Adds money to a CashAccount.
  */
-public class Withdraw implements Transaction{
+public class DepositTransaction implements Transaction{
 
     private CashAccount target;
     private float amount;
     private LocalDateTime date;
 
-    public Withdraw(CashAccount target, float amount) {
+    public DepositTransaction(CashAccount target, float amount){
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();
@@ -22,14 +21,11 @@ public class Withdraw implements Transaction{
 
     @Override
     public void execute() {
-        if (target.sufficientFunds(amount)){
-            target.withdraw(amount);
-        }
-
+        target.deposit(amount);
     }
 
     @Override
     public String toString() {
-        return "Account:\t" + target + "\tAmount Withdrawn:\t" + amount + "\tDate:\t" + date;
+        return "Account:\t" + target + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
     }
 }

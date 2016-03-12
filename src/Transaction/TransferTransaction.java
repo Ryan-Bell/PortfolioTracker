@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
  * Command allowing users to withdraw money from a CashAccount and add it to
  * a different CashAccount
  */
-public class Transfer implements Transaction{
+public class TransferTransaction implements Transaction{
 
     private CashAccount withdrawTarget;
     private CashAccount depositTarget;
     private float amount;
     private LocalDateTime date;
 
-    public Transfer(CashAccount withdrawTarget, CashAccount depositTarget, float amount) {
+    public TransferTransaction(CashAccount withdrawTarget, CashAccount depositTarget, float amount) {
         this.withdrawTarget = withdrawTarget;
         this.depositTarget = depositTarget;
         this.amount = amount;
@@ -32,6 +32,6 @@ public class Transfer implements Transaction{
 
     @Override
     public String toString() {
-        return "Withdraw Account:\t" + withdrawTarget + "Deposit Account:\t" + depositTarget + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
+        return "WithdrawTransaction Account:\t" + withdrawTarget + "DepositTransaction Account:\t" + depositTarget + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
     }
 }
