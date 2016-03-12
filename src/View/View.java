@@ -1,5 +1,6 @@
 package View;
 
+import Portfolio.Portfolio;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -55,6 +56,13 @@ public class View implements Observer{
         Button logout = new Button("Logout");
 
         Button save = new Button("Save");
+        save.setOnAction((event -> {
+            try {
+                Portfolio.serialize(context.getPortfolio(), "./portfolios/" + context.getPortfolio().getId() + ".port");
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }));
 
         grid.add(toolbar, 0, 0);
         borderPane.setCenter(grid);
