@@ -24,8 +24,10 @@ public class Transfer implements Transaction{
 
     @Override
     public void execute() {
-        withdrawTarget.withdraw(amount);
-        depositTarget.deposit(amount);
+        if (withdrawTarget.sufficientFunds(amount)){
+            withdrawTarget.withdraw(amount);
+            depositTarget.deposit(amount);
+        }
     }
 
     @Override

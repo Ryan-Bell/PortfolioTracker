@@ -35,10 +35,8 @@ public class CashAccount {
 
     public void withdraw(float amount){
         float newBalance;
-        if (sufficientFunds(amount)){
-            newBalance = this.getBalance() - amount;
-            setBalance(newBalance);
-        }
+        newBalance = this.getBalance() - amount;
+        setBalance(newBalance);
         
     }
 

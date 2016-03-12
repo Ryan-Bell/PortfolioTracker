@@ -1,5 +1,9 @@
 package Transaction;
 
+
+
+
+
 import Portfolio.CashAccount;
 
 
@@ -22,7 +26,9 @@ public class Withdraw implements Transaction{
 
     @Override
     public void execute() {
-        target.withdraw(amount);
+        if (target.sufficientFunds(amount)){
+            target.withdraw(amount);
+        }
 
     }
 
