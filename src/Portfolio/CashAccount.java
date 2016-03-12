@@ -1,5 +1,6 @@
 package Portfolio;
 
+
 import java.util.Date;
 
 /**
@@ -34,8 +35,11 @@ public class CashAccount {
 
     public void withdraw(float amount){
         float newBalance;
-        newBalance = this.getBalance() - amount;
-        setBalance(newBalance);
+        if (sufficientFunds(amount)){
+            newBalance = this.getBalance() - amount;
+            setBalance(newBalance);
+        }
+        
     }
 
     public void deposit(float amount){
