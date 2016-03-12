@@ -13,19 +13,19 @@ public class MarketSimulator {
      * Creates a simulation then creates a memento.
      * @return  memento the memento
      */
-    public PortfolioMemento createMemento(float percent, int steps, Simulation.StepTypes stepType, String type){
+    public PortfolioMemento createMemento(float percent, int steps, Simulation.StepTypes stepType, SimulationType type){
 
         Simulation simulation;
         switch (type) {
-            case "bear":
+            case BEAR:
                 simulation = new BearSimulation(percent, steps, this.basePortfolioValue, stepType);
                 break;
 
-            case "bull":
+            case BULL:
                 simulation = new BullSimulation(percent, steps, this.basePortfolioValue, stepType);
                 break;
 
-            case "nogrowth":
+            case NO_GROWTH:
                 simulation = new NoGrowthSimulation(percent, steps, this.basePortfolioValue, stepType);
                 break;
 
@@ -56,7 +56,7 @@ public class MarketSimulator {
      * @param type      the type of symulation. Bear, Bull, or No Growth
      * @return  valuesAtSteps   the array of values mapped to each step
      */
-    public ArrayList<Float> runSimulation(float percent, int steps, Simulation.StepTypes stepType, String type){
+    public ArrayList<Float> runSimulation(float percent, int steps, Simulation.StepTypes stepType, SimulationType type){
         PortfolioMemento memento = createMemento(percent, steps, stepType, type);
 
         ArrayList<Float> valuesAtSteps = memento.getSimulation().evaluate();

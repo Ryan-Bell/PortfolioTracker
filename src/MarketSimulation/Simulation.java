@@ -72,4 +72,5 @@ public class Simulation {
     public float getEquitiesValue() {
         return this.equitiesValue;
     }
+
 }
