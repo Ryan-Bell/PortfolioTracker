@@ -6,7 +6,9 @@ import Portfolio.Portfolio;
 import java.time.LocalDateTime;
 
 /**
- * Command allowing user to remove EquityHolding from their portfolio
+ * A concrete command. Removes a holdingEquity
+ * from a portfolio and *optional deposite money
+ * from a holding account.
  */
 public class Sell implements Transaction{
 

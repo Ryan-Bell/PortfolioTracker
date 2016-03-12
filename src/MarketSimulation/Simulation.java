@@ -3,7 +3,7 @@ package MarketSimulation;
 import java.util.ArrayList;
 
 /**
- *  The Strategy interface for the strategy design pattern
+ *  The Strategy class for the strategy design pattern
  */
 public class Simulation {
     public enum StepTypes{ DAY, MONTH, YEAR }

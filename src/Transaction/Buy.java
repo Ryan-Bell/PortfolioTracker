@@ -7,7 +7,9 @@ import Portfolio.Portfolio;
 import java.time.LocalDateTime;
 
 /**
- * Created by Meg on 3/11/2016.
+ * A concrete command. Adds a holdingEquity
+ * to a portfolio and *optional withdraw money
+ * from a holding account.
  */
 public class Buy implements Transaction {
 
@@ -28,7 +30,7 @@ public class Buy implements Transaction {
     @Override
     public void execute() {
         //call buyEquity on target with num of shares
-        portfolio.buyEquity(target,amount);
+        portfolio.buyEquity(target, amount);
     }
 
     @Override
