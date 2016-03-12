@@ -1,6 +1,7 @@
 package Portfolio;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -9,12 +10,12 @@ import java.util.Date;
 public class CashAccount {
     private String name;
     private float balance;
-    private Date dateAdded;
+    private LocalDateTime dateAdded;
 
-    public CashAccount(String name, float balance, Date dateAdded) {
+    public CashAccount(String name, float balance) {
         this.name = name;
         this.balance = balance;
-        this.dateAdded = dateAdded;
+        this.dateAdded = LocalDateTime.now();
     }
 
     public String getName() {
@@ -46,7 +47,7 @@ public class CashAccount {
         setBalance(newBalance);
     }
 
-    public Date getDateAdded() {
+    public LocalDateTime getDateAdded() {
         return dateAdded;
     }
 
