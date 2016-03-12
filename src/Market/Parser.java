@@ -57,7 +57,7 @@ public class Parser {
                 System.out.println(e.getMessage());
             }
         }
-        
+
     }
 
     /**
@@ -135,6 +135,7 @@ public class Parser {
 
         }
         market.addMarketEquity(tickerSymbol, name, value, sector, index);
+
     }
 
     /**
@@ -169,6 +170,7 @@ public class Parser {
         Pattern compiledPattern = Pattern.compile("(&#39;)");
         Matcher matcher = compiledPattern.matcher(raw);
         raw = matcher.replaceAll("'");
+
         return raw;
     }
 

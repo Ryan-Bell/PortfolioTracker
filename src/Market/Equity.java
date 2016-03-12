@@ -7,7 +7,6 @@ package Market;
  */
 public class Equity extends MarketEquity {
     private String tickerSymbol;
-    private String name;
     private String sector;
     private String index;
 
@@ -59,4 +58,9 @@ public class Equity extends MarketEquity {
      * @return the index
      */
     public String getIndex(){return index;}
+
+    @Override
+    public String toString(){
+        return "Ticker: " + getTickerSymbol() + "\tName: " + getName() + "\tValue: " + getValue();
+    }
 }
