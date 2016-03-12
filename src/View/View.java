@@ -1,7 +1,5 @@
 package View;
 
-import Market.Market;
-import Market.Parser;
 import Portfolio.UserAuthentication;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -18,39 +16,20 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class View extends Application {
+public class View{
+    protected Context context;
 
-    public static void main(String[] args) {
-
-        //redirect to be able to test the parser functions
-        System.out.println("program Start");
-
-        //creating a faux market object for the parser
-        //Market market = new Market();
-
-        //create the parser and start reading in the market csv
-        //Parser parser = new Parser(market, "./market.csv");
-        //parser.parseFile();
-
-        //create the login page
-        View.launch(View.class);
-
-    }
-
-
-    @Override
-    public void start(Stage primaryStage) {
-        //create a instance to be able to call methods
-
-
+    public void startUp(Stage primaryStage){
         GridPane grid = new GridPane();
-
-        LoginView startView = new LoginView(primaryStage,grid);
-
         Scene scene = new Scene(grid, 500, 475);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
 
-
+    public void display(Context context){
+        this.context = context;
+        if(context.getStage().getScene() == null){
+            startUp(context.getStage());
+        }
     }
 }

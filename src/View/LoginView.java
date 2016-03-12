@@ -23,7 +23,15 @@ import javafx.stage.Stage;
 
 
 public class LoginView extends View {
-    public LoginView(Stage primaryStage,GridPane grid){
+
+    @Override
+    public void display(Context context){
+        Stage primaryStage = context.getStage();
+        //Automatically calls the logic for checking if a preliminary scene has been created
+        super.display(context);
+
+
+        GridPane grid = new GridPane();
         UserAuthentication userAuthentication = new UserAuthentication();
 
         primaryStage.setTitle("Login");
@@ -61,6 +69,7 @@ public class LoginView extends View {
             //TODO what to do when login is successful and if it is unsuccessful
             if (userAuthentication.checkPassword(userTextField.getText(), pwBox.getText())){
                 System.out.println("Login is successful");
+                context.setView(context.portfolioView);
 
             }  else{
                 System.out.println("Login is NOT successful");
@@ -78,12 +87,17 @@ public class LoginView extends View {
             //use return type for errors or new portfolio
             userAuthentication.createId(userTextField.getText(), pwBox.getText());
             //TODO determine what to do after the portfolio has been created
+            //context.setView(new PortfolioView());
 
         }));
 
-        //Scene scene = new Scene(grid, 500, 475);
-        //primaryStage.setScene(scene);
+        Scene newScene = new Scene(grid, 500, 475);
+        primaryStage.setScene(newScene);
+        System.out.println("testing display2");
 
-        //primaryStage.show();
+    }
+
+    public void printTest(){
+        System.out.println("Print Test");
     }
 }
