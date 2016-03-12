@@ -13,14 +13,16 @@ public class Portfolio implements Serializable{
     private ArrayList<HoldingEquity> holdingEquities;
     private ArrayList<CashAccount> cashAccounts;
     private ArrayList<Transaction> transactionLog;
+    private String password;
 
-
-    public Portfolio(){
+    public Portfolio(String password){
         holdingEquities =  new ArrayList<>();
         cashAccounts = new ArrayList<>();
         transactionLog = new ArrayList<>();
+        this.password = password;
     }
 
+    public String getPassword(){ return password; }
 
     /**
      * creates and adds a specific number of shares of the given equity to this portfolio
