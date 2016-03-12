@@ -33,8 +33,9 @@ public class Market {
 
         ArrayList<MarketEquity> searchResults = null;
 
-        if ((searchResults = search(QueryType.TICKER, name, MatchType.EXACT)).isEmpty()){
+        if ((searchResults = search(QueryType.TICKER, tickerSymbol, MatchType.EXACT)).isEmpty()){
             newEquity = new Equity(tickerSymbol, name, value, sector, index);
+            marketEquities.add(newEquity);
             if(sector != null && (searchResults = search(QueryType.INDEX_OR_SECTOR, sector, MatchType.EXACT)).isEmpty()){
                 newSector = new Index(sector);
                 marketEquities.add(newSector);
@@ -47,6 +48,15 @@ public class Market {
             }
         }
     }
+
+    @Override
+    public String toString(){
+        for (MarketEquity e: marketEquities) {
+            System.out.println(e);
+        }
+        return "Done";
+    }
+
 
     /**
      * Searches the marketEquities Array to return
@@ -61,6 +71,7 @@ public class Market {
         switch (type) {
             case TICKER:
                 for (MarketEquity equity : marketEquities) {
+                    //System.out.println(equity.getName());
                     if (equity instanceof Equity) {
                         switch (matchType) {
                             case EXACT:
@@ -107,17 +118,17 @@ public class Market {
                     if (equity instanceof Equity) {
                         switch (matchType) {
                             case EXACT:
-                                if (((Equity) equity).getSector().equals(query)) {
+                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().equals(query)) {
                                     results.add(equity);
                                 }
                                 break;
                             case BEGIN:
-                                if (((Equity) equity).getSector().startsWith(query)) {
+                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().startsWith(query)) {
                                     results.add(equity);
                                 }
                                 break;
                             case CONTAINED:
-                                if (((Equity) equity).getSector().contains(query)) {
+                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().contains(query)) {
                                     results.add(equity);
                                 }
                                 break;
