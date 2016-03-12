@@ -32,7 +32,6 @@ public class LoginView extends View {
 
 
         GridPane grid = new GridPane();
-        UserAuthentication userAuthentication = new UserAuthentication();
 
         primaryStage.setTitle("Login");
 
@@ -67,9 +66,9 @@ public class LoginView extends View {
             //call back to userAuth to check that id and pass are correct
             //use return type for errors or new state
             //TODO what to do when login is successful and if it is unsuccessful
-            if (userAuthentication.checkPassword(userTextField.getText(), pwBox.getText())){
+            if (context.getUserAuthentication().checkPassword(userTextField.getText(), pwBox.getText())){
                 System.out.println("Login is successful");
-                context.setView(context.portfolioView);
+                context.setView(context.getPortfolioView());
 
             }  else{
                 System.out.println("Login is NOT successful");
@@ -85,9 +84,8 @@ public class LoginView extends View {
         registerBtn.setOnAction((event -> {
             //call back to createId to make account
             //use return type for errors or new portfolio
-            userAuthentication.createId(userTextField.getText(), pwBox.getText());
-            //TODO determine what to do after the portfolio has been created
-            //context.setView(new PortfolioView());
+            context.getUserAuthentication().createId(userTextField.getText(), pwBox.getText());
+            context.setView(context.getPortfolioView());
 
         }));
 

@@ -46,4 +46,10 @@ public class PortfolioView extends View {
         Scene newScene = new Scene(grid, 500, 475);
         primaryStage.setScene(newScene);
     }
+
+    @Override
+    public void updateDisplay(Context context){
+
+    }
+
 }

@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 public class View{
     protected Context context;
 
+
     public void startUp(Stage primaryStage){
         GridPane grid = new GridPane();
         Scene scene = new Scene(grid, 500, 475);
@@ -31,5 +32,9 @@ public class View{
         if(context.getStage().getScene() == null){
             startUp(context.getStage());
         }
+    }
+
+    public void updateDisplay(Context context){
+
     }
 }

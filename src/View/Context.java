@@ -3,17 +3,24 @@ package View;
 /**
  * The first
  */
+import Portfolio.UserAuthentication;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import Portfolio.Portfolio;
 
 public class Context extends Application{
     private View view;
     private Stage primaryStage;
 
+
+
     //Collection of States
-    public LoginView loginView;
-    public PortfolioView portfolioView;
-    //public
+    private LoginView loginView;
+    private PortfolioView portfolioView;
+
+    //Collection of Models
+    private UserAuthentication userAuthentication;
+    private Portfolio portfolio;
 
     public static void main(String[] args) {
         if (args.length > 0){
@@ -24,9 +31,14 @@ public class Context extends Application{
     }
     @Override
     public void start(Stage primaryStage){
-
-        portfolioView = new PortfolioView();
         this.primaryStage = primaryStage;
+
+        //Create necessary model objects
+        userAuthentication = new UserAuthentication();
+
+        //Create necessary view
+        portfolioView = new PortfolioView();
+
         setView (new LoginView());
     }
 
@@ -41,6 +53,22 @@ public class Context extends Application{
 
     public Stage getStage(){
         return this.primaryStage;
+    }
+
+    public LoginView getLoginView() {
+        return loginView;
+    }
+
+    public PortfolioView getPortfolioView() {
+        return portfolioView;
+    }
+
+    public UserAuthentication getUserAuthentication() {
+        return userAuthentication;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 
 
