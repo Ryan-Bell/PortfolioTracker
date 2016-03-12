@@ -4,6 +4,7 @@ import Portfolio.UserAuthentication;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,8 +17,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class View{
-    protected Context context; //TODO: not needed?
+    protected Context context;
+    protected ArrayList<Node> dynamicContent;
     protected GridPane grid;
     protected Stage primaryStage;
 
@@ -35,6 +39,11 @@ public class View{
     }
 
     public void display(Context context){
+        dynamicContent = new ArrayList<Node>();
+//        this.context = context;
+//        if(context.getStage().getScene() == null){
+//            startUp(context.getStage());
+//        }
         this.context = context; //TODO: not needed?
         this.primaryStage = context.getStage();
 
@@ -42,7 +51,6 @@ public class View{
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
     }
 
     public void updateDisplay(Context context){

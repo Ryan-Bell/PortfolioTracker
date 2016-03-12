@@ -3,6 +3,7 @@ package View;
 import Portfolio.UserAuthentication;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,13 +22,15 @@ import javafx.stage.Stage;
  */
 public class PortfolioView extends View {
 
+    private Text scenetitle;
+
     @Override
     public void display(Context context){
         //Automatically calls the logic for checking if a preliminary scene has been created
         super.display(context);
 
 //        GridPane grid = new GridPane();
-        UserAuthentication userAuthentication = new UserAuthentication();
+        //UserAuthentication userAuthentication = new UserAuthentication();
 
         primaryStage.setTitle("Portfolio");
 
@@ -37,7 +40,8 @@ public class PortfolioView extends View {
 //        grid.setVgap(10);
 //        grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text scenetitle = new Text("PORTFOLIO, HOPEFULLY");
+        scenetitle = new Text("PORTFOLIO, HOPEFULLY2");
+        scenetitle.setId("scenetitle");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -51,10 +55,20 @@ public class PortfolioView extends View {
 
         Scene newScene = new Scene(grid, 500, 475);
         primaryStage.setScene(newScene);
+
+        updateDisplay(context);
     }
 
     @Override
     public void updateDisplay(Context context){
+        for(int i = 0; i< dynamicContent.size(); i++){
+            switch(dynamicContent.get(i).getId()){
+                case "scenetitle":
+                    Text sceneTitle = (Text)dynamicContent.get(i);
+                    sceneTitle.setText("Testing this portfolio");
+                    context.getStage().setTitle("Testing");
+            }
+        }
 
     }
 

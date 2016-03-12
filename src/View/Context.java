@@ -32,6 +32,7 @@ public class Context extends Application{
 
     @Override
     public void start(Stage primaryStage){
+        System.out.println("check2");
         this.primaryStage = primaryStage;
 
         //Create necessary model objects
