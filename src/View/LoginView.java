@@ -24,19 +24,10 @@ public class LoginView extends View {
 
     @Override
     public void display(Context context){
-//        Stage primaryStage = context.getStage();
         //Automatically calls the logic for checking if a preliminary scene has been created
         super.display(context);
 
-//        GridPane grid = new GridPane();
-
         primaryStage.setTitle("Login");
-
-        //GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setHgap(10);
-//        grid.setVgap(10);
-//        grid.setPadding(new Insets(25, 25, 25, 25));
 
         Text scenetitle = new Text("Welcome");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -65,6 +56,7 @@ public class LoginView extends View {
             //TODO what to do when login is successful and if it is unsuccessful
             if (context.getUserAuthentication().checkPassword(userTextField.getText(), pwBox.getText())){
                 System.out.println("Login is successful");
+                context.setPortfolio(context.getUserAuthentication().getPOFromId(userTextField.getText()));
                 context.setView(context.getPortfolioView());
 
             }  else{
@@ -82,11 +74,13 @@ public class LoginView extends View {
             //call back to createId to make account
             //use return type for errors or new portfolio
             context.getUserAuthentication().createId(userTextField.getText(), pwBox.getText());
+            context.setPortfolio(context.getUserAuthentication().getPOFromId(userTextField.getText()));
             context.setView(context.getPortfolioView());
 
         }));
 
-        Scene newScene = new Scene(grid, 500, 475);
+
+        Scene newScene = new Scene(borderPane, 500, 475);
         primaryStage.setScene(newScene);
         primaryStage.show();
         System.out.println("testing display2");

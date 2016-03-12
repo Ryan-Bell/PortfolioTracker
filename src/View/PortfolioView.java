@@ -17,33 +17,25 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Observable;
+
 /**
  * Created by user on 3/10/2016.
  */
 public class PortfolioView extends View {
-
-    private Text scenetitle;
 
     @Override
     public void display(Context context){
         //Automatically calls the logic for checking if a preliminary scene has been created
         super.display(context);
 
-//        GridPane grid = new GridPane();
-        //UserAuthentication userAuthentication = new UserAuthentication();
-
         primaryStage.setTitle("Portfolio");
 
-        //GridPane grid = new GridPane();
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setHgap(10);
-//        grid.setVgap(10);
-//        grid.setPadding(new Insets(25, 25, 25, 25));
-
-        scenetitle = new Text("PORTFOLIO, HOPEFULLY2");
+        Text scenetitle = new Text("Portfolio. Display test: "+context.getPortfolio().getTest());
         scenetitle.setId("scenetitle");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
+        dynamicContent.add(scenetitle);
 
         Button simView = new Button("Simulation View");
         grid.add(simView, 0, 4);
@@ -53,6 +45,7 @@ public class PortfolioView extends View {
 
         }));
 
+
         //button to go to market view
         Button markView = new Button("Market View");
         grid.add(markView, 0, 5);
@@ -61,20 +54,23 @@ public class PortfolioView extends View {
             context.setView(context.getMarketView());
         }));
 
-        Scene newScene = new Scene(grid, 500, 475);
+        Scene newScene = new Scene(borderPane, 500, 475);
+
         primaryStage.setScene(newScene);
 
-        updateDisplay(context);
+        context.getPortfolio().addObserver(this);
+
     }
 
     @Override
-    public void updateDisplay(Context context){
+    public void update(Observable o, Object arg){
+        System.out.println("Checking update");
         for(int i = 0; i< dynamicContent.size(); i++){
+            System.out.println("ID: "+dynamicContent.get(i).getId());
             switch(dynamicContent.get(i).getId()){
                 case "scenetitle":
                     Text sceneTitle = (Text)dynamicContent.get(i);
-                    sceneTitle.setText("Testing this portfolio");
-                    context.getStage().setTitle("Testing");
+                    sceneTitle.setText("Portfolio. Display test: "+context.getPortfolio().getTest());
             }
         }
 

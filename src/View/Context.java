@@ -23,6 +23,9 @@ public class Context extends Application{
 
     //Collection of Models
     private UserAuthentication userAuthentication;
+
+
+
     private Portfolio portfolio;
     private Market market;
     private Parser parser;
@@ -60,6 +63,10 @@ public class Context extends Application{
     public void setView(View newView){
         this.view = newView;
         this.view.display(this);
+    }
+
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 
     public View getView(){
