@@ -2,16 +2,25 @@ package Portfolio;
 
 import Market.MarketEquity;
 import Transaction.Transaction;
-import java.io.Serializable;
+
+import java.io.*;
 import java.util.ArrayList;
 
 /**
  * Contains user equityholdings and cash accounts.
  */
 public class Portfolio implements Serializable{
-    ArrayList<HoldingEquity> holdingEquities;
-    ArrayList<CashAccount> cashAccounts;
-    ArrayList<Transaction> transactionLog;
+    private ArrayList<HoldingEquity> holdingEquities;
+    private ArrayList<CashAccount> cashAccounts;
+    private ArrayList<Transaction> transactionLog;
+
+
+    public Portfolio(){
+        holdingEquities =  new ArrayList<>();
+        cashAccounts = new ArrayList<>();
+        transactionLog = new ArrayList<>();
+    }
+
 
     /**
      * creates and adds a specific number of shares of the given equity to this portfolio
@@ -51,4 +60,24 @@ public class Portfolio implements Serializable{
         int index = cashAccounts.indexOf(target);
         cashAccounts.remove(index);
     }
+
+
+    public static Portfolio deserialize(String fileName) throws IOException,
+            ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Object obj = ois.readObject();
+        ois.close();
+        return (Portfolio)obj;
+    }
+
+    public static void serialize(Object obj, String fileName)
+            throws IOException {
+        FileOutputStream fos = new FileOutputStream(fileName);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(obj);
+
+        fos.close();
+    }
+
 }
