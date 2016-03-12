@@ -13,10 +13,11 @@ public class Index extends MarketEquity {
     /**
      * Constructor
      */
-    public Index(String n){
-        value = 0;
-        name = n;
-        children = new ArrayList<>();
+    public Index(String name){
+        this.value = 0;
+        this.name = name;
+
+        this.children = new ArrayList<>();
     }
 
     /**
@@ -25,9 +26,10 @@ public class Index extends MarketEquity {
     */
     public void addChildren(MarketEquity child) {
         //check that child is not already in children
-        if (!children.contains(child)){
+        if (!children.contains(child)) {
             //add it to the array
             children.add(child);
+
             value += child.value;
         }
     }
