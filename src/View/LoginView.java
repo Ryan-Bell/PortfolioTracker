@@ -56,6 +56,7 @@ public class LoginView extends View {
             //TODO what to do when login is successful and if it is unsuccessful
             if (context.getUserAuthentication().checkPassword(userTextField.getText(), pwBox.getText())){
                 System.out.println("Login is successful");
+                context.setPortfolio(context.getUserAuthentication().getPOFromId(userTextField.getText()));
                 context.setView(context.getPortfolioView());
 
             }  else{
@@ -73,6 +74,7 @@ public class LoginView extends View {
             //call back to createId to make account
             //use return type for errors or new portfolio
             context.getUserAuthentication().createId(userTextField.getText(), pwBox.getText());
+            context.setPortfolio(context.getUserAuthentication().getPOFromId(userTextField.getText()));
             context.setView(context.getPortfolioView());
 
         }));

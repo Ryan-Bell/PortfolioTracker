@@ -5,15 +5,20 @@ import Transaction.Transaction;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Observable;
+
 
 /**
  * Contains user equityholdings and cash accounts.
  */
-public class Portfolio implements Serializable{
+public class Portfolio extends Observable implements Serializable  {
     private ArrayList<HoldingEquity> holdingEquities;
     private ArrayList<CashAccount> cashAccounts;
     private ArrayList<Transaction> transactionLog;
     private String password;
+    private int test;
+
+    private static final long serialVersionUID = 681129221878275270L;
 
     /**
      * Constructor
@@ -27,6 +32,9 @@ public class Portfolio implements Serializable{
 
         //save the hashed password
         this.password = password;
+
+
+
     }
 
     /**
@@ -34,6 +42,14 @@ public class Portfolio implements Serializable{
      * @return the password
      */
     public String getPassword(){ return password; }
+    public int getTest(){ return test; }
+
+    public void setTest(int num){
+        test = num;
+        setChanged();
+        notifyObservers();
+    }
+
 
     /**
      * creates and adds a specific number of shares of the given equity to this portfolio

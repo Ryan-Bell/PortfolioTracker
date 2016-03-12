@@ -1,17 +1,8 @@
 package View;
 
-import Portfolio.UserAuthentication;
-import com.sun.corba.se.impl.orb.ParserTable;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -21,8 +12,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class View{
+public class View implements Observer{
     protected Context context;
     protected ArrayList<Node> dynamicContent;
     protected GridPane grid;
@@ -67,9 +60,11 @@ public class View{
 
 
 
+
     }
 
-    public void updateDisplay(Context context){
+    @Override
+    public void update(Observable o, Object arg) {
 
     }
 }
