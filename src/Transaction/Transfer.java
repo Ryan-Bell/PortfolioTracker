@@ -2,13 +2,14 @@ package Transaction;
 
 import Portfolio.CashAccount;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Command allowing users to withdraw money from a CashAccount and add it to
  * a different CashAccount
  */
-public class Transfer implements Transaction{
+public class Transfer implements Transaction, Serializable{
 
     private CashAccount withdrawTarget;
     private CashAccount depositTarget;

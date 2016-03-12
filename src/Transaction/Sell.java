@@ -3,6 +3,7 @@ package Transaction;
 import Market.MarketEquity;
 import Portfolio.Portfolio;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
  * from a portfolio and *optional deposite money
  * from a holding account.
  */
-public class Sell implements Transaction{
+public class Sell implements Transaction, Serializable{
 
     private MarketEquity target;
     private int amount;

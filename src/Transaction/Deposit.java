@@ -2,12 +2,13 @@ package Transaction;
 
 import Portfolio.CashAccount;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * A concrete command. Adds money to a CashAccount.
  */
-public class Deposit implements Transaction{
+public class Deposit implements Transaction, Serializable{
 
     private CashAccount target;
     private float amount;

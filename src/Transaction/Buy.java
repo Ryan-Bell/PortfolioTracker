@@ -4,6 +4,7 @@ import Market.Equity;
 import Market.MarketEquity;
 import Portfolio.Portfolio;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  * to a portfolio and *optional withdraw money
  * from a holding account.
  */
-public class Buy implements Transaction {
+public class Buy implements Transaction, Serializable {
 
     private MarketEquity target;
     private int amount;
