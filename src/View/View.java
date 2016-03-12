@@ -3,6 +3,7 @@ package View;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -50,12 +51,28 @@ public class View implements Observer{
         pageTitle.setId("FPTS");
         pageTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 
+        Button logout = new Button("Logout");
 
         grid.add(toolbar, 0, 0);
         borderPane.setCenter(grid);
+
+        BorderPane top = new BorderPane();
+        top.setCenter(pageTitle);
+
+
+
         borderPane.setTop(pageTitle);
         borderPane.setAlignment(pageTitle,Pos.TOP_CENTER);
 
+
+
+
+        if (!(context.getView() instanceof LoginView)){
+            //borderPane.setAlignment(logout,Pos.TOP_RIGHT);
+
+            borderPane.setLeft(logout);
+
+        }
 
 
 
