@@ -16,6 +16,7 @@ public class Portfolio extends Observable implements Serializable  {
     private ArrayList<CashAccount> cashAccounts;
     private ArrayList<Transaction> transactionLog;
     private String password;
+    private String id;
     private int test;
 
     private static final long serialVersionUID = 681129221878275270L;
@@ -24,7 +25,7 @@ public class Portfolio extends Observable implements Serializable  {
      * Constructor
      * @param password the hashed password to be associated with this object
      */
-    public Portfolio(String password){
+    public Portfolio(String password, String id){
         //create default array lists
         holdingEquities =  new ArrayList<>();
         cashAccounts = new ArrayList<>();
@@ -32,7 +33,7 @@ public class Portfolio extends Observable implements Serializable  {
 
         //save the hashed password
         this.password = password;
-
+        this.id = id;
 
 
     }
@@ -42,6 +43,7 @@ public class Portfolio extends Observable implements Serializable  {
      * @return the password
      */
     public String getPassword(){ return password; }
+    public String getId(){ return id; }
     public int getTest(){ return test; }
 
     public void setTest(int num){

@@ -95,7 +95,7 @@ public class UserAuthentication {
         String filepath = "./portfolios/" + id + ".port";
         File newFile = new File(filepath);
         if(!newFile.isFile()) {
-            Portfolio newPort = new Portfolio(hash(pass));
+            Portfolio newPort = new Portfolio(hash(pass), id);
             try {
                 Portfolio.serialize(newPort, filepath);
             } catch (IOException e){
