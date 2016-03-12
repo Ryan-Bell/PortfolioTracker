@@ -2,19 +2,22 @@ package Transaction;
 
 import Portfolio.CashAccount;
 
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * A concrete command. Adds money to a CashAccount.
+ * A concrete command. Removes money from a CashAccount.
  */
-public class Deposit implements Transaction, Serializable{
+
+public class WithdrawTransaction implements Transaction, Serializable {
+
 
     private CashAccount target;
     private float amount;
     private LocalDateTime date;
 
-    public Deposit(CashAccount target, float amount){
+    public WithdrawTransaction(CashAccount target, float amount) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();
@@ -22,11 +25,14 @@ public class Deposit implements Transaction, Serializable{
 
     @Override
     public void execute() {
-        target.deposit(amount);
+        if (target.sufficientFunds(amount)){
+            target.withdraw(amount);
+        }
+
     }
 
     @Override
     public String toString() {
-        return "Account:\t" + target + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
+        return "Account:\t" + target + "\tAmount Withdrawn:\t" + amount + "\tDate:\t" + date;
     }
 }

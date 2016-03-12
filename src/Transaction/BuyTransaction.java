@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
  * to a portfolio and *optional withdraw money
  * from a holding account.
  */
-public class Buy implements Transaction, Serializable {
+
+public class BuyTransaction implements Transaction, Serializable {
 
     private MarketEquity target;
     private int amount;
@@ -20,7 +21,7 @@ public class Buy implements Transaction, Serializable {
     private Portfolio portfolio;
 
 
-    public Buy(MarketEquity target, int amount, Portfolio portfolio) {
+    public BuyTransaction(MarketEquity target, int amount, Portfolio portfolio) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();

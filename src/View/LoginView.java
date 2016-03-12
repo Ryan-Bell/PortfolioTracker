@@ -20,26 +20,23 @@ import javafx.stage.Stage;
 /**
  * Created by Meg on 3/9/2016.
  */
-
-
 public class LoginView extends View {
 
     @Override
     public void display(Context context){
-        Stage primaryStage = context.getStage();
+//        Stage primaryStage = context.getStage();
         //Automatically calls the logic for checking if a preliminary scene has been created
         super.display(context);
 
-
-        GridPane grid = new GridPane();
+//        GridPane grid = new GridPane();
 
         primaryStage.setTitle("Login");
 
         //GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+//        grid.setAlignment(Pos.CENTER);
+//        grid.setHgap(10);
+//        grid.setVgap(10);
+//        grid.setPadding(new Insets(25, 25, 25, 25));
 
         Text scenetitle = new Text("Welcome");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -91,6 +88,7 @@ public class LoginView extends View {
 
         Scene newScene = new Scene(grid, 500, 475);
         primaryStage.setScene(newScene);
+        primaryStage.show();
         System.out.println("testing display2");
 
     }
