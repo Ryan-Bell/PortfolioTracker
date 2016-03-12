@@ -1,13 +1,14 @@
 package Portfolio;
 
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * Represents a cash account of a user
  */
-public class CashAccount {
+public class CashAccount implements Serializable {
     private String name;
     private float balance;
     private LocalDateTime dateAdded;

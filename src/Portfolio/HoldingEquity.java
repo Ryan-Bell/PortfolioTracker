@@ -2,13 +2,14 @@ package Portfolio;
 
 import Market.MarketEquity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * Represents a MarketEquity that has been purchased by the user
  */
-public class HoldingEquity extends MarketEquity {
+public class HoldingEquity extends MarketEquity implements Serializable{
     private int numShares;
     private LocalDateTime datePurchased;
     private float pricePerShare;
