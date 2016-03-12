@@ -1,7 +1,7 @@
 package View;
 
 /**
- * Created by user on 3/10/2016.
+ * The first
  */
 import javafx.application.Application;
 import javafx.stage.Stage;

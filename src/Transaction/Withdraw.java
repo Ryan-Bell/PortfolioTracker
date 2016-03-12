@@ -1,16 +1,12 @@
 package Transaction;
 
-
-
-
-
 import Portfolio.CashAccount;
 
 
 import java.time.LocalDateTime;
 
 /**
- * Command that allow as user to remove money from a CashAccount
+ * A concrete command. Removes money from a CashAccount.
  */
 public class Withdraw implements Transaction{
 

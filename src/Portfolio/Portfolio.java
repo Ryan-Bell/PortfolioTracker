@@ -6,7 +6,7 @@ import Transaction.Transaction;
 import java.util.ArrayList;
 
 /**
- * Contains user equityholdings and cash accounts
+ * Contains user equityholdings and cash accounts.
  */
 public class Portfolio {
     ArrayList<HoldingEquity> holdingEquities;

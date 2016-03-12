@@ -26,8 +26,7 @@ public class Sell implements Transaction{
 
     @Override
     public void execute() {
-        portfolio.sellEquity(target,amount);
-
+        portfolio.sellEquity(target, amount);
     }
 
     @Override

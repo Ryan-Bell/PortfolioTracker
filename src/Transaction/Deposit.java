@@ -5,7 +5,7 @@ import Portfolio.CashAccount;
 import java.time.LocalDateTime;
 
 /**
- * Command allowing user to add money to a cash account
+ * A concrete command. Adds money to a CashAccount.
  */
 public class Deposit implements Transaction{
 
@@ -18,7 +18,6 @@ public class Deposit implements Transaction{
         this.amount = amount;
         this.date = LocalDateTime.now();
     }
-
 
     @Override
     public void execute() {
