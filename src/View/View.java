@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -53,24 +54,24 @@ public class View implements Observer{
 
         Button logout = new Button("Logout");
 
+        Button save = new Button("Save");
+
         grid.add(toolbar, 0, 0);
         borderPane.setCenter(grid);
-
-        BorderPane top = new BorderPane();
-        top.setCenter(pageTitle);
-
 
 
         borderPane.setTop(pageTitle);
         borderPane.setAlignment(pageTitle,Pos.TOP_CENTER);
 
 
+        VBox menu = new VBox(save,logout);
 
 
         if (!(context.getView() instanceof LoginView)){
             //borderPane.setAlignment(logout,Pos.TOP_RIGHT);
 
-            borderPane.setLeft(logout);
+            borderPane.setLeft(menu);
+
 
         }
 
