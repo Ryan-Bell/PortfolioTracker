@@ -3,6 +3,7 @@ package Transaction;
 import Market.Equity;
 import Market.MarketEquity;
 import Portfolio.Portfolio;
+import Portfolio.CashAccount;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,20 +20,25 @@ public class BuyTransaction implements Transaction, Serializable {
     private int amount;
     private LocalDateTime date;
     private Portfolio portfolio;
+    private CashAccount cashAccount;
 
 
-    public BuyTransaction(MarketEquity target, int amount, Portfolio portfolio) {
+    public BuyTransaction(MarketEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();
         this.portfolio = portfolio;
-
+        this.cashAccount = cashAccount;
     }
 
     @Override
     public void execute() {
-        //call buyEquity on target with num of shares
-        portfolio.buyEquity(target, amount);
+        if (cashAccount.sufficientFunds(amount)){
+            cashAccount.withdraw(amount);
+
+            //call buyEquity on target with num of shares
+            portfolio.buyEquity(target, amount);
+        }
     }
 
     @Override

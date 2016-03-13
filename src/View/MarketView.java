@@ -4,6 +4,11 @@ import Market.Market;
 import Market.MarketEquity;
 import Market.MatchType;
 import Market.QueryType;
+import Portfolio.CashAccount;
+import Transaction.BuyTransaction;
+import Transaction.TransferTransaction;
+import com.sun.javafx.font.freetype.HBGlyphLayout;
+import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -49,8 +54,8 @@ public class MarketView extends View {
     public void display(Context context) {
         super.display(context);
 
-        primaryStage.setWidth(500);
-        primaryStage.setHeight(475);
+        primaryStage.setWidth(700);
+        primaryStage.setHeight(730);
 
         //initialize the search result arrays
         searchResultsTicker = new ArrayList<>();
@@ -172,22 +177,51 @@ public class MarketView extends View {
         resultList = new VBox();
         ArrayList<MarketEquity> common = innerJoinMarketArrays();
         for (MarketEquity e : common) {
+
             Label equity = new Label(e.getName());
+
+
             TextField numShares = new TextField();
             numShares.setPromptText("Number of Shares");
 
+            TextField buyingAccount = new TextField();
+            buyingAccount.setPromptText("Cash Account to Buy From");
+
+            HBox fieldBox = new HBox();
+            fieldBox.getChildren().addAll(numShares,buyingAccount);
 
             Button buy = new Button("Buy"); //TODO Test buy functionality
-            buy.setOnAction(event -> {
+           /* buy.setOnAction(event -> {
                 context.getPortfolio().buyEquity(e,10);
                 System.out.println("Bought 10 shares of" + e.getName());
-            });
+            });*/
+
+            buy.setOnAction((event -> {
+                //Get selected row and find row associated with user input for deposit target
+
+                int withdrawTargetIndex = -1;
+                for(int i = 0; i < context.getPortfolio().getCashAccounts().size(); i++){
+                    if(context.getPortfolio().getCashAccounts().get(i).getName().equals(buyingAccount.getText())){
+                        withdrawTargetIndex = i;
+                    }
+                }
+                if(withdrawTargetIndex >=0) {
+                    try {
+                        int sharesInt = Integer.parseInt(numShares.getText());
+                        BuyTransaction buyTransaction = new BuyTransaction(e,sharesInt,context.getPortfolio(),context.getPortfolio().getCashAccounts().get(withdrawTargetIndex));
+                        buyTransaction.execute();
+                        context.getPortfolio().addTransaction(buyTransaction);
+
+                    } catch (NumberFormatException exception) {
+                    }
+                }
+            }));
 
 
             BorderPane equityDisplay = new BorderPane();
-            equityDisplay.setLeft(equity);
-            equityDisplay.setCenter(numShares);
-            equityDisplay.setRight(buy);
+            equityDisplay.setLeft(buy);
+            equityDisplay.setCenter(fieldBox);
+            equityDisplay.setRight(equity);
 
             resultList.getChildren().add(equityDisplay);
         }
