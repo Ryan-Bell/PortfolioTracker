@@ -66,9 +66,6 @@ public class Simulation {
 
         //loop through the years
         for(int currentYear = 0; currentYear <= numberOfYears; currentYear++){
-            //keeps track of the equity value at each year (since it is annual compounding)
-            updatedEquityValue = currentYear  * percentage * equitiesValue + equitiesValue;
-
             //set the current step within the current year back to one
             currentStep = 1;
 
@@ -79,6 +76,8 @@ public class Simulation {
                 this.equityValuesAtStep.add(updatedEquityValue * currentStep * percentPerStep + updatedEquityValue);
                 currentStep++;
             }
+            //keeps track of the equity value at each year (since it is annual compounding)
+            updatedEquityValue = (1 + percentage) * updatedEquityValue;
         }
         //return the full array
         return this.equityValuesAtStep;

@@ -5,14 +5,13 @@ import MarketSimulation.Simulation;
 import MarketSimulation.SimulationType;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import sun.font.TextLabel;
 
 import java.util.ArrayList;
 
@@ -28,14 +27,6 @@ public class SimulationView extends View{
         primaryStage.setTitle("Simulation");
         primaryStage.setWidth(500);
         primaryStage.setHeight(475);
-
-        Button portView = new Button("Portfolio View");
-        grid.add(portView, 0, 8);
-
-        portView.setOnAction((event -> {
-            context.setView(context.getPortfolioView());
-
-        }));
 
 //        Text scenetitle = new Text("Simulation");
 //        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -64,6 +55,18 @@ public class SimulationView extends View{
         numberOfStepsTF.setPromptText("Enter Number of Steps");
         grid.add(numberOfStepsTF, 0, 4); //TODO: add to correct place
 
+        Label resultLable = new Label("Results:");
+        resultLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+
+        ScrollPane resultSP = new ScrollPane();
+
+        VBox resultSideVB = new VBox();
+        resultSideVB.getChildren().add(resultLable);
+        resultSideVB.getChildren().add(resultSP);
+        resultSideVB.setVgrow(resultSP, Priority.ALWAYS);
+
+        borderPane.setRight(resultSideVB);
+
         Button runSimBtn = new Button("Run Simulation");
         runSimBtn.setOnAction((event -> {
             SimulationType strategy = (SimulationType)strategyCB.getValue();
@@ -83,8 +86,7 @@ public class SimulationView extends View{
                 Text value = new Text("Value at step " + (i + 1) + " = $" + values.get(i));
                 valueVB.getChildren().add(value);
             }
-            borderPane.setLeft(valueVB);
-
+            resultSP.setContent(valueVB);
         }));
         grid.add(runSimBtn, 0, 5); //TODO
 
