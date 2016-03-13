@@ -92,6 +92,16 @@ public class Portfolio extends Observable implements Serializable  {
         cashAccounts.remove(index);
     }
 
+    public float getPortfolioValue() {
+        float value = 0;
+        for (int i = 0; i < holdingEquities.size() - 1; i++) {
+            value += holdingEquities.get(i).getEquityValue();
+        }
+
+        return value;
+    }
+
+
     /**
      * Static method that handles reading in portfolio objects from file
      * @param fileName the file to read in

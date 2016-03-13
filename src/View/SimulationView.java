@@ -13,6 +13,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 /**
  * The view for the simulations.
  */
@@ -55,12 +57,18 @@ public class SimulationView extends View{
         runSimBtn.setOnAction((event -> {
             SimulationType strategy = (SimulationType)strategyCB.getValue();
             Simulation.StepTypes stepType = (Simulation.StepTypes)stepCB.getValue();
-            int percent = Integer.parseInt(percentageTF.getText());
+            float percent = Float.parseFloat(percentageTF.getText());
+            if (percent > 1) {
+                percent = percent/100;
+            }
             int steps = Integer.parseInt(numberOfStepsTF.getText());
 
-//            MarketSimulator.runSimulation(percent, steps, stepType, strategy);
+            MarketSimulator marketSimulator = new MarketSimulator(context.getPortfolio().getPortfolioValue());
+            ArrayList<Float> values = marketSimulator.runSimulation(percent, steps, stepType, strategy);
+
+            System.out.println(values.toString());
         }));
-        grid.add(runSimBtn, 0, 3); //TODO
+        grid.add(runSimBtn, 0, 5); //TODO
 
 
         Scene newScene = new Scene(borderPane, 500, 475);

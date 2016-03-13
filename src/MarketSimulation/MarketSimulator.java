@@ -9,6 +9,11 @@ public class MarketSimulator {
     private ArrayList<PortfolioMemento> mementos;
     private float basePortfolioValue;
 
+    public MarketSimulator(float basePortfolioValue) {
+        this.mementos = new ArrayList<PortfolioMemento>();
+        this.basePortfolioValue = 500;
+    }
+
     /**
      * Creates a simulation then creates a memento.
      * @return  memento the memento
@@ -58,10 +63,10 @@ public class MarketSimulator {
      */
     public ArrayList<Float> runSimulation(float percent, int steps, Simulation.StepTypes stepType, SimulationType type){
         PortfolioMemento memento = createMemento(percent, steps, stepType, type);
-
         ArrayList<Float> valuesAtSteps = memento.getSimulation().evaluate();
-        this.mementos.add(memento);
+        System.out.println("ok");
 
+        mementos.add(memento);
         return valuesAtSteps;
     }
 

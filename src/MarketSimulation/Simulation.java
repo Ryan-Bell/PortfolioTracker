@@ -53,7 +53,7 @@ public class Simulation {
         float interest = 0;
         for(int i = 1; i <= this.steps; i++) {
 
-            if (i % this.compoundDay == 0) {
+            if (i % this.compoundDay == 1) {
                 this.equitiesValue += interest;
                 interest = 0;
             }
