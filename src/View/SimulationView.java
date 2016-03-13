@@ -67,26 +67,34 @@ public class SimulationView extends View{
 
         borderPane.setRight(resultSideVB);
 
-        Button runSimBtn = new Button("Run Simulation");
+        Button runSimBtn = new Button("Run New Simulation");
         runSimBtn.setOnAction((event -> {
             SimulationType strategy = (SimulationType)strategyCB.getValue();
             Simulation.StepTypes stepType = (Simulation.StepTypes)stepCB.getValue();
             float percent = Float.parseFloat(percentageTF.getText());
-            if (percent > 1) {
-                percent = percent/100;
-            }
+            percent = percent/100;
+
             int steps = Integer.parseInt(numberOfStepsTF.getText());
 
+            //create a marketSimulator
             MarketSimulator marketSimulator = new MarketSimulator(context.getPortfolio().getPortfolioValue());
             ArrayList<Float> values = marketSimulator.runSimulation(percent, steps, stepType, strategy);
 
-            System.out.println(values.toString());
+            //add each value to the valueVB VBox
             VBox valueVB = new VBox();
             for (int i = 0; i < values.size(); i++) {
                 Text value = new Text("Value at step " + (i + 1) + " = $" + values.get(i));
                 valueVB.getChildren().add(value);
             }
             resultSP.setContent(valueVB);
+
+            Button nextSimButton = new Button("Next Simulation");
+            nextSimButton.setOnAction((nextEvent -> {
+//                ArrayList<Float> values = marketSimulator.runSimulation(percent, steps, stepType, strategy);
+
+            }));
+                grid.add(nextSimButton, 0, 6);
+
         }));
         grid.add(runSimBtn, 0, 5); //TODO
 

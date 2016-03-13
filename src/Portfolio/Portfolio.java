@@ -127,9 +127,14 @@ public class Portfolio extends Observable implements Serializable  {
         notifyObservers();
     }
 
+    /**
+     * returns the total value of equities in the portfolio.
+     * @return value the total value fo the portfolio
+     */
     public float getPortfolioValue() {
         float value = 0;
-        for (int i = 0; i < holdingEquities.size() - 1; i++) {
+
+        for (int i = 0; i < holdingEquities.size(); i++) {
             value += holdingEquities.get(i).getEquityValue();
         }
 

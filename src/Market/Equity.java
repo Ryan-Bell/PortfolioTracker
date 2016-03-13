@@ -1,11 +1,13 @@
 package Market;
 
+import java.io.Serializable;
+
 /**
  * A leaf of MarketEquity. Extends
  * MarketEquity to allow both Equities
  * and Indexes to be treated the same.
  */
-public class Equity extends MarketEquity {
+public class Equity extends MarketEquity implements Serializable {
     private String tickerSymbol;
     private String sector;
     private String index;

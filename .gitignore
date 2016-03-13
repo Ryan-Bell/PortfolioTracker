@@ -2,3 +2,5 @@
 *.xml
 *.MF
 portfolios/*
+META-INF
+market.csv
