@@ -40,9 +40,9 @@ public class Market {
                     newIndex = new Index(sector);
                     marketEquities.add(newIndex);
                     ((Index) newIndex).addChildren(newEquity);
-                } else {
+                }/* else {
                     ((Index)searchResults.get(0)).addChildren(newEquity);
-                }
+                }*/
 
             }
             if(index != null){
@@ -50,9 +50,9 @@ public class Market {
                     newIndex = new Index(index);
                     marketEquities.add(newIndex);
                     ((Index) newIndex).addChildren(newEquity);
-                } else {
+                }/* else {
                     ((Index)searchResults.get(0)).addChildren(newEquity);
-                }
+                }*/
 
             }
         }
