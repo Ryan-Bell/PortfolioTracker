@@ -80,7 +80,6 @@ public class MarketView extends View {
         searchResults = results;
         resultsField.setText("");
         String text = "";
-        //resultList.getChildren().removeAll(resultList);
         resultList = new VBox();
         System.out.println("Did the children die?");
         for (MarketEquity e : results) {
