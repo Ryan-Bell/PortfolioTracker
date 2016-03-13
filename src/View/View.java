@@ -78,7 +78,7 @@ public class View implements Observer{
 
 
         borderPane.setTop(pageTitle);
-        borderPane.setAlignment(pageTitle,Pos.TOP_CENTER);
+        borderPane.setAlignment(pageTitle, Pos.TOP_CENTER);
 
 
         VBox menu = new VBox(save,logout);

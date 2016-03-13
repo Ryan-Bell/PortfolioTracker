@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -67,6 +68,13 @@ public class SimulationView extends View{
             ArrayList<Float> values = marketSimulator.runSimulation(percent, steps, stepType, strategy);
 
             System.out.println(values.toString());
+            VBox valueVB = new VBox();
+            for (int i = 0; i < values.size() - 1; i++) {
+                Text value = new Text("Value at step " + (i + 1) + " = $" + values.get(i));
+                valueVB.getChildren().add(value);
+            }
+            borderPane.setLeft(valueVB);
+
         }));
         grid.add(runSimBtn, 0, 5); //TODO
 
