@@ -5,6 +5,7 @@ import Portfolio.Portfolio;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import Portfolio.CashAccount;
 
 /**
  * A concrete command. Removes a holdingEquity
@@ -18,17 +19,21 @@ public class SellTransaction implements Transaction, Serializable {
     private int amount;
     private LocalDateTime date;
     private Portfolio portfolio;
+    private CashAccount cashAccount;
+    private String description;
 
-    public SellTransaction(MarketEquity target, int amount, Portfolio portfolio) {
+    public SellTransaction(MarketEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();
         this.portfolio = portfolio;
+        this.cashAccount = cashAccount;
     }
 
     @Override
     public void execute() {
         portfolio.sellEquity(target, amount);
+        cashAccount.deposit(amount);
     }
 
     @Override

@@ -7,6 +7,7 @@ package Transaction;
  */
 public interface Transaction{
 
+
     /**
      * default method to run a concrete transaction
      */

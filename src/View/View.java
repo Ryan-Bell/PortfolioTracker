@@ -92,10 +92,6 @@ public class View implements Observer{
 
         }
 
-
-
-
-
     }
 
     @Override
