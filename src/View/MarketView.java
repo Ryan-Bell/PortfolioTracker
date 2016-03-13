@@ -25,7 +25,9 @@ import java.util.ArrayList;
  */
 public class MarketView extends View {
 
-    ArrayList<MarketEquity> searchResults;
+    ArrayList<MarketEquity> searchResultsTicker;
+    ArrayList<MarketEquity> searchResultsName;
+    ArrayList<MarketEquity> searchResultsIndex;
 
     Text scenetitle;
     Label tickerSearch;
@@ -46,31 +48,43 @@ public class MarketView extends View {
     @Override
     public void display(Context context) {
         super.display(context);
-        searchResults = new ArrayList<>();
 
+        //initialize the search result arrays
+        searchResultsTicker = new ArrayList<>();
+        searchResultsName = new ArrayList<>();
+        searchResultsIndex = new ArrayList<>();
+
+        //Set the title for the scene
         primaryStage.setTitle("Market");
-
         scenetitle = new Text("Market Search");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 1, 0, 3, 1);
 
+        //########## Ticker Section ############
+
+        //Ticker label
         tickerSearch = new Label("Ticker");
         grid.add(tickerSearch, 0, 1);
 
+        //Ticker search type choice box
         ChoiceBox tickerCB =  new ChoiceBox();
         tickerCB.setValue("Select Query Type");
         tickerCB.setItems(FXCollections.observableArrayList(
                 "Select Query Type",
-                new Separator(), MatchType.EXACT,MatchType.BEGIN,MatchType.CONTAINED));
+                new Separator(), MatchType.EXACT, MatchType.BEGIN, MatchType.CONTAINED));
         grid.add(tickerCB, 1, 1);
 
+        //Ticker search field
         tickerField = new TextField();
         grid.add(tickerField, 2, 1);
 
+        //########## Name Section ############
+
+        //Name label
         nameSearch = new Label("Name");
         grid.add(nameSearch, 0, 2);
 
-
+        //Name search type choice box
         ChoiceBox nameCB =  new ChoiceBox();
         nameCB.setValue("Select Query Type");
         nameCB.setItems(FXCollections.observableArrayList(
@@ -78,14 +92,17 @@ public class MarketView extends View {
                 new Separator(), MatchType.EXACT,MatchType.BEGIN,MatchType.CONTAINED));
         grid.add(nameCB, 1, 2);
 
-
+        //Name search field
         nameField = new TextField();
         grid.add(nameField, 2, 2);
 
+        //########## Index Section ############
+
+        //Index Label
         indexSectorSearch = new Label("Index or Sector");
         grid.add(indexSectorSearch, 0, 3);
 
-
+        //Index search type choice box
         ChoiceBox indexSectorCB =  new ChoiceBox();
         indexSectorCB.setValue("Select Query Type");
         indexSectorCB.setItems(FXCollections.observableArrayList(
@@ -93,7 +110,7 @@ public class MarketView extends View {
                 new Separator(), MatchType.EXACT,MatchType.BEGIN,MatchType.CONTAINED));
         grid.add(indexSectorCB, 1, 3);
 
-
+        //Index search field
         indexSectorField = new TextField();
         grid.add(indexSectorField, 2, 3);
 
@@ -109,11 +126,24 @@ public class MarketView extends View {
         resultList = new VBox();
 
 
-        //TODO Implement listener for each of the fields
         tickerField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
-                setResults(context.getMarket().search(QueryType.TICKER , newValue, (MatchType)tickerCB.getValue()));
+                setResults('t', context.getMarket().search(QueryType.TICKER , newValue, (MatchType)tickerCB.getValue()));
+            }
+        });
+
+        nameField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                setResults('n', context.getMarket().search(QueryType.NAME , newValue, (MatchType)nameCB.getValue()));
+            }
+        });
+
+        indexSectorField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                setResults('i', context.getMarket().search(QueryType.INDEX_OR_SECTOR , newValue, (MatchType)indexSectorCB.getValue()));
             }
         });
 
@@ -125,10 +155,21 @@ public class MarketView extends View {
      * Displays a list of MarketEquity objects that meet current search conditions
      * @param results list of MarketEquity objects that meet the current search conditions
      */
-    private void setResults(ArrayList<MarketEquity> results){
-        searchResults = results;
+    private void setResults(char target, ArrayList<MarketEquity> results){
+        switch (target){
+            case 't':
+                searchResultsTicker = results;
+                break;
+            case 'n':
+                searchResultsName = results;
+                break;
+            case 'i':
+                searchResultsIndex = results;
+                break;
+        }
         resultList = new VBox();
-        for (MarketEquity e : results) {
+        ArrayList<MarketEquity> common = innerJoinMarketArrays();
+        for (MarketEquity e : common) {
             Label equity = new Label(e.getName());
             Button buy = new Button("Buy"); //TODO Link button to buy transaction
             BorderPane equityDisplay = new BorderPane();
@@ -138,5 +179,24 @@ public class MarketView extends View {
             resultList.getChildren().add(equityDisplay);
         }
         resultView.setContent(resultList);
+    }
+
+    /**
+     * A very very poorly implemented way of doing an inner join on all three result sets
+     * TODO - Fix this in the future (Market search should be more dynamic so this doesn't have to happen)
+     * @return Arraylist of market equities that are in all result sets
+     */
+    private ArrayList<MarketEquity> innerJoinMarketArrays(){
+        ArrayList<MarketEquity> common = new ArrayList<>();
+        for (MarketEquity equityTick: searchResultsTicker) {
+            for (MarketEquity equityName: searchResultsName) {
+                for (MarketEquity equityIndex: searchResultsIndex) {
+                    if(equityTick == equityName && equityName == equityIndex){
+                        common.add(equityTick);
+                    }
+                }
+            }
+        }
+        return common;
     }
 }
