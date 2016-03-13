@@ -117,11 +117,11 @@ public class PortfolioView extends View {
                 new PropertyValueFactory<>("datePurchased")
         );
         TableColumn numShares = new TableColumn("Num of Shares");
-        equityDate.setCellValueFactory(
+        numShares.setCellValueFactory(
                 new PropertyValueFactory<>("numShares")
         );
         TableColumn priceShare = new TableColumn("Price per Share");
-        equityDate.setCellValueFactory(
+        priceShare.setCellValueFactory(
                 new PropertyValueFactory<>("pricePerShare")
         );
         table.getColumns().addAll(equityName, equityValue, equityDate, numShares, priceShare);
