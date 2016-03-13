@@ -27,6 +27,14 @@ public class SimulationView extends View{
 
         primaryStage.setTitle("Simulation");
 
+        Button portView = new Button("Portfolio View");
+        grid.add(portView, 0, 8);
+
+        portView.setOnAction((event -> {
+            context.setView(context.getPortfolioView());
+
+        }));
+
 //        Text scenetitle = new Text("Simulation");
 //        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 //        grid.add(scenetitle, 0, 0, 2, 1);

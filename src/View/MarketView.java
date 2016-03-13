@@ -49,6 +49,13 @@ public class MarketView extends View {
     public void display(Context context) {
         super.display(context);
 
+        Button portView = new Button("Portfolio View");
+        grid.add(portView, 0, 8);
+
+        portView.setOnAction((event -> {
+            context.setView(context.getPortfolioView());
+
+        }));
         //initialize the search result arrays
         searchResultsTicker = new ArrayList<>();
         searchResultsName = new ArrayList<>();

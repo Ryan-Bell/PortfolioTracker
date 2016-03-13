@@ -24,6 +24,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import javax.sound.sampled.Port;
 import java.text.DecimalFormat;
 
 import java.util.List;
@@ -33,6 +35,10 @@ import java.util.Observable;
  * Created by user on 3/10/2016.
  */
 public class PortfolioView extends View {
+    private Scene scene;
+    public PortfolioView(){
+        scene = new Scene(borderPane, 700, 700);
+    }
 
     @Override
     public void display(Context context){
@@ -69,8 +75,8 @@ public class PortfolioView extends View {
 
 
 
-        Scene newScene = new Scene(borderPane, 700, 700);
-        primaryStage.setScene(newScene);
+        //Scene newScene = new Scene(borderPane, 700, 700);
+        primaryStage.setScene(scene);
     }
 
     private VBox displayTransactionLog(){
@@ -295,7 +301,6 @@ public class PortfolioView extends View {
 
                     DepositTransaction depositTransaction = new DepositTransaction(currentAccount, amount);
                     depositTransaction.execute();
-                    System.out.println("New balance: "+currentAccount.getBalance());
                     context.getPortfolio().addTransaction(depositTransaction);
 
                 } catch (NumberFormatException e) {
@@ -311,18 +316,22 @@ public class PortfolioView extends View {
         depositName.setPromptText("Deposit Target Name");
         transferBtn.setOnAction((event -> {
             //Get selected row and find row associated with user input for deposit target
+
             int depositTargetIndex = -1;
             for(int i = 0; i < context.getPortfolio().getCashAccounts().size(); i++){
-                if(context.getPortfolio().getCashAccounts().get(i).getName() == depositName.getText()){
+                if(context.getPortfolio().getCashAccounts().get(i).getName().equals(depositName.getText())){
                     depositTargetIndex = i;
                 }
             }
             int currentSelection = table.getSelectionModel().getSelectedIndex();
+            System.out.println("Current Selection: "+currentSelection+" Deposit Index: "+depositTargetIndex+" Deposit Name: "+depositName.getText());
             if(currentSelection >=0 && depositTargetIndex >=0) {
                 try {
                     float amount = Float.parseFloat(transferAmt.getText());
                     CashAccount withdrawTarget = context.getPortfolio().getCashAccounts().get(currentSelection);
-                    context.getPortfolio().addTransaction(new TransferTransaction(withdrawTarget, context.getPortfolio().getCashAccounts().get(depositTargetIndex), amount));
+                    TransferTransaction transferTransaction = new TransferTransaction(withdrawTarget, context.getPortfolio().getCashAccounts().get(depositTargetIndex), amount);
+                    transferTransaction.execute();
+                    context.getPortfolio().addTransaction(transferTransaction);
 
                 } catch (NumberFormatException e) {
                 }
@@ -337,7 +346,6 @@ public class PortfolioView extends View {
 
     @Override
     public void update(Observable o, Object arg){
-        System.out.println("Updating dynamic content");
         for(int i = 0; i< dynamicContent.size(); i++){
             switch(dynamicContent.get(i).getId()){
                 case "cashAccountsTable":
@@ -360,7 +368,6 @@ public class PortfolioView extends View {
                     holdingEquitiesTable.getFocusModel().focus(0);
                     break;
                 case "transactionsLog":
-                    System.out.println("check transactions");
                     ScrollPane scrollPane = (ScrollPane)dynamicContent.get(i);
                     VBox transactionList = new VBox();
                     for(int j = 0; j < context.getPortfolio().getTransactionLog().size(); j++){
