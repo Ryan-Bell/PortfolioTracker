@@ -37,6 +37,6 @@ public class BuyTransaction implements Transaction, Serializable {
 
     @Override
     public String toString() {
-        return "Equity Purchased:\t" + target + "\tShares:\t" + amount + "\tDate:\t" + date;
+        return "Equity Purchased:\t" + target.getName() + "\tShares:\t" + amount + "\tDate:\t" + date;
     }
 }

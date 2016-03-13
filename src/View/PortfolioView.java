@@ -81,6 +81,8 @@ public class PortfolioView extends View {
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setId("transactionsLog");
+        scrollPane.setMinHeight(150);
+
 
         Label tableLabel = new Label("Transaction Log");
         tableLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
@@ -91,8 +93,11 @@ public class PortfolioView extends View {
             transactionList.getChildren().add(transaction);
         }
         scrollPane.setContent(transactionList);
+        dynamicContent.add(scrollPane);
 
         transactionsSection.getChildren().addAll(tableLabel, scrollPane);
+        //transactionsSection.isFocused() = true;
+        transactionsSection.requestFocus();
         return transactionsSection;
     }
 
@@ -172,7 +177,7 @@ public class PortfolioView extends View {
                     int amount = Integer.parseInt(sellAmt.getText());
                     HoldingEquity sellTarget = context.getPortfolio().getHoldingEquities().get(currentSelection);
                     CashAccount depositTarget = context.getPortfolio().getCashAccounts().get(depositTargetIndex);
-                    context.getPortfolio().getTransactionLog().add(new SellTransaction(sellTarget,amount,context.getPortfolio(), depositTarget));
+                    context.getPortfolio().addTransaction(new SellTransaction(sellTarget,amount,context.getPortfolio(), depositTarget));
 
                 } catch (NumberFormatException e) {
                 }
@@ -267,7 +272,7 @@ public class PortfolioView extends View {
                 try {
                     float amount = Float.parseFloat(withdrawAmt.getText());
                     CashAccount currentAccount = context.getPortfolio().getCashAccounts().get(currentSelection);
-                    context.getPortfolio().getTransactionLog().add(new Transaction.WithdrawTransaction(currentAccount, amount));
+                    context.getPortfolio().addTransaction(new Transaction.WithdrawTransaction(currentAccount, amount));
 
                 } catch (NumberFormatException e) {
                 }
@@ -285,7 +290,7 @@ public class PortfolioView extends View {
                 try {
                     float amount = Float.parseFloat(depositAmt.getText());
                     CashAccount currentAccount = context.getPortfolio().getCashAccounts().get(currentSelection);
-                    context.getPortfolio().getTransactionLog().add(new DepositTransaction(currentAccount, amount));
+                    context.getPortfolio().addTransaction(new DepositTransaction(currentAccount, amount));
 
                 } catch (NumberFormatException e) {
                 }
@@ -311,7 +316,7 @@ public class PortfolioView extends View {
                 try {
                     float amount = Float.parseFloat(transferAmt.getText());
                     CashAccount withdrawTarget = context.getPortfolio().getCashAccounts().get(currentSelection);
-                    context.getPortfolio().getTransactionLog().add(new TransferTransaction(withdrawTarget, context.getPortfolio().getCashAccounts().get(depositTargetIndex), amount));
+                    context.getPortfolio().addTransaction(new TransferTransaction(withdrawTarget, context.getPortfolio().getCashAccounts().get(depositTargetIndex), amount));
 
                 } catch (NumberFormatException e) {
                 }
@@ -326,6 +331,7 @@ public class PortfolioView extends View {
 
     @Override
     public void update(Observable o, Object arg){
+        System.out.println("Updating dynamic content");
         for(int i = 0; i< dynamicContent.size(); i++){
             switch(dynamicContent.get(i).getId()){
                 case "cashAccountsTable":
@@ -342,7 +348,8 @@ public class PortfolioView extends View {
                     holdingEquitiesTable.getSelectionModel().selectFirst();
                     holdingEquitiesTable.getFocusModel().focus(0);
                     break;
-                case "transactionsTable":
+                case "transactionsLog":
+                    System.out.println("check transactions");
                     ScrollPane scrollPane = (ScrollPane)dynamicContent.get(i);
                     VBox transactionList = new VBox();
                     for(int j = 0; j < context.getPortfolio().getTransactionLog().size(); j++){
@@ -350,6 +357,7 @@ public class PortfolioView extends View {
                         transactionList.getChildren().add(transaction);
                     }
                     scrollPane.setContent(transactionList);
+                    scrollPane.requestFocus();
                     break;
             }
         }

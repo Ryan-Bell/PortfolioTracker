@@ -38,6 +38,6 @@ public class SellTransaction implements Transaction, Serializable {
 
     @Override
     public String toString() {
-        return "Equity Sold:\t" + target + "\tShares:\t" + amount + "\tDate:\t" + date;
+        return "Equity Sold:\t" + target.getName() + "\tShares:\t" + amount + "\tDate:\t" + date;
     }
 }

@@ -28,6 +28,6 @@ public class DepositTransaction implements Transaction, Serializable {
 
     @Override
     public String toString() {
-        return "Account:\t" + target + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
+        return "Account:\t" + target.getName() + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
     }
 }

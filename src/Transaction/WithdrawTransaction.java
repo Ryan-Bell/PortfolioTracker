@@ -33,6 +33,6 @@ public class WithdrawTransaction implements Transaction, Serializable {
 
     @Override
     public String toString() {
-        return "Account:\t" + target + "\tAmount Withdrawn:\t" + amount + "\tDate:\t" + date;
+        return "Account: " + target.getName() + "\tAmount Withdrawn: " + amount + "\tDate: " + date;
     }
 }

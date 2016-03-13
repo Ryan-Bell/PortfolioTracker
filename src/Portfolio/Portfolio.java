@@ -68,7 +68,9 @@ public class Portfolio extends Observable implements Serializable  {
     public String getPassword(){ return password; }
     public String getId(){ return id; }
 
-    public void setTest(int num){
+    public void addTransaction(Transaction transaction){
+        transactionLog.add(transaction);
+
         setChanged();
         notifyObservers();
     }

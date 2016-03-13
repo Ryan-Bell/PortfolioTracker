@@ -35,6 +35,6 @@ public class TransferTransaction implements Transaction, Serializable {
 
     @Override
     public String toString() {
-        return "WithdrawTransaction Account:\t" + withdrawTarget + "DepositTransaction Account:\t" + depositTarget + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
+        return "WithdrawTransaction Account:\t" + withdrawTarget.getName() + "DepositTransaction Account:\t" + depositTarget.getName() + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
     }
 }
