@@ -1,8 +1,8 @@
 package MarketSimulation;
 
 /**
- * A concrete strategy for Simulation to use.
- * Simulates market decline.
+ * An overall decrease in the value of a portfolio.
+ * Used to provide calculations for a MarketSimulator.
  */
 public class BearSimulation extends Simulation {
 

@@ -1,8 +1,8 @@
 package MarketSimulation;
 
 /**
- * A concrete strategy for Simulation to use.
- * Simulates market growth.
+ * An overall increase in the value of a portfolio.
+ * Used to provide calculations for a MarketSimulator.
  */
 public class BullSimulation extends Simulation {
 

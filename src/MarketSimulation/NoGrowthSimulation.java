@@ -1,8 +1,8 @@
 package MarketSimulation;
 
 /**
- * A concrete strategy for Simulation to use.
- * Simulates no growth in the market.
+ * Stagnation in the market. Simulates no growth.
+ * Used to provide calculations for a MarketSimulator
  */
 public class NoGrowthSimulation extends Simulation {
 
