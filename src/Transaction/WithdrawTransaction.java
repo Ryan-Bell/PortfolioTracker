@@ -1,15 +1,12 @@
 package Transaction;
 
 import Portfolio.CashAccount;
-
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * A concrete command. Removes money from a CashAccount.
  */
-
 public class WithdrawTransaction implements Transaction, Serializable {
 
 

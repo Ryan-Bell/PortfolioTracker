@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 
 
 /**
- * Created by Meg on 3/9/2016.
+ * The first view to be displayed to the user. used for the
+ * user to create an account or log in with an account.
  */
 public class LoginView extends View {
 

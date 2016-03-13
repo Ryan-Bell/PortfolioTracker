@@ -13,7 +13,8 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 
 /**
- * The view for the simulations.
+ * The user interface for the MarketSimulator. Contains
+ * text fields for users to pick their desired simulation.
  */
 public class SimulationView extends View{
 

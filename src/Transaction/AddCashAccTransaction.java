@@ -1,18 +1,13 @@
 package Transaction;
 
-import Market.MarketEquity;
 import Portfolio.CashAccount;
 import Portfolio.Portfolio;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * A concrete command. Adds a holdingEquity
- * to a portfolio and *optional withdraw money
- * from a holding account.
+ * Responds to user input in order to create a CashAccount.
  */
-
 public class AddCashAccTransaction implements Transaction, Serializable {
 
     private float amount;

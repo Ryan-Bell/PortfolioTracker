@@ -2,34 +2,22 @@ package View;
 
 import Portfolio.CashAccount;
 import Portfolio.HoldingEquity;
-import Portfolio.UserAuthentication;
 import Transaction.*;
-import Transaction.Transaction.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-import javax.sound.sampled.Port;
-import java.text.DecimalFormat;
-
-import java.util.List;
 import java.util.Observable;
 
 /**
- * Created by user on 3/10/2016.
+ * Displays information about the user's Portfolio, creates
+ * UI elements, some of which can manipulate model data by creating
+ * transaction objects or change state.
  */
 public class PortfolioView extends View {
 

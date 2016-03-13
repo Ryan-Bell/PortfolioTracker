@@ -11,6 +11,6 @@ public interface Transaction{
     /**
      * default method to run a concrete transaction
      */
-    public void execute();
+    void execute();
 
 }

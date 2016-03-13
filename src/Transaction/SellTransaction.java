@@ -1,16 +1,14 @@
 package Transaction;
 
-import Market.MarketEquity;
 import Portfolio.HoldingEquity;
 import Portfolio.Portfolio;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import Portfolio.CashAccount;
 
 /**
  * A concrete command. Removes a holdingEquity
- * from a portfolio and *optional deposite money
+ * from a portfolio and *optional deposit money
  * from a holding account.
  */
 

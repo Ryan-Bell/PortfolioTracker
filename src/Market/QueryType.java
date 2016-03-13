@@ -1,7 +1,7 @@
 package Market;
 
 /**
- * Created by Ryan on 3/9/2016.
+ * Enum to search over.
  */
 public enum QueryType {
         TICKER, NAME, INDEX_OR_SECTOR

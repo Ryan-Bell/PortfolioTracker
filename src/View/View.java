@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ *
+ */
 public class View implements Observer{
     protected Context context;
     protected ArrayList<Node> dynamicContent;
@@ -47,10 +50,6 @@ public class View implements Observer{
 
         toolbar = new HBox(10);
         toolbar.setAlignment(Pos.TOP_CENTER);
-
-//        for (int i = 0; i < 10; i++) {
-//            toolbar.getChildren().add(new Button("Click me"));
-//        }
 
         Text pageTitle = new Text("Financial Portfolio Tracking System");
         pageTitle.setId("FPTS");
@@ -108,11 +107,7 @@ public class View implements Observer{
 
 
         if (!(context.getView() instanceof LoginView)){
-            //borderPane.setAlignment(logout,Pos.TOP_RIGHT);
-
             borderPane.setLeft(menu);
-
-
         }
 
     }

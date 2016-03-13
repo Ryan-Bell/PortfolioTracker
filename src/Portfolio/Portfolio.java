@@ -2,7 +2,6 @@ package Portfolio;
 
 import Market.MarketEquity;
 import Transaction.Transaction;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Observable;

@@ -1,8 +1,5 @@
 package View;
 
-/**
- * The first
- */
 import Market.Market;
 import Market.Parser;
 import MarketSimulation.Simulation;
@@ -11,6 +8,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import Portfolio.Portfolio;
 
+/**
+ * Provides entry point to the application, initializing classes,
+ * and maintains a reference to the current state.
+ */
 public class Context extends Application{
     private View view;
     private Stage primaryStage;
@@ -23,8 +24,6 @@ public class Context extends Application{
 
     //Collection of Models
     private UserAuthentication userAuthentication;
-
-
 
     private Portfolio portfolio;
     private Market market;

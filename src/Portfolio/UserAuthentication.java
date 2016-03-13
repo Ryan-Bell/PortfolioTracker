@@ -1,12 +1,9 @@
 package Portfolio;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.stream.Stream;
 
 /**
  * Handles user creation, logging in and creating portfolio. Contains
@@ -15,7 +12,7 @@ import java.util.stream.Stream;
 public class UserAuthentication {
 
     //Todo - file gathered in checkPassword is thrown away but could instead be saved if the
-        //Todo checkpassword and getPOFromId were both called in a login function
+    //Todo checkpassword and getPOFromId were both called in a login function
 
     /**
      * Takes in plain text password and checks it against portfolio file hashed password
