@@ -75,17 +75,17 @@ public class Market {
                     if (equity instanceof Equity) {
                         switch (matchType) {
                             case EXACT:
-                                if (((Equity) equity).getTickerSymbol().equals(query)) {
+                                if (((Equity) equity).getTickerSymbol().toLowerCase().equals(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
                             case BEGIN:
-                                if (((Equity) equity).getTickerSymbol().startsWith(query)) {
+                                if (((Equity) equity).getTickerSymbol().toLowerCase().startsWith(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
                             case CONTAINED:
-                                if (((Equity) equity).getTickerSymbol().contains(query)) {
+                                if (((Equity) equity).getTickerSymbol().toLowerCase().contains(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
@@ -98,16 +98,16 @@ public class Market {
                 for (MarketEquity equity : marketEquities) {
                     switch (matchType) {
                         case EXACT:
-                            if (equity.name.equals(query)) {
+                            if (equity.name.toLowerCase().equals(query.toLowerCase())) {
                                 results.add(equity);
                             }
                             break;
                         case BEGIN:
-                            if (equity.name.startsWith(query)) {
+                            if (equity.name.toLowerCase().startsWith(query.toLowerCase())) {
                                 results.add(equity);
                             }
                         case CONTAINED:
-                            if (equity.name.contains(query)) {
+                            if (equity.name.toLowerCase().contains(query.toLowerCase())) {
                                 results.add(equity);
                             }
                     }
@@ -118,17 +118,17 @@ public class Market {
                     if (equity instanceof Equity) {
                         switch (matchType) {
                             case EXACT:
-                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().equals(query)) {
+                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().toLowerCase().equals(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
                             case BEGIN:
-                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().startsWith(query)) {
+                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().toLowerCase().startsWith(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
                             case CONTAINED:
-                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().contains(query)) {
+                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().toLowerCase().contains(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
@@ -137,17 +137,17 @@ public class Market {
                     if (equity instanceof Index) {
                         switch (matchType) {
                             case EXACT:
-                                if (equity.name.equals(query)) {
+                                if (equity.name.toLowerCase().equals(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
                             case BEGIN:
-                                if (equity.name.startsWith(query)) {
+                                if (equity.name.toLowerCase().startsWith(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
                             case CONTAINED:
-                                if (equity.name.contains(query)) {
+                                if (equity.name.toLowerCase().contains(query.toLowerCase())) {
                                     results.add(equity);
                                 }
                                 break;
