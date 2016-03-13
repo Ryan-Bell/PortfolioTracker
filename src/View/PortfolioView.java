@@ -81,7 +81,7 @@ public class PortfolioView extends View {
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setId("transactionsLog");
-        scrollPane.setMinHeight(150);
+        scrollPane.setMinHeight(120);
 
 
         Label tableLabel = new Label("Transaction Log");
@@ -96,7 +96,6 @@ public class PortfolioView extends View {
         dynamicContent.add(scrollPane);
 
         transactionsSection.getChildren().addAll(tableLabel, scrollPane);
-        //transactionsSection.isFocused() = true;
         transactionsSection.requestFocus();
         return transactionsSection;
     }
@@ -272,7 +271,10 @@ public class PortfolioView extends View {
                 try {
                     float amount = Float.parseFloat(withdrawAmt.getText());
                     CashAccount currentAccount = context.getPortfolio().getCashAccounts().get(currentSelection);
-                    context.getPortfolio().addTransaction(new Transaction.WithdrawTransaction(currentAccount, amount));
+
+                    WithdrawTransaction withdrawTransaction = new WithdrawTransaction(currentAccount, amount);
+                    withdrawTransaction.execute();
+                    context.getPortfolio().addTransaction(withdrawTransaction);
 
                 } catch (NumberFormatException e) {
                 }
@@ -290,7 +292,11 @@ public class PortfolioView extends View {
                 try {
                     float amount = Float.parseFloat(depositAmt.getText());
                     CashAccount currentAccount = context.getPortfolio().getCashAccounts().get(currentSelection);
-                    context.getPortfolio().addTransaction(new DepositTransaction(currentAccount, amount));
+
+                    DepositTransaction depositTransaction = new DepositTransaction(currentAccount, amount);
+                    depositTransaction.execute();
+                    System.out.println("New balance: "+currentAccount.getBalance());
+                    context.getPortfolio().addTransaction(depositTransaction);
 
                 } catch (NumberFormatException e) {
                 }
@@ -335,9 +341,12 @@ public class PortfolioView extends View {
         for(int i = 0; i< dynamicContent.size(); i++){
             switch(dynamicContent.get(i).getId()){
                 case "cashAccountsTable":
+
+
                     TableView cashAccountsTable = (TableView)dynamicContent.get(i);
                     cashAccountsTable.setItems(FXCollections.observableList(context.getPortfolio().getCashAccounts()));
 
+                    cashAccountsTable.refresh();
                     cashAccountsTable.requestFocus();
                     cashAccountsTable.getSelectionModel().selectFirst();
                     cashAccountsTable.getFocusModel().focus(0);
@@ -345,6 +354,8 @@ public class PortfolioView extends View {
                 case "holdingEquitiesTable":
                     TableView holdingEquitiesTable = (TableView)dynamicContent.get(i);
                     holdingEquitiesTable.setItems(FXCollections.observableList(context.getPortfolio().getHoldingEquities()));
+
+                    holdingEquitiesTable.refresh();
                     holdingEquitiesTable.getSelectionModel().selectFirst();
                     holdingEquitiesTable.getFocusModel().focus(0);
                     break;

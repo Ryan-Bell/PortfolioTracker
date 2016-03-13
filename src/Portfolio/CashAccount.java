@@ -48,6 +48,7 @@ public class CashAccount implements Serializable {
     }
 
     public void deposit(float amount){
+        System.out.println("check deposit");
         float newBalance;
         newBalance = this.getBalance() + amount;
         setBalance(newBalance);
