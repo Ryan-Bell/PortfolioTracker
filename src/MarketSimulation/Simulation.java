@@ -12,6 +12,7 @@ public class Simulation {
     protected int steps;
     protected float equitiesValue;
     protected int compoundDay;
+    protected StepTypes stepType;
     protected ArrayList<Float> equityValuesAtStep;
 
     /**
@@ -25,6 +26,7 @@ public class Simulation {
         this.percentage = percentage;
         this.steps = steps;
         this.equitiesValue = equitiesValue;
+        this.stepType = stepType;
 
         switch (stepType) {
             case DAY:
@@ -50,18 +52,35 @@ public class Simulation {
      */
     public ArrayList<Float> evaluate() {
 
-        float interest = 0;
-        for(int i = 1; i <= this.steps; i++) {
+        //divide percent by compound day to get rate in terms of step type
+        float percentPerStep = percentage / compoundDay;
 
-            if (i % this.compoundDay == 1) {
-                this.equitiesValue += interest;
-                interest = 0;
+        //variable will keep track of equity value after annual compound
+        float updatedEquityValue = equitiesValue;
+
+        //calculate the years to run (Ceiling)
+        int numberOfYears = (int)Math.ceil(steps / compoundDay);
+
+        //keeps track of the current step within the current year
+        int currentStep = 0;
+
+        //loop through the years
+        for(int currentYear = 0; currentYear <= numberOfYears; currentYear++){
+            //keeps track of the equity value at each year (since it is annual compounding)
+            updatedEquityValue = currentYear  * percentage * equitiesValue + equitiesValue;
+
+            //set the current step within the current year back to one
+            currentStep = 1;
+
+            //loop while we are still in the current year and while we haven't gone past the total runtime
+            //the last check is necessarry since the total number of years was calced with ceiling
+            while(currentStep <= compoundDay && currentStep + currentYear * compoundDay <= steps){
+                //add the currently compounded equity value  plus the inter-year growth break down to the array
+                this.equityValuesAtStep.add(updatedEquityValue * currentStep * percentPerStep + updatedEquityValue);
+                currentStep++;
             }
-
-            interest += (this.equitiesValue * this.percentage);
-            this.equityValuesAtStep.add(this.equitiesValue + interest);
         }
-
+        //return the full array
         return this.equityValuesAtStep;
     }
 
