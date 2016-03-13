@@ -171,7 +171,26 @@ public class MarketView extends View {
         ArrayList<MarketEquity> common = innerJoinMarketArrays();
         for (MarketEquity e : common) {
             Label equity = new Label(e.getName());
+            /*
+            Button addCashAccount = new Button ("Add Cash Account");
+        addCashAccount.setOnAction((event -> {
+            if(newCashName != null) {
+                try {
+                    context.getPortfolio().addCashAccount(newCashName.getText(), Float.parseFloat((newCashBalance).getText()));
+                } catch (NumberFormatException e) {
+
+                }
+            }
+        }));
+             */
+
             Button buy = new Button("Buy"); //TODO Link button to buy transaction
+            buy.setOnAction(event -> {
+                context.getPortfolio().buyEquity(e,10);
+                System.out.println("Bought 10 shares of" + e.getName());
+            });
+
+
             BorderPane equityDisplay = new BorderPane();
             equityDisplay.setLeft(equity);
             equityDisplay.setRight(buy);
