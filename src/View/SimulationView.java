@@ -4,15 +4,12 @@ import MarketSimulation.MarketSimulator;
 import MarketSimulation.Simulation;
 import MarketSimulation.SimulationType;
 import javafx.collections.FXCollections;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import sun.font.TextLabel;
-
 import java.util.ArrayList;
 
 /**

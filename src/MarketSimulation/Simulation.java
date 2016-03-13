@@ -3,7 +3,8 @@ package MarketSimulation;
 import java.util.ArrayList;
 
 /**
- *  The Strategy class for the strategy design pattern
+ *  The super class for each concrete simulation. Used
+ *  to calculate the current portfolio's simulated value.
  */
 public class Simulation {
     public enum StepTypes{ DAY, MONTH, YEAR }
