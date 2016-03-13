@@ -32,7 +32,7 @@ public class HoldingEquity extends MarketEquity implements Serializable{
         return name;
     }
 
-    public float getNumShares() {
+    public int getNumShares() {
         return numShares;
     }
 

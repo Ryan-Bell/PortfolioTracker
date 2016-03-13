@@ -91,10 +91,14 @@ public class Portfolio extends Observable implements Serializable  {
     }
 
 
-    public void sellEquity(MarketEquity target, int numShares){
+    public void sellEquity(HoldingEquity target, int numShares){
         //remove target number of shares from Equity holding, **if shares goes to 0 delete object?
-        int index = holdingEquities.indexOf(target);
-        holdingEquities.remove(index);
+        target.setNumShares((target.getNumShares()-numShares));
+
+        if(target.getNumShares() <= 0) {
+            int index = holdingEquities.indexOf(target);
+            holdingEquities.remove(index);
+        }
 
         setChanged();
         notifyObservers();

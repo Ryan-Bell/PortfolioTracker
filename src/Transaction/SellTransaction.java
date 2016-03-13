@@ -1,6 +1,7 @@
 package Transaction;
 
 import Market.MarketEquity;
+import Portfolio.HoldingEquity;
 import Portfolio.Portfolio;
 
 import java.io.Serializable;
@@ -15,14 +16,14 @@ import Portfolio.CashAccount;
 
 public class SellTransaction implements Transaction, Serializable {
 
-    private MarketEquity target;
+    private HoldingEquity target;
     private int amount;
     private LocalDateTime date;
     private Portfolio portfolio;
     private CashAccount cashAccount;
     private String description;
 
-    public SellTransaction(MarketEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
+    public SellTransaction(HoldingEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();
@@ -32,8 +33,11 @@ public class SellTransaction implements Transaction, Serializable {
 
     @Override
     public void execute() {
-        portfolio.sellEquity(target, amount);
-        cashAccount.deposit(amount);
+        if(target.getNumShares() - amount >=0) {
+            portfolio.sellEquity(target, amount);
+            cashAccount.deposit(amount);
+            target.getValue();
+        }
     }
 
     @Override

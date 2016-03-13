@@ -1,11 +1,13 @@
 package Market;
 
+import java.io.Serializable;
+
 /**
  * The component of the MarketEquity composite
  * Pattern. Extends MarketEquity to allow both
  * Indexes and Equities to be treated the same.
  */
-public class MarketEquity {
+public class MarketEquity implements Serializable{
     protected String name;
     protected float value;
 

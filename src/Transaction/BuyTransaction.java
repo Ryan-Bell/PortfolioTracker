@@ -33,8 +33,9 @@ public class BuyTransaction implements Transaction, Serializable {
 
     @Override
     public void execute() {
-        if (cashAccount.sufficientFunds(amount)){
-            cashAccount.withdraw(amount);
+        float cost = amount*target.getValue();
+        if (cashAccount.sufficientFunds(cost)){
+            cashAccount.withdraw(cost);
 
             //call buyEquity on target with num of shares
             portfolio.buyEquity(target, amount);

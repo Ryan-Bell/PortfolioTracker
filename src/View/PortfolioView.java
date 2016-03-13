@@ -100,7 +100,7 @@ public class PortfolioView extends View {
         TableView table = new TableView();
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setPrefHeight(150);
-        table.setId("equitiesTable");
+        table.setId("holdingEquitiesTable");
         dynamicContent.add(table);
 
         //Create property columns
@@ -152,7 +152,7 @@ public class PortfolioView extends View {
             //Get selected row and find row associated with user input for deposit target
             int depositTargetIndex = -1;
             for(int i = 0; i < context.getPortfolio().getCashAccounts().size(); i++){
-                if(context.getPortfolio().getCashAccounts().get(i).getName() == depositName.getText()){
+                if(context.getPortfolio().getCashAccounts().get(i).getName().equals(depositName.getText())){
                     depositTargetIndex = i;
                 }
             }
@@ -307,7 +307,6 @@ public class PortfolioView extends View {
                 }
             }
             int currentSelection = table.getSelectionModel().getSelectedIndex();
-            System.out.println("Current Selection: "+currentSelection+" Deposit Index: "+depositTargetIndex+" Deposit Name: "+depositName.getText());
             if(currentSelection >=0 && depositTargetIndex >=0) {
                 try {
                     float amount = Float.parseFloat(transferAmt.getText());
@@ -332,8 +331,6 @@ public class PortfolioView extends View {
         for(int i = 0; i< dynamicContent.size(); i++){
             switch(dynamicContent.get(i).getId()){
                 case "cashAccountsTable":
-
-
                     TableView cashAccountsTable = (TableView)dynamicContent.get(i);
                     cashAccountsTable.setItems(FXCollections.observableList(context.getPortfolio().getCashAccounts()));
 
@@ -349,6 +346,7 @@ public class PortfolioView extends View {
                     holdingEquitiesTable.refresh();
                     holdingEquitiesTable.getSelectionModel().selectFirst();
                     holdingEquitiesTable.getFocusModel().focus(0);
+
                     break;
                 case "transactionsLog":
                     ScrollPane scrollPane = (ScrollPane)dynamicContent.get(i);
