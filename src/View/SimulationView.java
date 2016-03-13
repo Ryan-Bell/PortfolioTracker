@@ -69,7 +69,7 @@ public class SimulationView extends View{
 
             System.out.println(values.toString());
             VBox valueVB = new VBox();
-            for (int i = 0; i < values.size() - 1; i++) {
+            for (int i = 0; i < values.size(); i++) {
                 Text value = new Text("Value at step " + (i + 1) + " = $" + values.get(i));
                 valueVB.getChildren().add(value);
             }
