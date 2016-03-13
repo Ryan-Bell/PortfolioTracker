@@ -21,6 +21,7 @@ public class BuyTransaction implements Transaction, Serializable {
     private LocalDateTime date;
     private Portfolio portfolio;
     private CashAccount cashAccount;
+    private boolean failed;
 
 
     public BuyTransaction(MarketEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
@@ -29,21 +30,28 @@ public class BuyTransaction implements Transaction, Serializable {
         this.date = LocalDateTime.now();
         this.portfolio = portfolio;
         this.cashAccount = cashAccount;
+        this.failed = false;
     }
 
     @Override
     public void execute() {
-        float cost = amount*target.getValue();
-        if (cashAccount.sufficientFunds(cost)){
-            cashAccount.withdraw(cost);
+        if(cashAccount != null) {
+            float cost = amount * target.getValue();
+            if (cashAccount.sufficientFunds(cost)) {
+                cashAccount.withdraw(cost);
 
-            //call buyEquity on target with num of shares
+                //call buyEquity on target with num of shares
+                portfolio.buyEquity(target, amount);
+            } else failed = true;
+        }
+        else{
             portfolio.buyEquity(target, amount);
         }
     }
 
     @Override
     public String toString() {
-        return "Equity Purchased:\t" + target.getName() + "\tShares:\t" + amount + "\tDate:\t" + date;
+        if(failed) return "Could not purchase "+amount+" shares of "+target.getName()+"on "+date;
+        return "Purchased "+amount+" shares of "+target.getName()+"on "+date;
     }
 }

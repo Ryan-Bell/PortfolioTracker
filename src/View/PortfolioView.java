@@ -3,11 +3,8 @@ package View;
 import Portfolio.CashAccount;
 import Portfolio.HoldingEquity;
 import Portfolio.UserAuthentication;
-import Transaction.DepositTransaction;
-import Transaction.SellTransaction;
+import Transaction.*;
 import Transaction.Transaction.*;
-import Transaction.TransferTransaction;
-import Transaction.WithdrawTransaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -42,7 +39,7 @@ public class PortfolioView extends View {
         super.display(context);
         context.getPortfolio().addObserver(this);
 
-        primaryStage.setWidth(700);
+        primaryStage.setWidth(730);
         primaryStage.setHeight(730);
 
 
@@ -227,11 +224,13 @@ public class PortfolioView extends View {
         newCashBalance.setPromptText("Balance");
         newCashBalance.setPrefWidth(100);
 
-        Button addCashAccount = new Button ("Add Cash Account");
+        Button addCashAccount = new Button ("Deposit into new Account");
         addCashAccount.setOnAction((event -> {
             if(newCashName != null) {
                 try {
-                    context.getPortfolio().addCashAccount(newCashName.getText(), Float.parseFloat((newCashBalance).getText()));
+                    AddCashAccTransaction addAccountTransaction = new AddCashAccTransaction(newCashName.getText(), Float.parseFloat((newCashBalance).getText()), context.getPortfolio());
+                    addAccountTransaction.execute();
+                    context.getPortfolio().addTransaction(addAccountTransaction);
                 } catch (NumberFormatException e) {
 
                 }

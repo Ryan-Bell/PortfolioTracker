@@ -22,6 +22,7 @@ public class SellTransaction implements Transaction, Serializable {
     private Portfolio portfolio;
     private CashAccount cashAccount;
     private String description;
+    private boolean failed;
 
     public SellTransaction(HoldingEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
         this.target = target;
@@ -29,6 +30,7 @@ public class SellTransaction implements Transaction, Serializable {
         this.date = LocalDateTime.now();
         this.portfolio = portfolio;
         this.cashAccount = cashAccount;
+        this.failed = false;
     }
 
     @Override
@@ -38,10 +40,12 @@ public class SellTransaction implements Transaction, Serializable {
             cashAccount.deposit(amount);
             target.getValue();
         }
+        else failed = true;
     }
 
     @Override
     public String toString() {
-        return "Equity Sold:\t" + target.getName() + "\tShares:\t" + amount + "\tDate:\t" + date;
+        if(failed) return "Could not sell "+amount+" shares of "+target.getName()+" equity on "+date;
+        return "Sold "+amount+" shares of "+target.getName()+" equity on "+date;
     }
 }

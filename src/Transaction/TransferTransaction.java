@@ -17,12 +17,14 @@ public class TransferTransaction implements Transaction, Serializable {
     private CashAccount depositTarget;
     private float amount;
     private LocalDateTime date;
+    private boolean failed;
 
     public TransferTransaction(CashAccount withdrawTarget, CashAccount depositTarget, float amount) {
         this.withdrawTarget = withdrawTarget;
         this.depositTarget = depositTarget;
         this.amount = amount;
         this.date = LocalDateTime.now();
+        this.failed = false;
     }
 
     @Override
@@ -31,10 +33,12 @@ public class TransferTransaction implements Transaction, Serializable {
             withdrawTarget.withdraw(amount);
             depositTarget.deposit(amount);
         }
+        else failed = true;
     }
 
     @Override
     public String toString() {
-        return "WithdrawTransaction Account:\t" + withdrawTarget.getName() + "DepositTransaction Account:\t" + depositTarget.getName() + "\tAmount Deposited:\t" + amount + "\tDate:\t" + date;
+        if(failed) return "Could not withdraw "+amount+" out of "+withdrawTarget.getName()+" and deposit in "+depositTarget.getName()+" on "+date;
+        return "Withdrew "+amount+" out of "+withdrawTarget.getName()+" and deposited in "+depositTarget.getName()+" on "+date;
     }
 }

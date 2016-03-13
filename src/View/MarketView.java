@@ -215,6 +215,12 @@ public class MarketView extends View {
                     } catch (NumberFormatException exception) {
                     }
                 }
+                else{
+                    int sharesInt = Integer.parseInt(numShares.getText());
+                    BuyTransaction buyTransaction = new BuyTransaction(e,sharesInt,context.getPortfolio(),null);
+                    buyTransaction.execute();
+                    context.getPortfolio().addTransaction(buyTransaction);
+                }
             }));
 
 
