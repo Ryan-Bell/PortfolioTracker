@@ -8,11 +8,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -31,6 +30,8 @@ public class MarketView extends View {
     TextField searchField;
     Label resultsLabel;
     TextField resultsField;
+    VBox resultList;
+    ScrollPane resultView;
 
     @Override
     public void display(Context context) {
@@ -55,6 +56,14 @@ public class MarketView extends View {
         resultsField = new TextField();
         grid.add(resultsField, 1, 2);
 
+        resultView = new ScrollPane();
+        grid.add(resultView,1,3);
+
+        resultList = new VBox();
+
+
+
+
 
         searchField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -71,9 +80,20 @@ public class MarketView extends View {
         searchResults = results;
         resultsField.setText("");
         String text = "";
+        //resultList.getChildren().removeAll(resultList);
+        resultList = new VBox();
+        System.out.println("Did the children die?");
         for (MarketEquity e : results) {
             text += e.getName();
+            Label equity = new Label(e.getName());
+            Button buy = new Button("Buy");
+            BorderPane equityDisplay = new BorderPane();
+            equityDisplay.setLeft(equity);
+            equityDisplay.setRight(buy);
+
+            resultList.getChildren().add(equityDisplay);
         }
         resultsField.setText(text);
+        resultView.setContent(resultList);
     }
 }
