@@ -1,6 +1,7 @@
 package View;
 
 import Market.Market;
+import Market.Index;
 import Market.MarketEquity;
 import Market.MatchType;
 import Market.QueryType;
@@ -175,9 +176,12 @@ public class MarketView extends View {
                 break;
         }
         resultList = new VBox();
-        ArrayList<MarketEquity> common = innerJoinMarketArrays();
-        for (MarketEquity e : common) {
 
+        ArrayList<MarketEquity> common = innerJoinMarketArrays();
+
+
+        for (MarketEquity e : common) {
+            //System.out.println(common);
             Label equity = new Label(e.getName());
 
 
@@ -248,6 +252,11 @@ public class MarketView extends View {
                         common.add(equityTick);
                     }
                 }
+            }
+        }
+        for (MarketEquity equityIndex: searchResultsIndex) {
+            if(equityIndex instanceof Index){
+                common.add(equityIndex);
             }
         }
         return common;

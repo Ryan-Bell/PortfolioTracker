@@ -9,9 +9,13 @@ import java.util.ArrayList;
  */
 public class Market {
     private ArrayList<MarketEquity> marketEquities;
+    private ArrayList<String> indexNames;
+    private ArrayList<MarketEquity> indexes;
 
     public Market(){
         marketEquities = new ArrayList<>();
+        indexNames = new ArrayList<>();
+        indexes = new ArrayList<>();
     }
 
     /**
@@ -36,24 +40,26 @@ public class Market {
             newEquity = new Equity(tickerSymbol, name, value, sector, index);
             marketEquities.add(newEquity);
             if(sector != null){
-                if ((searchResults = search(QueryType.INDEX_OR_SECTOR, sector, MatchType.EXACT)).isEmpty()) {
+                if (!indexNames.contains(sector)){
                     newIndex = new Index(sector);
                     marketEquities.add(newIndex);
                     ((Index) newIndex).addChildren(newEquity);
-                }/* else {
-                    ((Index)searchResults.get(0)).addChildren(newEquity);
-                }*/
-
+                    indexNames.add(sector);
+                    indexes.add(newIndex);
+                } else {
+                    ((Index)indexes.get(indexNames.indexOf(sector))).addChildren(newEquity);
+                }
             }
             if(index != null){
-                if ((searchResults = search(QueryType.INDEX_OR_SECTOR, index, MatchType.EXACT)).isEmpty()){
+                if (!indexNames.contains(index)){
                     newIndex = new Index(index);
                     marketEquities.add(newIndex);
                     ((Index) newIndex).addChildren(newEquity);
-                }/* else {
-                    ((Index)searchResults.get(0)).addChildren(newEquity);
-                }*/
-
+                    indexNames.add(index);
+                    indexes.add(newIndex);
+                } else {
+                    ((Index)indexes.get(indexNames.indexOf(index))).addChildren(newEquity);
+                }
             }
         }
     }
@@ -80,7 +86,6 @@ public class Market {
         switch (type) {
             case TICKER:
                 for (MarketEquity equity : marketEquities) {
-                    //System.out.println(equity.getName());
                     if (equity instanceof Equity) {
                         switch (matchType) {
                             case EXACT:
@@ -115,10 +120,12 @@ public class Market {
                             if (equity.name.toLowerCase().startsWith(query.toLowerCase())) {
                                 results.add(equity);
                             }
+                            break;
                         case CONTAINED:
                             if (equity.name.toLowerCase().contains(query.toLowerCase())) {
                                 results.add(equity);
                             }
+                            break;
                     }
                 }
                 break;
@@ -165,6 +172,7 @@ public class Market {
                 }
                 break;
         }
+        //System.out.println(results);
         return results;
     }
 }

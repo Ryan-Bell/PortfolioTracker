@@ -50,4 +50,7 @@ public class Index extends MarketEquity {
      */
     @Override
     public float getValue() { return value; }
+
+    @Override
+    public String toString(){return "Name: " + name + " value:  " + value;}
 }
