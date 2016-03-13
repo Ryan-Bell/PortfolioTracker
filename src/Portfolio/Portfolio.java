@@ -17,7 +17,6 @@ public class Portfolio extends Observable implements Serializable  {
     private ArrayList<Transaction> transactionLog;
     private String password;
     private String id;
-    private int test;
 
     private static final long serialVersionUID = 681129221878275270L;
 
@@ -38,16 +37,38 @@ public class Portfolio extends Observable implements Serializable  {
 
     }
 
+    public ArrayList<CashAccount> getCashAccounts() {
+        return cashAccounts;
+    }
+
+    public void setCashAccounts(ArrayList<CashAccount> cashAccounts) {
+        this.cashAccounts = cashAccounts;
+    }
+
+    public ArrayList<Transaction> getTransactionLog() {
+        return transactionLog;
+    }
+
+    public void setTransactionLog(ArrayList<Transaction> transactionLog) {
+        this.transactionLog = transactionLog;
+    }
+
+    public ArrayList<HoldingEquity> getHoldingEquities() {
+        return holdingEquities;
+    }
+
+    public void setHoldingEquities(ArrayList<HoldingEquity> holdingEquities) {
+        this.holdingEquities = holdingEquities;
+    }
+
     /**
      * returns the password
      * @return the password
      */
     public String getPassword(){ return password; }
     public String getId(){ return id; }
-    public int getTest(){ return test; }
 
     public void setTest(int num){
-        test = num;
         setChanged();
         notifyObservers();
     }
@@ -62,6 +83,9 @@ public class Portfolio extends Observable implements Serializable  {
         //add target equity to HoldingEquity with numShares
         HoldingEquity newEquity = new HoldingEquity(numShares,target.getValue());
         holdingEquities.add(newEquity);
+
+        setChanged();
+        notifyObservers();
     }
 
 
@@ -69,6 +93,9 @@ public class Portfolio extends Observable implements Serializable  {
         //remove target number of shares from Equity holding, **if shares goes to 0 delete object?
         int index = holdingEquities.indexOf(target);
         holdingEquities.remove(index);
+
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -80,6 +107,9 @@ public class Portfolio extends Observable implements Serializable  {
         //add target cash account with initial balance
         CashAccount newCashAccount = new CashAccount(name, initialBalance);
         cashAccounts.add(newCashAccount);
+
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -90,6 +120,9 @@ public class Portfolio extends Observable implements Serializable  {
         //remove target cash account
         int index = cashAccounts.indexOf(target);
         cashAccounts.remove(index);
+
+        setChanged();
+        notifyObservers();
     }
 
     public float getPortfolioValue() {
