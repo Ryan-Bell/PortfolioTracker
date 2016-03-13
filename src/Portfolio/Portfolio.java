@@ -83,7 +83,7 @@ public class Portfolio extends Observable implements Serializable  {
      */
     public void buyEquity(MarketEquity target, int numShares){
         //add target equity to HoldingEquity with numShares
-        HoldingEquity newEquity = new HoldingEquity(numShares,target.getValue());
+        HoldingEquity newEquity = new HoldingEquity(numShares,target.getValue(),target.getName());
         holdingEquities.add(newEquity);
 
         setChanged();

@@ -162,7 +162,10 @@ public class PortfolioView extends View {
                     int amount = Integer.parseInt(sellAmt.getText());
                     HoldingEquity sellTarget = context.getPortfolio().getHoldingEquities().get(currentSelection);
                     CashAccount depositTarget = context.getPortfolio().getCashAccounts().get(depositTargetIndex);
-                    context.getPortfolio().addTransaction(new SellTransaction(sellTarget,amount,context.getPortfolio(), depositTarget));
+
+                    SellTransaction sellTransaction = new SellTransaction(sellTarget,amount,context.getPortfolio(), depositTarget);
+                    sellTransaction.execute();
+                    context.getPortfolio().addTransaction(sellTransaction);
 
                 } catch (NumberFormatException e) {
                 }
