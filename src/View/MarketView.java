@@ -173,6 +173,9 @@ public class MarketView extends View {
         ArrayList<MarketEquity> common = innerJoinMarketArrays();
         for (MarketEquity e : common) {
             Label equity = new Label(e.getName());
+            TextField numShares = new TextField();
+            numShares.setPromptText("Number of Shares");
+
 
             Button buy = new Button("Buy"); //TODO Test buy functionality
             buy.setOnAction(event -> {
@@ -183,6 +186,7 @@ public class MarketView extends View {
 
             BorderPane equityDisplay = new BorderPane();
             equityDisplay.setLeft(equity);
+            equityDisplay.setCenter(numShares);
             equityDisplay.setRight(buy);
 
             resultList.getChildren().add(equityDisplay);
