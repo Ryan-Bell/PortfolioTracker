@@ -80,10 +80,8 @@ public class LoginView extends View {
         }));
 
 
-        Scene newScene = new Scene(borderPane, 500, 475);
-        primaryStage.setScene(newScene);
+        primaryStage.setScene(scene);
         primaryStage.show();
-        System.out.println("testing display2");
 
     }
 

@@ -35,10 +35,6 @@ import java.util.Observable;
  * Created by user on 3/10/2016.
  */
 public class PortfolioView extends View {
-    private Scene scene;
-    public PortfolioView(){
-        scene = new Scene(borderPane, 700, 700);
-    }
 
     @Override
     public void display(Context context){
@@ -46,36 +42,20 @@ public class PortfolioView extends View {
         super.display(context);
         context.getPortfolio().addObserver(this);
 
+        primaryStage.setWidth(700);
+        primaryStage.setHeight(730);
+
+
         Text scenetitle = new Text("Portfolio");
         scenetitle.setId("scenetitle");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
-        dynamicContent.add(scenetitle);
-
-        Button simView = new Button("Simulation View");
-        grid.add(simView, 0, 4);
-
-        simView.setOnAction((event -> {
-            context.setView(context.getSimulationView());
-
-        }));
 
 
-        grid.add(displayCashAccounts(), 0, 6);
-        grid.add(displayEquities(), 0, 7);
-        grid.add(displayTransactionLog(), 0, 8);
+        grid.add(displayCashAccounts(), 0, 2);
+        grid.add(displayEquities(), 0, 3);
+        grid.add(displayTransactionLog(), 0, 4);
 
-        //button to go to market view
-        Button markView = new Button("Market View");
-        grid.add(markView, 0, 5);
-
-        markView.setOnAction((event -> {
-            context.setView(context.getMarketView());
-        }));
-
-
-
-        //Scene newScene = new Scene(borderPane, 700, 700);
         primaryStage.setScene(scene);
     }
 

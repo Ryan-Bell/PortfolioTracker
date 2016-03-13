@@ -26,6 +26,8 @@ public class SimulationView extends View{
         super.display(context);
 
         primaryStage.setTitle("Simulation");
+        primaryStage.setWidth(500);
+        primaryStage.setHeight(475);
 
         Button portView = new Button("Portfolio View");
         grid.add(portView, 0, 8);
@@ -86,8 +88,6 @@ public class SimulationView extends View{
         }));
         grid.add(runSimBtn, 0, 5); //TODO
 
-
-        Scene newScene = new Scene(borderPane, 500, 475);
-        primaryStage.setScene(newScene);
+        primaryStage.setScene(scene);
     }
 }

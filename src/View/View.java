@@ -4,6 +4,7 @@ import Portfolio.Portfolio;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -25,10 +26,12 @@ public class View implements Observer{
     protected Stage primaryStage;
     protected HBox toolbar;
     protected BorderPane borderPane;
+    protected Scene scene;
 
     public View() {
         this.borderPane = new BorderPane();
         this.grid = new GridPane();
+        scene = new Scene(borderPane, 500, 475);
     }
 
     public void display(Context context){
@@ -73,6 +76,24 @@ public class View implements Observer{
             }
         }));
 
+        Button simView = new Button("Sim View");
+        simView.setOnAction((event -> {
+            context.setView(context.getSimulationView());
+
+        }));
+
+        Button portView = new Button("Portfolio View");
+        portView.setOnAction((event -> {
+            context.setView(context.getPortfolioView());
+
+        }));
+
+        Button marketView = new Button("Market View");
+        marketView.setOnAction((event -> {
+            context.setView(context.getMarketView());
+
+        }));
+
         grid.add(toolbar, 0, 0);
         borderPane.setCenter(grid);
 
@@ -81,7 +102,9 @@ public class View implements Observer{
         borderPane.setAlignment(pageTitle, Pos.TOP_CENTER);
 
 
-        VBox menu = new VBox(save,logout);
+        VBox menu = new VBox(save,logout, portView, marketView, simView);
+        menu.setPadding(new Insets(10,10,10,10));
+        menu.setSpacing(10);
 
 
         if (!(context.getView() instanceof LoginView)){

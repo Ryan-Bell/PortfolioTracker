@@ -49,13 +49,9 @@ public class MarketView extends View {
     public void display(Context context) {
         super.display(context);
 
-        Button portView = new Button("Portfolio View");
-        grid.add(portView, 0, 8);
+        primaryStage.setWidth(500);
+        primaryStage.setHeight(475);
 
-        portView.setOnAction((event -> {
-            context.setView(context.getPortfolioView());
-
-        }));
         //initialize the search result arrays
         searchResultsTicker = new ArrayList<>();
         searchResultsName = new ArrayList<>();
@@ -154,8 +150,7 @@ public class MarketView extends View {
             }
         });
 
-        Scene newScene = new Scene(borderPane, 500, 475);
-        primaryStage.setScene(newScene);
+        primaryStage.setScene(scene);
     }
 
     /**
