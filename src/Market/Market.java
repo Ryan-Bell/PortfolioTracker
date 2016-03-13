@@ -28,7 +28,6 @@ public class Market {
 
         //create the index
         MarketEquity newIndex = null;
-        MarketEquity newSector = null;
         MarketEquity newEquity = null;
 
         ArrayList<MarketEquity> searchResults = null;
@@ -36,15 +35,25 @@ public class Market {
         if ((searchResults = search(QueryType.TICKER, tickerSymbol, MatchType.EXACT)).isEmpty()){
             newEquity = new Equity(tickerSymbol, name, value, sector, index);
             marketEquities.add(newEquity);
-            if(sector != null && (searchResults = search(QueryType.INDEX_OR_SECTOR, sector, MatchType.EXACT)).isEmpty()){
-                newSector = new Index(sector);
-                marketEquities.add(newSector);
-                ((Index)newSector).addChildren(newEquity);
+            if(sector != null){
+                if ((searchResults = search(QueryType.INDEX_OR_SECTOR, sector, MatchType.EXACT)).isEmpty()) {
+                    newIndex = new Index(sector);
+                    marketEquities.add(newIndex);
+                    ((Index) newIndex).addChildren(newEquity);
+                } else {
+                    ((Index)searchResults.get(0)).addChildren(newEquity);
+                }
+
             }
-            if(index != null && (searchResults = search(QueryType.INDEX_OR_SECTOR, index, MatchType.EXACT)).isEmpty()){
-                newIndex = new Index(index);
-                marketEquities.add(newIndex);
-                ((Index)newIndex).addChildren(newEquity);
+            if(index != null){
+                if ((searchResults = search(QueryType.INDEX_OR_SECTOR, index, MatchType.EXACT)).isEmpty()){
+                    newIndex = new Index(index);
+                    marketEquities.add(newIndex);
+                    ((Index) newIndex).addChildren(newEquity);
+                } else {
+                    ((Index)searchResults.get(0)).addChildren(newEquity);
+                }
+
             }
         }
     }
