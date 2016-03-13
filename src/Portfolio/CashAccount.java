@@ -3,10 +3,10 @@ package Portfolio;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
- * Represents a cash account of a user
+ * CashAccount has a name and holds a balance to be tracked by a Portfolio and
+ * may be used in the process of buying and selling equities
  */
 public class CashAccount implements Serializable {
     private String name;
