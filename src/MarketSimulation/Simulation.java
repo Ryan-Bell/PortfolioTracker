@@ -23,7 +23,7 @@ public class Simulation {
      * @param stepType      the type of step to run through (day, month, year)
      */
     public Simulation(float percentage, int steps, float equitiesValue, StepTypes stepType) {
-        this.percentage = percentage;
+        this.percentage = Math.max(percentage, -1);
         this.steps = steps;
         this.equitiesValue = equitiesValue;
         this.stepType = stepType;
@@ -79,6 +79,12 @@ public class Simulation {
             //keeps track of the equity value at each year (since it is annual compounding)
             updatedEquityValue = (1 + percentage) * updatedEquityValue;
         }
+
+        //set the equitiesValue to the evaluated value before it returns.
+        //used to revert back to this state
+//        int lastIndex = equityValuesAtStep.size() - 1;
+//        this.equitiesValue = equityValuesAtStep.get(lastIndex);
+
         //return the full array
         return this.equityValuesAtStep;
     }

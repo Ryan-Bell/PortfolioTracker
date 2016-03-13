@@ -46,10 +46,12 @@ public class MarketSimulator {
      * Pops the last memento off the stack and runs set the
      * basePortfolioValue to its value. Used to undo a simulation.
      */
-    public void popMemento(){
+    public float popMemento(){
         int lastIndex = mementos.size() - 1;
         PortfolioMemento memory = this.mementos.remove(lastIndex);
         this.basePortfolioValue = memory.getSimulation().getEquitiesValue();
+
+        return basePortfolioValue;
     }
 
     /**
@@ -66,6 +68,12 @@ public class MarketSimulator {
         ArrayList<Float> valuesAtSteps = memento.getSimulation().evaluate();
 
         mementos.add(memento);
+
+        //update basePortfolioValue to the evaluated value so
+        //we can run another simulation from this point.
+        int lastIndex = valuesAtSteps.size() - 1;
+        this.basePortfolioValue = valuesAtSteps.get(lastIndex);
+
         return valuesAtSteps;
     }
 

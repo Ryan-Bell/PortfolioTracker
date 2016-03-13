@@ -37,7 +37,7 @@ public class SimulationView extends View{
                 "Select Simulation Type",
                 new Separator(), SimulationType.BEAR, SimulationType.BULL, SimulationType.NO_GROWTH
         ));
-        grid.add(strategyCB, 0, 0); //TODO: add to correct place
+        grid.add(strategyCB, 0, 0);
 
         ChoiceBox stepCB =  new ChoiceBox();
         stepCB.setValue("Select Step Type");
@@ -45,15 +45,15 @@ public class SimulationView extends View{
                 "Select Step Type",
                 new Separator(), Simulation.StepTypes.DAY, Simulation.StepTypes.MONTH, Simulation.StepTypes.YEAR
         ));
-        grid.add(stepCB, 0, 1); //TODO: add to correct place
+        grid.add(stepCB, 0, 1);
 
         TextField percentageTF =  new TextField();
         percentageTF.setPromptText("Enter Percentage");
-        grid.add(percentageTF, 0, 3); //TODO: add to correct place
+        grid.add(percentageTF, 0, 3);
 
         TextField numberOfStepsTF =  new TextField();
         numberOfStepsTF.setPromptText("Enter Number of Steps");
-        grid.add(numberOfStepsTF, 0, 4); //TODO: add to correct place
+        grid.add(numberOfStepsTF, 0, 4);
 
         Label resultLable = new Label("Results:");
         resultLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
@@ -71,9 +71,7 @@ public class SimulationView extends View{
         runSimBtn.setOnAction((event -> {
             SimulationType strategy = (SimulationType)strategyCB.getValue();
             Simulation.StepTypes stepType = (Simulation.StepTypes)stepCB.getValue();
-            float percent = Float.parseFloat(percentageTF.getText());
-            percent = percent/100;
-
+            float percent = Float.parseFloat(percentageTF.getText()) / 100;
             int steps = Integer.parseInt(numberOfStepsTF.getText());
 
             //create a marketSimulator
@@ -88,15 +86,35 @@ public class SimulationView extends View{
             }
             resultSP.setContent(valueVB);
 
+            //create a next simulation button
             Button nextSimButton = new Button("Next Simulation");
             nextSimButton.setOnAction((nextEvent -> {
-//                ArrayList<Float> values = marketSimulator.runSimulation(percent, steps, stepType, strategy);
+                SimulationType nextStrategy = (SimulationType)strategyCB.getValue();
+                Simulation.StepTypes nextStepType = (Simulation.StepTypes)stepCB.getValue();
+                float nextPercent = Float.parseFloat(percentageTF.getText()) / 100;
+                int nextSteps = Integer.parseInt(numberOfStepsTF.getText());
 
+
+                ArrayList<Float> nextValues = marketSimulator.runSimulation(nextPercent, nextSteps, nextStepType, nextStrategy);
+                valueVB.getChildren().add(new Text("--- New " + nextStrategy + " Simulation ---"));
+                for (int i = 0; i < nextValues.size(); i++) {
+                    Text value = new Text("Value at step " + (i + 1) + " = $" + nextValues.get(i));
+                    valueVB.getChildren().add(value);
+                }
+
+                //create a previous simulation button
+                Button previousSimButton = new Button("Previous Simulation");
+                previousSimButton.setOnAction((prevEvent -> {
+                    float value = marketSimulator.popMemento();
+                    valueVB.getChildren().add(new Text("--- Back to Previous Simulation ---"));
+                    valueVB.getChildren().add(new Text("Value = " + value));
+                }));
+                grid.add(previousSimButton, 0, 7);
             }));
-                grid.add(nextSimButton, 0, 6);
+            grid.add(nextSimButton, 0, 6);
 
         }));
-        grid.add(runSimBtn, 0, 5); //TODO
+        grid.add(runSimBtn, 0, 5);
 
         primaryStage.setScene(scene);
     }
