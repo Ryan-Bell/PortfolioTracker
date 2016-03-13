@@ -93,6 +93,12 @@ public class View implements Observer{
 
         }));
 
+        Button importView = new Button("Import View");
+        importView.setOnAction((event -> {
+            context.setView(context.getImportView());
+
+        }));
+
         grid.add(toolbar, 0, 0);
         borderPane.setCenter(grid);
 
@@ -101,7 +107,7 @@ public class View implements Observer{
         borderPane.setAlignment(pageTitle, Pos.TOP_CENTER);
 
 
-        VBox menu = new VBox(save,logout, portView, marketView, simView);
+        VBox menu = new VBox(save,logout, portView, marketView, simView, importView);
         menu.setPadding(new Insets(10,10,10,10));
         menu.setSpacing(10);
 

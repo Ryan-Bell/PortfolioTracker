@@ -195,11 +195,6 @@ public class MarketView extends View {
             fieldBox.getChildren().addAll(numShares,buyingAccount);
 
             Button buy = new Button("Buy"); //TODO Test buy functionality
-           /* buy.setOnAction(event -> {
-                context.getPortfolio().buyEquity(e,10);
-                System.out.println("Bought 10 shares of" + e.getName());
-            });*/
-
             buy.setOnAction((event -> {
                 //Get selected row and find row associated with user input for deposit target
 

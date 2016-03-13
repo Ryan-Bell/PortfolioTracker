@@ -21,6 +21,7 @@ public class Context extends Application{
     private PortfolioView portfolioView;
     private SimulationView simulationView;
     private MarketView marketView;
+    private ImportView importView;
 
     //Collection of Models
     private UserAuthentication userAuthentication;
@@ -47,11 +48,12 @@ public class Context extends Application{
         market = new Market();
         parser = new Parser(market, "./market.csv");
 
-        //Create necessary view
+        //Create necessary views
         portfolioView = new PortfolioView();
         simulationView = new SimulationView();
         marketView = new MarketView();
         loginView = new LoginView();
+        importView = new ImportView();
 
         //run the parser on the csv to fill out the market object
 
@@ -100,6 +102,8 @@ public class Context extends Application{
     public Portfolio getPortfolio() {
         return portfolio;
     }
+
+    public ImportView getImportView(){return importView;}
 
 
 }
