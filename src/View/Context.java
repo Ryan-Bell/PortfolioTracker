@@ -2,7 +2,6 @@ package View;
 
 import Market.Market;
 import Market.Parser;
-import MarketSimulation.Simulation;
 import Portfolio.UserAuthentication;
 import javafx.application.Application;
 import javafx.stage.Stage;

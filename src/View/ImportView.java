@@ -7,14 +7,12 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import Portfolio.Portfolio;
 import Portfolio.HoldingEquity;
-import Portfolio.CashAccount;
 import Transaction.Transaction;
 import java.util.ArrayList;
 

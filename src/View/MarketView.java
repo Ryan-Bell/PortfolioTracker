@@ -1,20 +1,13 @@
 package View;
 
-import Market.Market;
 import Market.Index;
 import Market.MarketEquity;
 import Market.MatchType;
 import Market.QueryType;
-import Portfolio.CashAccount;
 import Transaction.BuyTransaction;
-import Transaction.TransferTransaction;
-import com.sun.javafx.font.freetype.HBGlyphLayout;
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -22,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
