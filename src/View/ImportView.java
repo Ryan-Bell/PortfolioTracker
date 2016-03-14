@@ -16,12 +16,12 @@ import Portfolio.HoldingEquity;
 import Transaction.Transaction;
 import Transaction.BuyTransaction;
 import Transaction.AddCashAccTransaction;
-import Transaction.SellTransaction;
 import Transaction.DepositTransaction;
 import java.util.ArrayList;
 
 /**
- * The view for the simulations.
+ * Displays information about importing a portfolio's holdings
+ * and transactions.
  */
 public class ImportView extends View{
     ArrayList<String> results;
