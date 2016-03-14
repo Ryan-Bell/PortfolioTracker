@@ -144,7 +144,6 @@ public class Portfolio extends Observable implements Serializable  {
         return value;
     }
 
-
     /**
      * Static method that handles reading in portfolio objects from file
      * @param fileName the file to read in
