@@ -14,6 +14,10 @@ import javafx.scene.text.Text;
 import Portfolio.Portfolio;
 import Portfolio.HoldingEquity;
 import Transaction.Transaction;
+import Transaction.BuyTransaction;
+import Transaction.AddCashAccTransaction;
+import Transaction.SellTransaction;
+import Transaction.DepositTransaction;
 import java.util.ArrayList;
 
 /**
@@ -59,7 +63,8 @@ public class ImportView extends View{
                         }
                     }
                     if(equityDoesntExist){
-                        context.getPortfolio().buyEquity(equity, equity.getNumShares());
+                        BuyTransaction buyTransaction = new BuyTransaction(equity,equity.getNumShares(), context.getPortfolio(), null);
+                        buyTransaction.execute();
                         resultsDescription.add("Added "+equity.getNumShares()+" shares of "+equity.getName());
                     }
                 }
@@ -80,7 +85,8 @@ public class ImportView extends View{
                         }
                     }
                     if(accountDoesntExist){
-                        context.getPortfolio().addCashAccount(account.getName(),account.getBalance());
+                        AddCashAccTransaction addCashTransaction = new AddCashAccTransaction(account.getName(),account.getBalance(), context.getPortfolio());
+                        addCashTransaction.execute();
                         resultsDescription.add("Added Cash Account '"+account.getName()+"' with balance of "+account.getBalance());
                     }
                 }
@@ -124,7 +130,8 @@ public class ImportView extends View{
 
             Button merge = new Button("Merge");
             merge.setOnAction((event -> {
-                existingAccounts.get(currentIndex).setBalance(conflictAccounts.get(currentIndex).getBalance() + existingAccounts.get(currentIndex).getBalance());
+                DepositTransaction mergeTransaction = new DepositTransaction(existingAccounts.get(currentIndex), conflictAccounts.get(currentIndex).getBalance());
+                mergeTransaction.execute();
 
                 resultsDescription.add("Merged Cash Accounts '"+conflictAccounts.get(currentIndex).getName()+"'");
                 conflictAccounts.remove(currentIndex);
@@ -133,7 +140,8 @@ public class ImportView extends View{
             Button replace = new Button("Replace");
             replace.setOnAction((event -> {
                 context.getPortfolio().removeCashAccount(existingAccounts.get(currentIndex));
-                context.getPortfolio().addCashAccount(conflictAccounts.get(currentIndex).getName(),conflictAccounts.get(currentIndex).getBalance() );
+                AddCashAccTransaction addCashTransaction = new AddCashAccTransaction(conflictAccounts.get(currentIndex).getName(),conflictAccounts.get(currentIndex).getBalance(), context.getPortfolio());
+                addCashTransaction.execute();
 
                 resultsDescription.add("Replaced Cash Account '"+conflictAccounts.get(currentIndex).getName()+"'");
                 conflictAccounts.remove(currentIndex);
