@@ -214,11 +214,14 @@ public class PortfolioView extends View {
 
         Button addCashAccount = new Button ("Deposit into new Account");
         addCashAccount.setOnAction((event -> {
-            if(newCashName != null) {
+            if(newCashName.getText() != null) {
                 try {
-                    AddCashAccTransaction addAccountTransaction = new AddCashAccTransaction(newCashName.getText(), Float.parseFloat((newCashBalance).getText()), context.getPortfolio());
-                    addAccountTransaction.execute();
-                    context.getPortfolio().addTransaction(addAccountTransaction);
+                    float balance = Float.parseFloat((newCashBalance).getText());
+                    if (balance >= 0) {
+                        AddCashAccTransaction addAccountTransaction = new AddCashAccTransaction(newCashName.getText(), balance, context.getPortfolio());
+                        addAccountTransaction.execute();
+                        context.getPortfolio().addTransaction(addAccountTransaction);
+                    }
                 } catch (NumberFormatException e) {
 
                 }
