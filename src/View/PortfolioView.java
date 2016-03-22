@@ -232,7 +232,29 @@ public class PortfolioView extends View {
         HBox labelBox = new HBox();
         labelBox.getChildren().addAll(newCashName, newCashBalance, addCashAccount);
 
-        tableContainer.getChildren().addAll(tableLabel, table, labelBox);
+
+        TextField removeCashName = new TextField();
+        removeCashName.setPromptText("Target Name");
+        removeCashName.setPrefWidth(100);
+
+        Button removeCashAccount = new Button ("Remove Account");
+        removeCashAccount.setOnAction((event -> {
+            if(removeCashName.getText() != null) {
+                int withdrawTargetIndex = -1;
+                for(int i = 0; i < context.getPortfolio().getCashAccounts().size(); i++){
+                    if(context.getPortfolio().getCashAccounts().get(i).getName().equals(removeCashName.getText())){
+                        context.getPortfolio().removeCashAccount(context.getPortfolio().getCashAccounts().get(i));
+
+                        break;
+                    }
+                }
+            }
+        }));
+        removeCashAccount.setMinWidth(100);
+        HBox removeBox = new HBox();
+        removeBox.getChildren().addAll(removeCashName, removeCashAccount);
+
+        tableContainer.getChildren().addAll(tableLabel, table, labelBox, removeBox);
 
         //Create a side bar for completing transactions
         Label sideLabel = new Label("Transactions");
