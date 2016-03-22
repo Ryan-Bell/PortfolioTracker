@@ -173,7 +173,6 @@ public class MarketView extends View {
 
 
         for (MarketEquity e : common) {
-            //System.out.println(common);
             Label equity = new Label(e.getName());
 
 
@@ -186,7 +185,7 @@ public class MarketView extends View {
             HBox fieldBox = new HBox();
             fieldBox.getChildren().addAll(numShares,buyingAccount);
 
-            Button buy = new Button("Buy"); //TODO Test buy functionality
+            Button buy = new Button("Buy");
             buy.setOnAction((event -> {
                 //Get selected row and find row associated with user input for deposit target
 
@@ -199,18 +198,21 @@ public class MarketView extends View {
                 if(withdrawTargetIndex >=0) {
                     try {
                         int sharesInt = Integer.parseInt(numShares.getText());
-                        BuyTransaction buyTransaction = new BuyTransaction(e,sharesInt,context.getPortfolio(),context.getPortfolio().getCashAccounts().get(withdrawTargetIndex));
-                        buyTransaction.execute();
-                        context.getPortfolio().addTransaction(buyTransaction);
-
+                        if (sharesInt > 0) {
+                            BuyTransaction buyTransaction = new BuyTransaction(e, sharesInt, context.getPortfolio(), context.getPortfolio().getCashAccounts().get(withdrawTargetIndex));
+                            buyTransaction.execute();
+                            context.getPortfolio().addTransaction(buyTransaction);
+                        }
                     } catch (NumberFormatException exception) {
                     }
                 }
                 else{
                     int sharesInt = Integer.parseInt(numShares.getText());
-                    BuyTransaction buyTransaction = new BuyTransaction(e,sharesInt,context.getPortfolio(),null);
-                    buyTransaction.execute();
-                    context.getPortfolio().addTransaction(buyTransaction);
+                    if (sharesInt > 0) {
+                        BuyTransaction buyTransaction = new BuyTransaction(e, sharesInt, context.getPortfolio(), null);
+                        buyTransaction.execute();
+                        context.getPortfolio().addTransaction(buyTransaction);
+                    }
                 }
             }));
 
