@@ -16,7 +16,7 @@ public class Index extends MarketEquity {
     public Index(String name){
         this.value = 0;
         this.name = name;
-
+        this.tickerSymbol = "";
         this.children = new ArrayList<>();
     }
 

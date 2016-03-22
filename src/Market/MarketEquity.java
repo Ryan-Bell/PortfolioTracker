@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class MarketEquity implements Serializable{
     protected String name;
     protected float value;
+    protected String tickerSymbol;
 
     /**
      * Gets the value of this Equity
@@ -19,7 +20,7 @@ public class MarketEquity implements Serializable{
         return value;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+
+    public String getTickerSymbol() { return tickerSymbol; }
 }

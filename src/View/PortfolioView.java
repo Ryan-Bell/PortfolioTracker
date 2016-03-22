@@ -89,6 +89,10 @@ public class PortfolioView extends View {
         dynamicContent.add(table);
 
         //Create property columns
+        TableColumn equityTicker = new TableColumn("Ticker");
+        equityTicker.setCellValueFactory(
+                new PropertyValueFactory<>("tickerSymbol")
+        );
         TableColumn equityName = new TableColumn("Equity Name");
         equityName.setCellValueFactory(
                 new PropertyValueFactory<>("name")
@@ -109,7 +113,7 @@ public class PortfolioView extends View {
         priceShare.setCellValueFactory(
                 new PropertyValueFactory<>("pricePerShare")
         );
-        table.getColumns().addAll(equityName, equityValue, equityDate, numShares, priceShare);
+        table.getColumns().addAll(equityTicker, equityName, equityValue, equityDate, numShares, priceShare);
 
         //Fill table using a ObservableList copy of portfolio's equities list
         table.setItems(FXCollections.observableList(context.getPortfolio().getHoldingEquities()));
