@@ -145,13 +145,14 @@ public class PortfolioView extends View {
             if(currentSelection >=0 && depositTargetIndex >=0) {
                 try {
                     int amount = Integer.parseInt(sellAmt.getText());
-                    HoldingEquity sellTarget = context.getPortfolio().getHoldingEquities().get(currentSelection);
-                    CashAccount depositTarget = context.getPortfolio().getCashAccounts().get(depositTargetIndex);
+                    if(amount > 0) {
+                        HoldingEquity sellTarget = context.getPortfolio().getHoldingEquities().get(currentSelection);
+                        CashAccount depositTarget = context.getPortfolio().getCashAccounts().get(depositTargetIndex);
 
-                    SellTransaction sellTransaction = new SellTransaction(sellTarget,amount,context.getPortfolio(), depositTarget);
-                    sellTransaction.execute();
-                    context.getPortfolio().addTransaction(sellTransaction);
-
+                        SellTransaction sellTransaction = new SellTransaction(sellTarget, amount, context.getPortfolio(), depositTarget);
+                        sellTransaction.execute();
+                        context.getPortfolio().addTransaction(sellTransaction);
+                    }
                 } catch (NumberFormatException e) {
                 }
             }
