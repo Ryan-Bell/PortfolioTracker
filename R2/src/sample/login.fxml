@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TextField layoutX="74.0" layoutY="121.0" promptText="Username" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="120.0" />
+                  <PasswordField promptText="Password" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="170.0" />
+                  <Label layoutX="114.0" layoutY="14.0" text="Log In">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="172.0" layoutY="213.0" mnemonicParsing="false" text="Log In" />
+                  <Label layoutX="74.0" layoutY="103.0" text="" textFill="RED" />
+                  <Label layoutX="74.0" layoutY="153.0" text="" textFill="RED" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TextField promptText="Username" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="120.0" />
+                  <PasswordField promptText="Password" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="170.0" />
+                  <Label layoutX="103.0" layoutY="14.0" text="Register">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <PasswordField promptText="Password Confirm" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="220.0" />
+                  <Button layoutX="163.0" layoutY="266.0" mnemonicParsing="false" text="Register" />
+                  <Label layoutX="74.0" layoutY="153.0" text="" textFill="RED" />
+                  <Label layoutX="74.0" layoutY="103.0" text="" textFill="RED" />
+                  <Label layoutX="74.0" layoutY="203.0" text="" textFill="RED" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
