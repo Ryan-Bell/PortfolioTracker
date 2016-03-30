@@ -6,14 +6,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        primaryStage.setTitle("Welcome");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+            primaryStage.setTitle("Welcome");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
