@@ -65,23 +65,28 @@
           </Tab>
           <Tab text="Market">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <fx:include fx:id="market" source="market.fxml"/>
             </content>
           </Tab>
             <Tab text="Simulation">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                   <fx:include fx:id="simulation" source="simulation.fxml"/>
                </content>
             </Tab>
             <Tab text="Watchlist">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                   <fx:include fx:id="watchlist" source="watchlist.fxml"/>
                </content>
             </Tab>
-            <Tab text="Transactions">
+            <Tab text="Transactions Log">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                   <fx:include fx:id="transactionlog" source="transactionlog.fxml"/>
                </content>
+            </Tab>
+            <Tab text="Import">
+                <content>
+                    <fx:include fx:id="import" source="import.fxml"/>
+                </content>
             </Tab>
         </tabs>
       </TabPane>
