@@ -1,9 +1,8 @@
 package Controllers;
 
 import Models.FXMLLoaderExtended;
+import Models.Portfolio;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -18,6 +17,12 @@ public class Main extends Application {
     //save the views so only one of each is created
     private Scene loginView;
     private Scene portfolioView;
+
+    //Save reference to the portfolio object for all of the other views
+    private Portfolio portfolio;
+
+    public Portfolio getPortfolio(){return portfolio;}
+    public void setPortfolio(Portfolio portfolio){this.portfolio = portfolio;}
 
     @Override
     public void start(Stage primaryStage) throws Exception{

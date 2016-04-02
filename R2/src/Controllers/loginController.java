@@ -67,8 +67,7 @@ public class LoginController extends ViewController implements Initializable  {
         //check to make sure that the user id doesn't already exist
         if (portfolio == null){
             if (registerPasswordField.getText().equals(registerConfirmField.getText())){
-                //TODO create new portfolio
-                //TODO send to new portfolio
+                main.setPortfolio(new Portfolio(authentication.hash(registerPasswordField.getText()), registerUsernameField.getText()));
                 main.showPortfolio();
 
             } else {
@@ -93,7 +92,8 @@ public class LoginController extends ViewController implements Initializable  {
         if (portfolio != null){
             //if entered password and portfolio password match
             if (authentication.checkPassword(loginPasswordField.getText(),portfolio.getPassword())){
-                //TODO send to portfolio
+                main.setPortfolio(portfolio);
+                main.showPortfolio();
             }
             else{
                 loginStatusLabel.setText("Incorrect Password");
