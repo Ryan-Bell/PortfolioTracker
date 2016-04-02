@@ -1,5 +1,7 @@
 package Market;
 
+import WebService.RequestYahooAPI;
+
 import java.util.ArrayList;
 
 /**
@@ -178,12 +180,14 @@ public class Market {
 
     public void updateEquities(){
 
-        ArrayList<MarketEquity> newValues = new ArrayList<MarketEquity>(); //CHANGE THIS! Set newValues using requestAPI
+        ArrayList<MarketEquity> newValues = new RequestYahooAPI(marketEquities).getUpdatedMarketEquities();
         EquityUpdateVisitor updateVisitor = new EquityUpdateVisitor(newValues);
 
         for (MarketEquity equity: marketEquities) {
+            System.out.print("Name: "+equity.getName() + " Old Value: "+equity.getValue());
             if(equity instanceof MarketAverage) ((MarketAverage)equity).accept(updateVisitor);
             else if(equity instanceof Equity) ((Equity)equity).accept(updateVisitor);
+            System.out.println(" New Value: "+equity.getValue());
         }
     }
 }

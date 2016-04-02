@@ -36,6 +36,13 @@ public class PortfolioView extends View {
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
+        Button testButton = new Button("Test Market");
+        testButton.setOnAction((event -> {
+            context.getMarket().updateEquities();
+        }));
+        grid.add(testButton, 0, 1);
+
+
 
         grid.add(displayCashAccounts(), 0, 2);
         grid.add(displayEquities(), 0, 3);
