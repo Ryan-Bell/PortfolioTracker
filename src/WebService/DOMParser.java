@@ -45,9 +45,13 @@ public class DOMParser {
 
                     if (cNode instanceof Element) {
 
-                        float updatedValue = Float.parseFloat(cNode.getLastChild().getTextContent().trim());
-
-                        MarketEquity updatedEquity = new MarketEquity(tickerSymbol, updatedValue, "");
+                        float updatedValue = -1;
+                        try {
+                            updatedValue = Float.parseFloat(cNode.getLastChild().getTextContent().trim());
+                        } catch (Exception e) {
+//                            System.out.println("DOMParser " + e.getMessage());
+                        }
+                        MarketEquity updatedEquity = new MarketEquity("", updatedValue, tickerSymbol);
                         YQLMarketEquities.add(updatedEquity);
                     }
                 }

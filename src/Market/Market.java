@@ -74,6 +74,9 @@ public class Market {
         return "Done";
     }
 
+    public ArrayList<MarketEquity> getMarketEquities() {
+        return marketEquities;
+    }
 
     /**
      * Searches the marketEquities Array to return
@@ -184,10 +187,10 @@ public class Market {
         EquityUpdateVisitor updateVisitor = new EquityUpdateVisitor(newValues);
 
         for (MarketEquity equity: marketEquities) {
-            System.out.print("Name: "+equity.getName() + " Old Value: "+equity.getValue());
+//            System.out.print("Name: "+equity.getName() + " Old Value: "+equity.getValue());
             if(equity instanceof MarketAverage) ((MarketAverage)equity).accept(updateVisitor);
             else if(equity instanceof Equity) ((Equity)equity).accept(updateVisitor);
-            System.out.println(" New Value: "+equity.getValue());
+//            System.out.println(" New Value: "+equity.getValue());
         }
     }
 }

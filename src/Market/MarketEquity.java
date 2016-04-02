@@ -33,4 +33,13 @@ public class MarketEquity implements Serializable{
     public String getTickerSymbol() { return tickerSymbol; }
 
     public void accept(EquityVisitor visitor){}
+
+    @Override
+    public String toString() {
+        return "MarketEquity{" +
+                "name='" + name + '\'' +
+                ", value=" + value +
+                ", tickerSymbol='" + tickerSymbol + '\'' +
+                '}';
+    }
 }
