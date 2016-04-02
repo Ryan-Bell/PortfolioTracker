@@ -19,12 +19,10 @@ public class HoldingEquity extends MarketEquity implements Serializable{
      * @param pricePerShare     the value of each share
      */
     public HoldingEquity(int numShares, float pricePerShare, String name, String ticker) {
+        super(name, pricePerShare * numShares, ticker);
         this.numShares = numShares;
         this.datePurchased = LocalDateTime.now();
         this.pricePerShare = pricePerShare;
-        this.name = name;
-        this.value = pricePerShare * numShares;
-        this.tickerSymbol = ticker;
     }
 
     public String getName() {

@@ -1,6 +1,6 @@
 package View;
 
-import Market.Index;
+import Market.MarketAverage;
 import Market.MarketEquity;
 import Market.MatchType;
 import Market.QueryType;
@@ -244,7 +244,7 @@ public class MarketView extends View {
             }
         }
         for (MarketEquity equityIndex: searchResultsIndex) {
-            if(equityIndex instanceof Index){
+            if(equityIndex instanceof MarketAverage){
                 common.add(equityIndex);
             }
         }
