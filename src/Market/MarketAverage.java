@@ -14,9 +14,7 @@ public class MarketAverage extends MarketEquity {
      * Constructor
      */
     public MarketAverage(String name){
-        this.value = 0;
-        this.name = name;
-        this.tickerSymbol = "";
+        super(name, 0, "");
         this.children = new ArrayList<>();
     }
 

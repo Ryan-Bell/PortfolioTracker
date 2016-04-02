@@ -12,6 +12,12 @@ public class MarketEquity implements Serializable{
     protected float value;
     protected String tickerSymbol;
 
+    public MarketEquity(String name, float value, String tickerSymbol) {
+        this.name = name;
+        this.value = value;
+        this.tickerSymbol = tickerSymbol;
+    }
+
     /**
      * Gets the value of this Equity
      * @return  value   the value of this Equity
