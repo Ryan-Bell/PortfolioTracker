@@ -2,6 +2,7 @@ package Controllers;
 
 //region imports
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,30 +13,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 //endregion
 
-public class loginController implements Initializable{
+public class LoginController implements Initializable{
     //region FXMLFields
     //declare fxml elements for the login pane
-    @FXML
-    private TextField loginUsernameField;
-
-    @FXML
-    private PasswordField loginPasswordField;
-
-    @FXML
-    private Button loginButton;
+    @FXML public TextField loginUsernameField;
+    @FXML private PasswordField loginPasswordField;
+    @FXML private Button loginButton;
 
     //declare fxml elements for the registration pane
-    @FXML
-    private TextField registerUsernameField;
-
-    @FXML
-    private PasswordField registerPasswordField;
-
-    @FXML
-    private PasswordField registerConfirmField;
-
-    @FXML
-    private Button registerButton;
+    @FXML private TextField registerUsernameField;
+    @FXML private PasswordField registerPasswordField;
+    @FXML private PasswordField registerConfirmField;
+    @FXML private Button registerButton;
     //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -53,6 +42,14 @@ public class loginController implements Initializable{
         assert registerButton != null : "fx:id=\"registerButton\" was not injected: check the associated fxml file";
 
         // all @FXML variables will have been injected
-        System.out.println("The FXML has been initialized");
+    }
+
+    @FXML
+    public void handlePasswordMatch() {
+        if (registerPasswordField.getText().equals(registerConfirmField.getText())){
+
+        } else {
+
+        }
     }
 }
