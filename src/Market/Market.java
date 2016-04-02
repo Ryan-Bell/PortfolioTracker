@@ -175,4 +175,15 @@ public class Market {
         //System.out.println(results);
         return results;
     }
+
+    public void updateEquities(){
+
+        ArrayList<MarketEquity> newValues = new ArrayList<MarketEquity>(); //CHANGE THIS! Set newValues using requestAPI
+        EquityUpdateVisitor updateVisitor = new EquityUpdateVisitor(newValues);
+
+        for (MarketEquity equity: marketEquities) {
+            if(equity instanceof MarketAverage) ((MarketAverage)equity).accept(updateVisitor);
+            else if(equity instanceof Equity) ((Equity)equity).accept(updateVisitor);
+        }
+    }
 }
