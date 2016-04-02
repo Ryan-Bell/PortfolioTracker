@@ -1,7 +1,5 @@
 package Controllers;
 
-
-
 //region imports
 
 import javafx.event.ActionEvent;
@@ -19,7 +17,7 @@ import Models.Portfolio;
 import Models.PortfolioIO;
 //endregion
 
-public class LoginController implements Initializable{
+public class LoginController extends ViewController implements Initializable  {
     //region FXMLFields
     //declare fxml elements for the login pane
     @FXML public TextField loginUsernameField;
@@ -54,15 +52,13 @@ public class LoginController implements Initializable{
 
         // all @FXML variables will have been injected
 
-        setupAuthentication();
-
+        setup();
     }
 
-    private void setupAuthentication(){
+    private void setup(){
         authentication = new UserAuthentication();
         portfolioIO = new PortfolioIO();
     }
-
 
     @FXML
     public void handleRegister() {
@@ -73,6 +69,7 @@ public class LoginController implements Initializable{
             if (registerPasswordField.getText().equals(registerConfirmField.getText())){
                 //TODO create new portfolio
                 //TODO send to new portfolio
+                main.showPortfolio();
 
             } else {
                 registerStatusLabel.setText("Password does not match");
