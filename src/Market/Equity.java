@@ -64,4 +64,9 @@ public class Equity extends MarketEquity implements Serializable {
     public String toString(){
         return "Ticker: " + getTickerSymbol() + "\tName: " + getName() + "\tValue: " + getValue();
     }
+
+    @Override
+    public void accept(EquityVisitor visitor){
+        visitor.visit(this);
+    }
 }

@@ -20,7 +20,11 @@ public class MarketEquity implements Serializable{
         return value;
     }
 
+    public void setValue(float newValue){value = newValue;}
+
     public String getName() { return name; }
 
     public String getTickerSymbol() { return tickerSymbol; }
+
+    public void accept(EquityVisitor visitor){}
 }

@@ -1,5 +1,6 @@
 package Portfolio;
 
+import Market.EquityVisitor;
 import Market.MarketEquity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -57,4 +58,9 @@ public class HoldingEquity extends MarketEquity implements Serializable{
     }
 
     public String getTickerSymbol(){return tickerSymbol;}
+
+    @Override
+    public void accept(EquityVisitor visitor){
+        visitor.visit(this);
+    }
 }

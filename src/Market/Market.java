@@ -41,24 +41,24 @@ public class Market {
             marketEquities.add(newEquity);
             if(sector != null){
                 if (!indexNames.contains(sector)){
-                    newIndex = new Index(sector);
+                    newIndex = new MarketAverage(sector);
                     marketEquities.add(newIndex);
-                    ((Index) newIndex).addChildren(newEquity);
+                    ((MarketAverage) newIndex).addChildren(newEquity);
                     indexNames.add(sector);
                     indexes.add(newIndex);
                 } else {
-                    ((Index)indexes.get(indexNames.indexOf(sector))).addChildren(newEquity);
+                    ((MarketAverage)indexes.get(indexNames.indexOf(sector))).addChildren(newEquity);
                 }
             }
             if(index != null){
                 if (!indexNames.contains(index)){
-                    newIndex = new Index(index);
+                    newIndex = new MarketAverage(index);
                     marketEquities.add(newIndex);
-                    ((Index) newIndex).addChildren(newEquity);
+                    ((MarketAverage) newIndex).addChildren(newEquity);
                     indexNames.add(index);
                     indexes.add(newIndex);
                 } else {
-                    ((Index)indexes.get(indexNames.indexOf(index))).addChildren(newEquity);
+                    ((MarketAverage)indexes.get(indexNames.indexOf(index))).addChildren(newEquity);
                 }
             }
         }
@@ -150,7 +150,7 @@ public class Market {
                                 break;
                         }
                     }
-                    if (equity instanceof Index) {
+                    if (equity instanceof MarketAverage) {
                         switch (matchType) {
                             case EXACT:
                                 if (equity.name.toLowerCase().equals(query.toLowerCase())) {
