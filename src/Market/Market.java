@@ -188,9 +188,12 @@ public class Market {
 
         for (MarketEquity equity: marketEquities) {
 //            System.out.print("Name: "+equity.getName() + " Old Value: "+equity.getValue());
+            float o = equity.getValue();
+
             if(equity instanceof MarketAverage) ((MarketAverage)equity).accept(updateVisitor);
             else if(equity instanceof Equity) ((Equity)equity).accept(updateVisitor);
-//            System.out.println(" New Value: "+equity.getValue());
+
+            System.out.println("Difference " + (equity.getValue() - o));
         }
     }
 }
