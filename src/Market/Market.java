@@ -3,6 +3,7 @@ package Market;
 import WebService.RequestYahooAPI;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Holds all the information related to
@@ -183,7 +184,7 @@ public class Market {
 
     public void updateEquities(){
 
-        ArrayList<MarketEquity> newValues = new RequestYahooAPI(marketEquities).getUpdatedMarketEquities();
+        HashMap<String, Float> newValues = new RequestYahooAPI(marketEquities).getUpdatedMarketEquities();
         EquityUpdateVisitor updateVisitor = new EquityUpdateVisitor(newValues);
 
         for (MarketEquity equity: marketEquities) {
