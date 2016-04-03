@@ -1,12 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MarketController">
    <children>
-      <Label text="Market Stuff Here" />
+      <Label text="Market Search">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <HBox spacing="10.0">
+         <children>
+            <Label prefWidth="125.0" text="Ticker" />
+            <MenuButton fx:id="tickerQueryType" mnemonicParsing="false" text="Select Query Type">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Exact" />
+                <MenuItem mnemonicParsing="false" text="Begin" />
+                  <MenuItem mnemonicParsing="false" text="Contains" />
+              </items>
+            </MenuButton>
+            <TextField fx:id="tickerSearchField" promptText="Enter Ticker Symbol" />
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="47.0" spacing="10.0">
+         <children>
+            <Label prefWidth="125.0" text="Name" />
+            <MenuButton fx:id="nameQueryType" mnemonicParsing="false" text="Select Query Type">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Exact" />
+                  <MenuItem mnemonicParsing="false" text="Begin" />
+                  <MenuItem mnemonicParsing="false" text="Contains" />
+               </items>
+            </MenuButton>
+            <TextField fx:id="nameSearchField" promptText="Enter Name" />
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="98.0" spacing="10.0">
+         <children>
+            <Label prefWidth="125.0" text="Sector or Index" />
+            <MenuButton fx:id="indexQueryType" mnemonicParsing="false" text="Select Query Type">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Exact" />
+                  <MenuItem mnemonicParsing="false" text="Begin" />
+                  <MenuItem mnemonicParsing="false" text="Contains" />
+               </items>
+            </MenuButton>
+            <TextField fx:id="indexSearchField" promptText="Enter Sector or Index" />
+            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch" prefWidth="100.0" text="Search" />
+         </children>
+      </HBox>
+      <Label text="Results:" />
+      <ListView fx:id="searchResultsField" prefHeight="243.0" prefWidth="780.0" />
+      <HBox spacing="10.0">
+         <children>
+            <TextField fx:id="numberSharesField" promptText="Number of Shares" />
+            <TextField fx:id="cashAccountField" promptText="Enter Cash Account" />
+            <Button fx:id="buyButton" mnemonicParsing="false" onAction="#handleBuy" prefWidth="100.0" text="Buy" />
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </VBox>
