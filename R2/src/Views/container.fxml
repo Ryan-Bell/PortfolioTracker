@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ViewController">
+   <children>
+      <HBox VBox.vgrow="NEVER">
+         <children>
+            <Label text="Financial Portfolio Tracking System">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="378.0" spacing="10.0" HBox.hgrow="NEVER">
+               <children>
+                  <Button fx:id="refreshButton" mnemonicParsing="false" prefWidth="80.0" text="Refresh" HBox.hgrow="NEVER" />
+                  <Button mnemonicParsing="false" prefWidth="80.0" text="Save" />
+                  <Button mnemonicParsing="false" prefWidth="80.0" text="Logout" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Portfolio">
+            <content>
+               <fx:include fx:id="portfolio" source="portfolio.fxml" />
+            </content>
+          </Tab>
+            <Tab text="Import">
+               <content>
+                  <fx:include fx:id="import" source="import.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Market">
+               <content>
+                  <fx:include fx:id="market" source="market.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Simulation">
+               <content>
+                  <fx:include fx:id="simulation" source="simulation.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Transaction Log">
+               <content>
+                  <fx:include fx:id="transactionlog" source="transactionlog.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Watchlist">
+               <content>
+                  <fx:include fx:id="watchlist" source="watchlist.fxml" />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</VBox>

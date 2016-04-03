@@ -54,7 +54,7 @@ public class Main extends Application {
         if(portfolioView == null) {
             ///load up the portfolio page and pass it reference to this class
             try {
-                FXMLLoaderExtended loader = new FXMLLoaderExtended(getClass().getResource("../Views/portfolio.fxml"));
+                FXMLLoaderExtended loader = new FXMLLoaderExtended(getClass().getResource("../Views/container.fxml"));
                 portfolioView = new Scene(loader.load(this));
             } catch (Exception ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
