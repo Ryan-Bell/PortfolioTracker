@@ -11,12 +11,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class DOMParser {
-    public ArrayList<MarketEquity> parseXMLStringToMarketEquityArray(String xmlString) throws Exception {
-        ArrayList<MarketEquity> YQLMarketEquities = new ArrayList<>();
-//        String xmlRecords = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query xmlns:yahoo=\"http://www.yahooapis.com/v1/base.rng\" yahoo:count=\"2\" yahoo:created=\"2016-04-02T20:43:21Z\" yahoo:lang=\"en-US\"><results><quote symbol=\"AAPL\"><LastTradePriceOnly>109.99</LastTradePriceOnly></quote><quote symbol=\"GOOG\"><LastTradePriceOnly>749.91</LastTradePriceOnly></quote></results></query><!-- total: 22 --><!-- main-be5d7b25-f7ca-11e5-bac7-d4ae52974741 -->";
+    public HashMap<String, Float> parseXMLStringToMarketEquityArray(String xmlString) throws Exception {
+        HashMap<String, Float> YQLMarketEquities = new HashMap<>();
 
         //Get the DOM Builder Factory
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -56,8 +56,7 @@ public class DOMParser {
                         } catch (Exception e) {
 //                            System.out.println("DOMParser " + e.getMessage());
                         }
-                        MarketEquity updatedEquity = new MarketEquity("", updatedValue, tickerSymbol);
-                        YQLMarketEquities.add(updatedEquity);
+                        YQLMarketEquities.put(tickerSymbol, updatedValue);
                     }
                 }
             }

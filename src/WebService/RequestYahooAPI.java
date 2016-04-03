@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RequestYahooAPI {
     ArrayList<MarketEquity> marketEquities;
@@ -21,8 +22,8 @@ public class RequestYahooAPI {
         this.xmlBreakPointDefault = this.xmlBreakPoint;
     }
 
-    public ArrayList<MarketEquity> getUpdatedMarketEquities() {
-        ArrayList<MarketEquity> updatedMarketEquities = new ArrayList<>();
+    public HashMap<String, Float> getUpdatedMarketEquities() {
+        HashMap<String, Float> updatedMarketEquities = new HashMap<>();
 
         try {
             int loops = (int)Math.ceil(this.marketEquities.size() / this.xmlBreakPointDefault);
@@ -30,12 +31,10 @@ public class RequestYahooAPI {
             for (int i = 0; i < loops; i++){
                 String xmlString = getXMLStringFromURL();
 
-                for (MarketEquity e : this.XMLParser.parseXMLStringToMarketEquityArray(xmlString)) {
-                    updatedMarketEquities.add(e);
-                }
+                updatedMarketEquities.putAll(this.XMLParser.parseXMLStringToMarketEquityArray(xmlString));
             }
         } catch (Exception e)  {
-            System.out.println("!!! RequestYahooAPI " + e.getMessage());
+            System.out.println("!!! RequestYahooAPI: " + e.getMessage());
         }
 
         return updatedMarketEquities;
