@@ -193,7 +193,7 @@ public class Market {
             if(equity instanceof MarketAverage) ((MarketAverage)equity).accept(updateVisitor);
             else if(equity instanceof Equity) ((Equity)equity).accept(updateVisitor);
 
-            System.out.println("Difference " + (equity.getValue() - o));
+//            System.out.println("Difference " + (equity.getValue() - o));
         }
     }
 }
