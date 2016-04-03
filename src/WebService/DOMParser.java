@@ -32,12 +32,17 @@ public class DOMParser {
         //Iterating through the nodes and extracting the data.
         NodeList nodeList = document.getDocumentElement().getChildNodes();
 
+
+
         for (int i = 0; i < nodeList.getLength(); i++) {
 
             Node node = nodeList.item(i);
             if (node instanceof Element) {
 
                 NodeList childNodes = node.getChildNodes();
+
+                System.out.println("Test "+childNodes.getLength());
+
                 for (int j = 0; j < childNodes.getLength(); j++) {
                     Node cNode = childNodes.item(j);
 

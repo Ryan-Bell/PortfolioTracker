@@ -39,6 +39,7 @@ public class PortfolioView extends View {
         Button testButton = new Button("Test Market");
         testButton.setOnAction((event -> {
             context.getMarket().updateEquities();
+            update(null, null);
         }));
         grid.add(testButton, 0, 1);
 
