@@ -1,14 +1,17 @@
 package UndoRedo;
 
+/**
+ * The interface to make use of the Undo Redo functions.
+ */
 public interface UndoRedo {
 
     /**
-     * run a concrete command
+     * run a command
      */
     void execute();
 
     /**
-     * undo what the command previously did
+     * run the opposite of the command
      */
     void unExecute();
 }
