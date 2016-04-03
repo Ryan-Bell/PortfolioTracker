@@ -4,16 +4,17 @@
 
 package Controllers;
 
-        import java.net.URL;
-        import java.util.ResourceBundle;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.TableColumn;
-        import javafx.scene.control.TextField;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 
-public class PortfolioController {
+public class PortfolioController extends ViewController implements Initializable {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -123,8 +124,8 @@ public class PortfolioController {
 
     }
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
+    @Override // This method is called by the FXMLLoader when initialization is complete
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert newBalanceField != null : "fx:id=\"newBalanceField\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert cashAccountDate != null : "fx:id=\"cashAccountDate\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert withdrawField != null : "fx:id=\"withdrawField\" was not injected: check your FXML file 'portfolio.fxml'.";
