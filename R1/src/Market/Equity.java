@@ -20,9 +20,7 @@ public class Equity extends MarketEquity implements Serializable {
      * @param index         the index the equity belongs to
      */
     public Equity(String tickerSymbol, String name, float value, String sector, String index) {
-        this.tickerSymbol = tickerSymbol;
-        this.name = name;
-        this.value = value;
+        super(name, value, tickerSymbol);
         this.sector = sector;
         this.index = index;
     }
@@ -63,5 +61,10 @@ public class Equity extends MarketEquity implements Serializable {
     @Override
     public String toString(){
         return "Ticker: " + getTickerSymbol() + "\tName: " + getName() + "\tValue: " + getValue();
+    }
+
+    @Override
+    public void accept(EquityVisitor visitor){
+        visitor.visit(this);
     }
 }

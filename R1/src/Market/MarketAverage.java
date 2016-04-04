@@ -7,16 +7,14 @@ import java.util.ArrayList;
  * extends MarketEquity to allow both Indexes
  * and Equities to be treated the same.
  */
-public class Index extends MarketEquity {
+public class MarketAverage extends MarketEquity {
     private ArrayList<MarketEquity> children;
 
     /**
      * Constructor
      */
-    public Index(String name){
-        this.value = 0;
-        this.name = name;
-        this.tickerSymbol = "";
+    public MarketAverage(String name){
+        super(name, 0, "");
         this.children = new ArrayList<>();
     }
 
@@ -30,8 +28,16 @@ public class Index extends MarketEquity {
             //add it to the array
             children.add(child);
 
-            value += child.value;
+            calculateValue();
         }
+    }
+
+    public void calculateValue(){
+        int total = 0;
+        for (MarketEquity child:children) {
+            total += child.getValue();
+        }
+        if(children.size() > 0)value = total/children.size();
     }
 
 
@@ -50,6 +56,11 @@ public class Index extends MarketEquity {
      */
     @Override
     public float getValue() { return value; }
+
+    @Override
+    public void accept(EquityVisitor visitor){
+        visitor.visit(this);
+    }
 
     @Override
     public String toString(){return "Name: " + name + " value:  " + value;}

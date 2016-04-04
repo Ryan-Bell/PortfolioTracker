@@ -4,6 +4,8 @@ import Portfolio.CashAccount;
 import Portfolio.HoldingEquity;
 import Transaction.*;
 import javafx.collections.FXCollections;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -12,7 +14,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Displays information about the user's Portfolio, creates
@@ -36,12 +42,37 @@ public class PortfolioView extends View {
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
+        Button testButton = new Button("Test Market");
+        testButton.setOnAction((event -> {
+
+            ScheduledService<Void> valuesUpdate = new ScheduledService<Void>() {
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        protected Void call(){
+                            context.getMarket().updateEquities();
+                            //update(null, null);
+                            return null;
+                        }
+                    };
+                }
+            };
+            valuesUpdate.setPeriod(Duration.seconds(60));
+            valuesUpdate.start();
+        }));
+
+
+        grid.add(testButton, 0, 1);
+
+
 
         grid.add(displayCashAccounts(), 0, 2);
         grid.add(displayEquities(), 0, 3);
         grid.add(displayTransactionLog(), 0, 4);
 
         primaryStage.setScene(scene);
+    }
+    private void Test(){
+        System.out.println("Testing Update");
     }
 
     private VBox displayTransactionLog(){

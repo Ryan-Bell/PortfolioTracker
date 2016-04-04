@@ -5,12 +5,13 @@ import Transaction.Transaction;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 
 
 /**
  * Contains user equityholdings and cash accounts.
  */
-public class Portfolio extends Observable implements Serializable  {
+public class Portfolio extends Observable implements Observer,Serializable  {
     private ArrayList<HoldingEquity> holdingEquities;
     private ArrayList<CashAccount> cashAccounts;
     private ArrayList<Transaction> transactionLog;
@@ -82,7 +83,7 @@ public class Portfolio extends Observable implements Serializable  {
      */
     public void buyEquity(MarketEquity target, int numShares){
         //add target equity to HoldingEquity with numShares
-        HoldingEquity newEquity = new HoldingEquity(numShares,target.getValue(),target.getName(), target.getTickerSymbol());
+        HoldingEquity newEquity = new HoldingEquity(numShares,target.getValue(),target.getName(), target.getTickerSymbol(), target);
         holdingEquities.add(newEquity);
 
         setChanged();
@@ -138,7 +139,7 @@ public class Portfolio extends Observable implements Serializable  {
         float value = 0;
 
         for (int i = 0; i < holdingEquities.size(); i++) {
-            value += holdingEquities.get(i).getEquityValue();
+            value += holdingEquities.get(i).getValue();
         }
 
         return value;
@@ -173,6 +174,12 @@ public class Portfolio extends Observable implements Serializable  {
         oos.writeObject(obj);
 
         fos.close();
+    }
+
+    @Override
+    public void update(Observable o, Object arg){
+
+
     }
 
 }
