@@ -25,6 +25,7 @@ public class Equity extends MarketEquity implements Serializable {
         this.index = index;
     }
 
+    //region GettersSetters
     /**
      * Gets the value of this Equity
      * @return  value   the value of this Equity
@@ -57,6 +58,7 @@ public class Equity extends MarketEquity implements Serializable {
      * @return the index
      */
     public String getIndex(){return index;}
+    //endregion
 
     @Override
     public String toString(){

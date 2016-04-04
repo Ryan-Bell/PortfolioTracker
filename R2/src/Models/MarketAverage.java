@@ -44,8 +44,7 @@ public class MarketAverage extends MarketEquity {
         if(children.size() > 0)value = total/children.size();
     }
 
-
-
+    //region GettersSetters
     /**
      * Gets the children field
      * @return  children    the array of MarketEquities
@@ -60,6 +59,7 @@ public class MarketAverage extends MarketEquity {
      */
     @Override
     public float getValue() { return value; }
+    //endregion
 
     @Override
     public void accept(EquityVisitor visitor){

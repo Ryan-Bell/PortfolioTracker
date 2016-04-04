@@ -26,6 +26,7 @@ public class MarketEquity implements Serializable{
         this.highTrigger = -1;
     }
 
+    //region GettersSetters
     /**
      * Gets the value of this Equity
      * @return  value   the value of this Equity
@@ -63,11 +64,12 @@ public class MarketEquity implements Serializable{
      * @param lowTrigger the value to set the low trigger at
      */
     public void setLowTrigger(float lowTrigger){this.lowTrigger = lowTrigger;}
-    
+
     /** Sets the high trigger for this equity
      * @param highTrigger the value to set the high trigger at
      */
     public void setHighTrigger(float highTrigger){this.highTrigger = highTrigger;}
+    //endregion
 
     public void accept(EquityVisitor visitor){System.out.println("Market Equity accepts");}
 
