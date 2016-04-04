@@ -28,7 +28,7 @@
                   </Label>
                   <HBox prefHeight="200.0" prefWidth="790.0">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="604.0">
+                        <TableView fx:id="cashAccountTable" prefHeight="200.0" prefWidth="604.0">
                           <columns>
                             <TableColumn fx:id="cashAccountName" prefWidth="259.0" text="Name" />
                             <TableColumn fx:id="cashAccountBalance" prefWidth="156.0" text="Balance" />
@@ -131,7 +131,7 @@
                   </Label>
                   <HBox prefHeight="200.0" prefWidth="790.0">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="756.0">
+                        <TableView fx:id="equityTable" prefHeight="200.0" prefWidth="756.0">
                            <columns>
                               <TableColumn fx:id="equityTicker" prefWidth="50.0" text="Ticker" />
                               <TableColumn fx:id="equityName" prefWidth="141.0" text="Name" />
