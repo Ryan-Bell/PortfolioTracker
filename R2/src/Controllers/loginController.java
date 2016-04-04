@@ -2,7 +2,6 @@ package Controllers;
 
 //region imports
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,9 +11,9 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import Models.UserAuthentication;
-import Models.Portfolio;
-import Models.PortfolioIO;
+import Models.FileIO.UserAuthentication;
+import Models.Portfolio.Portfolio;
+import Models.FileIO.PortfolioIO;
 //endregion
 
 public class LoginController extends ViewController implements Initializable  {

@@ -1,4 +1,4 @@
-package Models;
+package Models.FileIO;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

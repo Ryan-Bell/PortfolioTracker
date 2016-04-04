@@ -1,4 +1,6 @@
-package Models;
+package Models.Market;
+
+import Models.Portfolio.HoldingEquity;
 
 import java.util.HashMap;
 

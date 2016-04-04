@@ -1,4 +1,7 @@
-package Models;
+package Models.Portfolio;
+
+import Models.Market.EquityVisitor;
+import Models.Market.MarketEquity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

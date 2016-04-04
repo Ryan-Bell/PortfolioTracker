@@ -1,4 +1,4 @@
-package Models;
+package Models.Market;
 
 /**
  * Enum to search over.

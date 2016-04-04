@@ -1,4 +1,6 @@
-package Models;
+package Models.WebService;
+
+import Models.Market.MarketEquity;
 
 import java.io.BufferedReader;
 import java.io.IOException;

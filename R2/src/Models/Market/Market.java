@@ -1,4 +1,6 @@
-package Models;
+package Models.Market;
+import Models.WebService.RequestYahooAPI;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

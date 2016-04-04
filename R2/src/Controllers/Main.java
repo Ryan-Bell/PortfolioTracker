@@ -1,7 +1,7 @@
 package Controllers;
 
-import Models.FXMLLoaderExtended;
-import Models.Portfolio;
+import Models.FileIO.FXMLLoaderExtended;
+import Models.Portfolio.Portfolio;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

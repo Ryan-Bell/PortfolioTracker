@@ -1,4 +1,6 @@
-package Models;
+package Models.Market;
+
+import Models.Portfolio.HoldingEquity;
 
 public interface EquityVisitor {
     public void visit(Equity equity);

@@ -1,4 +1,4 @@
-package Models;
+package Models.UndoRedo;
 
 /**
  * The interface to make use of the Undo Redo functions.

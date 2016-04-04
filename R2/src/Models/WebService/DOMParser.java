@@ -1,4 +1,4 @@
-package Models;
+package Models.WebService;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

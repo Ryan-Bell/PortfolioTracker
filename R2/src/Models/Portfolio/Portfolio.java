@@ -1,4 +1,7 @@
-package Models;
+package Models.Portfolio;
+
+import Models.Market.MarketEquity;
+import Models.Transaction.Transaction;
 
 import java.io.Serializable;
 import java.util.ArrayList;

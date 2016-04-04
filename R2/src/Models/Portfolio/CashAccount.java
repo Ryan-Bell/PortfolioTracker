@@ -1,4 +1,4 @@
-package Models;
+package Models.Portfolio;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

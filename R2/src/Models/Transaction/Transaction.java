@@ -1,4 +1,4 @@
-package Models;
+package Models.Transaction;
 
 /**
  * Command Pattern that handles user input related to equityHoldings and
