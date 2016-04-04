@@ -26,11 +26,12 @@ public class ImportController extends ViewController implements Initializable {
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        //region Asserts
         assert importConflictsList != null : "fx:id=\"importConflictsList\" was not injected: check your FXML file 'import.fxml'.";
         assert importResultsList != null : "fx:id=\"importResultsList\" was not injected: check your FXML file 'import.fxml'.";
         assert fileNameField != null : "fx:id=\"fileNameField\" was not injected: check your FXML file 'import.fxml'.";
         assert importButton != null : "fx:id=\"importButton\" was not injected: check your FXML file 'import.fxml'.";
-
+        //endregion
     }
 
     @FXML

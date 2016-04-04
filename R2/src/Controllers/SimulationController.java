@@ -30,13 +30,14 @@ public class SimulationController extends ViewController implements Initializabl
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        //region Asserts
         assert numStepsField != null : "fx:id=\"numStepsField\" was not injected: check your FXML file 'simulation.fxml'.";
         assert stepType != null : "fx:id=\"stepType\" was not injected: check your FXML file 'simulation.fxml'.";
         assert runSimButton != null : "fx:id=\"runSimButton\" was not injected: check your FXML file 'simulation.fxml'.";
         assert simulationType != null : "fx:id=\"simulationType\" was not injected: check your FXML file 'simulation.fxml'.";
         assert percentChangeField != null : "fx:id=\"percentChangeField\" was not injected: check your FXML file 'simulation.fxml'.";
         assert simResultsList != null : "fx:id=\"simResultsList\" was not injected: check your FXML file 'simulation.fxml'.";
-
+        //endregion
     }
 
     @FXML

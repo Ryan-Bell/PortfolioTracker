@@ -33,6 +33,7 @@ public class MarketController extends ViewController implements Initializable {
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        //region Asserts
         assert indexQueryType != null : "fx:id=\"indexQueryType\" was not injected: check your FXML file 'market.fxml'.";
         assert nameQueryType != null : "fx:id=\"nameQueryType\" was not injected: check your FXML file 'market.fxml'.";
         assert searchButton != null : "fx:id=\"searchButton\" was not injected: check your FXML file 'market.fxml'.";
@@ -44,7 +45,7 @@ public class MarketController extends ViewController implements Initializable {
         assert cashAccountField != null : "fx:id=\"cashAccountField\" was not injected: check your FXML file 'market.fxml'.";
         assert buyButton != null : "fx:id=\"buyButton\" was not injected: check your FXML file 'market.fxml'.";
         assert tickerSearchField != null : "fx:id=\"tickerSearchField\" was not injected: check your FXML file 'market.fxml'.";
-
+        //endregion
     }
 
     @FXML

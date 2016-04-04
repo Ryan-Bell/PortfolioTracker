@@ -23,15 +23,16 @@ public class ContainerController extends ViewController implements Initializable
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        //region Asserts
         assert refreshButton != null : "fx:id=\"refreshButton\" was not injected: check your FXML file 'container.fxml'.";
         assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'container.fxml'.";
         assert saveButton != null : "fx:id=\"saveButton\" was not injected: check your FXML file 'container.fxml'.";
-
+        //endregion
     }
 
     @FXML
     void handleRefresh(ActionEvent event) {
-
+        
     }
 
     @FXML
