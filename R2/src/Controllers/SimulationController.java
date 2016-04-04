@@ -17,35 +17,16 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 
 public class SimulationController extends ViewController implements Initializable{
-
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
-
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
-
-    @FXML // fx:id="numStepsField"
-    private TextField numStepsField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="stepType"
-    private MenuButton stepType; // Value injected by FXMLLoader
-
-    @FXML // fx:id="runSimButton"
-    private Button runSimButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="simulationType"
-    private MenuButton simulationType; // Value injected by FXMLLoader
-
-    @FXML // fx:id="percentChangeField"
-    private TextField percentChangeField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="simResultsList"
-    private ListView<?> simResultsList; // Value injected by FXMLLoader
-
-    @FXML
-    void handleRunSim(ActionEvent event) {
-
-    }
+    //region FXMLFields
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private TextField numStepsField;
+    @FXML private MenuButton stepType;
+    @FXML private Button runSimButton;
+    @FXML private MenuButton simulationType;
+    @FXML private TextField percentChangeField;
+    @FXML private ListView<?> simResultsList;
+    //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -55,6 +36,11 @@ public class SimulationController extends ViewController implements Initializabl
         assert simulationType != null : "fx:id=\"simulationType\" was not injected: check your FXML file 'simulation.fxml'.";
         assert percentChangeField != null : "fx:id=\"percentChangeField\" was not injected: check your FXML file 'simulation.fxml'.";
         assert simResultsList != null : "fx:id=\"simResultsList\" was not injected: check your FXML file 'simulation.fxml'.";
+
+    }
+
+    @FXML
+    void handleRunSim(ActionEvent event) {
 
     }
 }

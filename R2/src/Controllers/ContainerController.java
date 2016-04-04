@@ -13,21 +13,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 public class ContainerController extends ViewController implements Initializable{
+    //region FXMLFields
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private Button refreshButton;
+    @FXML private Button logoutButton;
+    @FXML private Button saveButton;
+    //endregion
 
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
+    @Override // This method is called by the FXMLLoader when initialization is complete
+    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+        assert refreshButton != null : "fx:id=\"refreshButton\" was not injected: check your FXML file 'container.fxml'.";
+        assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'container.fxml'.";
+        assert saveButton != null : "fx:id=\"saveButton\" was not injected: check your FXML file 'container.fxml'.";
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
-
-    @FXML // fx:id="refreshButton"
-    private Button refreshButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="logoutButton"
-    private Button logoutButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="saveButton"
-    private Button saveButton; // Value injected by FXMLLoader
+    }
 
     @FXML
     void handleRefresh(ActionEvent event) {
@@ -44,12 +44,5 @@ public class ContainerController extends ViewController implements Initializable
 
     }
 
-    @Override // This method is called by the FXMLLoader when initialization is complete
-    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert refreshButton != null : "fx:id=\"refreshButton\" was not injected: check your FXML file 'container.fxml'.";
-        assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'container.fxml'.";
-        assert saveButton != null : "fx:id=\"saveButton\" was not injected: check your FXML file 'container.fxml'.";
-
-    }
 }
 

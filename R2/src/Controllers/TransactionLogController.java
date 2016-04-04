@@ -1,8 +1,6 @@
 /**
  * Sample Skeleton for 'transactionlog.fxml' Controller Class
  */
-
-
 package Controllers;
 
 import java.net.URL;
@@ -16,29 +14,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 
 public class TransactionLogController extends ViewController implements Initializable{
-
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
-
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
-
-    @FXML // fx:id="endDatePicker"
-    private DatePicker endDatePicker; // Value injected by FXMLLoader
-
-    @FXML // fx:id="startDatePicker"
-    private DatePicker startDatePicker; // Value injected by FXMLLoader
-
-    @FXML // fx:id="transactionList"
-    private ListView<?> transactionList; // Value injected by FXMLLoader
-
-    @FXML // fx:id="filterButton"
-    private Button filterButton; // Value injected by FXMLLoader
-
-    @FXML
-    void handleFilter(ActionEvent event) {
-
-    }
+    //region FXMLFields
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private DatePicker endDatePicker;
+    @FXML private DatePicker startDatePicker;
+    @FXML private ListView<?> transactionList;
+    @FXML private Button filterButton;
+    //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -46,6 +29,11 @@ public class TransactionLogController extends ViewController implements Initiali
         assert startDatePicker != null : "fx:id=\"startDatePicker\" was not injected: check your FXML file 'transactionlog.fxml'.";
         assert transactionList != null : "fx:id=\"transactionList\" was not injected: check your FXML file 'transactionlog.fxml'.";
         assert filterButton != null : "fx:id=\"filterButton\" was not injected: check your FXML file 'transactionlog.fxml'.";
+
+    }
+
+    @FXML
+    void handleFilter(ActionEvent event) {
 
     }
 }

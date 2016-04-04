@@ -1,7 +1,6 @@
 /**
  * Sample Skeleton for 'market.fxml' Controller Class
  */
-
 package Controllers;
 
 import java.net.URL;
@@ -16,55 +15,21 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 
 public class MarketController extends ViewController implements Initializable {
-
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
-
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
-
-    @FXML // fx:id="indexQueryType"
-    private MenuButton indexQueryType; // Value injected by FXMLLoader
-
-    @FXML // fx:id="nameQueryType"
-    private MenuButton nameQueryType; // Value injected by FXMLLoader
-
-    @FXML // fx:id="searchButton"
-    private Button searchButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="tickerQueryType"
-    private MenuButton tickerQueryType; // Value injected by FXMLLoader
-
-    @FXML // fx:id="indexSearchField"
-    private TextField indexSearchField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="nameSearchField"
-    private TextField nameSearchField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="searchResultsField"
-    private ListView<?> searchResultsField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="numberSharesField"
-    private TextField numberSharesField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="cashAccountField"
-    private TextField cashAccountField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="buyButton"
-    private Button buyButton; // Value injected by FXMLLoader
-
-    @FXML // fx:id="tickerSearchField"
-    private TextField tickerSearchField; // Value injected by FXMLLoader
-
-    @FXML
-    void handleSearch(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleBuy(ActionEvent event) {
-
-    }
+    //region FXMLFields
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private MenuButton indexQueryType;
+    @FXML private MenuButton nameQueryType;
+    @FXML private Button searchButton;
+    @FXML private MenuButton tickerQueryType;
+    @FXML private TextField indexSearchField;
+    @FXML private TextField nameSearchField;
+    @FXML private ListView<?> searchResultsField;
+    @FXML private TextField numberSharesField;
+    @FXML private TextField cashAccountField;
+    @FXML private Button buyButton;
+    @FXML private TextField tickerSearchField;
+    //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -79,6 +44,16 @@ public class MarketController extends ViewController implements Initializable {
         assert cashAccountField != null : "fx:id=\"cashAccountField\" was not injected: check your FXML file 'market.fxml'.";
         assert buyButton != null : "fx:id=\"buyButton\" was not injected: check your FXML file 'market.fxml'.";
         assert tickerSearchField != null : "fx:id=\"tickerSearchField\" was not injected: check your FXML file 'market.fxml'.";
+
+    }
+
+    @FXML
+    void handleSearch(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleBuy(ActionEvent event) {
 
     }
 }

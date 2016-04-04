@@ -15,29 +15,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 public class ImportController extends ViewController implements Initializable {
-
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
-
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
-
-    @FXML // fx:id="importConflictsList"
-    private ListView<?> importConflictsList; // Value injected by FXMLLoader
-
-    @FXML // fx:id="importResultsList"
-    private ListView<?> importResultsList; // Value injected by FXMLLoader
-
-    @FXML // fx:id="fileNameField"
-    private TextField fileNameField; // Value injected by FXMLLoader
-
-    @FXML // fx:id="importButton"
-    private Button importButton; // Value injected by FXMLLoader
-
-    @FXML
-    void handleImport(ActionEvent event) {
-
-    }
+    //region FXMLFields
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private ListView<?> importConflictsList;
+    @FXML private ListView<?> importResultsList;
+    @FXML private TextField fileNameField;
+    @FXML private Button importButton;
+    //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -45,6 +30,11 @@ public class ImportController extends ViewController implements Initializable {
         assert importResultsList != null : "fx:id=\"importResultsList\" was not injected: check your FXML file 'import.fxml'.";
         assert fileNameField != null : "fx:id=\"fileNameField\" was not injected: check your FXML file 'import.fxml'.";
         assert importButton != null : "fx:id=\"importButton\" was not injected: check your FXML file 'import.fxml'.";
+
+    }
+
+    @FXML
+    void handleImport(ActionEvent event) {
 
     }
 }
