@@ -24,6 +24,10 @@ public class Main extends Application {
     public Portfolio getPortfolio(){return portfolio;}
     public void setPortfolio(Portfolio portfolio){this.portfolio = portfolio;}
 
+    /** Starts the FXML Application
+     * @param primaryStage the stage to build all the scenes on
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -35,6 +39,10 @@ public class Main extends Application {
         showLogin();
     }
 
+
+    /**
+     * Handles displaying of the login scene and only allows for one instance
+     */
     public void showLogin(){
         if(loginView == null) {
             ///load up the portfolio page and pass it reference to this class
@@ -50,6 +58,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Handles displaying of the portfolio scene and only allows for one instance
+     */
     public void showPortfolio(){
         if(portfolioView == null) {
             ///load up the portfolio page and pass it reference to this class

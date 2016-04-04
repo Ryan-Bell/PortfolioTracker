@@ -32,7 +32,7 @@ public class ContainerController extends ViewController implements Initializable
 
     @FXML
     void handleRefresh(ActionEvent event) {
-        
+
     }
 
     @FXML
