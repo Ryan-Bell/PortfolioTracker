@@ -1,7 +1,5 @@
 package Controllers;
 
-//region imports
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,7 +12,7 @@ import java.util.ResourceBundle;
 import Models.FileIO.UserAuthentication;
 import Models.Portfolio.Portfolio;
 import Models.FileIO.PortfolioIO;
-//endregion
+
 
 public class LoginController extends ViewController implements Initializable  {
     //region FXMLFields
@@ -54,11 +52,19 @@ public class LoginController extends ViewController implements Initializable  {
         setup();
     }
 
+
+    /**
+     * Handles setup of local objects and variables
+     */
     private void setup(){
+        //instantiate instances of the IO objects needed
         authentication = new UserAuthentication();
         portfolioIO = new PortfolioIO();
     }
 
+    /**
+     * Handles the action of hitting the register button
+     */
     @FXML
     public void handleRegister() {
         Portfolio portfolio = portfolioIO.getPOFromId(registerUsernameField.getText());
@@ -84,6 +90,9 @@ public class LoginController extends ViewController implements Initializable  {
 
     }
 
+    /**
+     * Handles the action of hitting the login button
+     */
     @FXML
     public void handleLogin() {
         Portfolio portfolio = portfolioIO.getPOFromId(loginUsernameField.getText());
