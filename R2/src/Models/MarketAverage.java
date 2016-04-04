@@ -10,8 +10,9 @@ import java.util.ArrayList;
 public class MarketAverage extends MarketEquity {
     private ArrayList<MarketEquity> children;
 
-    /**
-     * Constructor
+
+    /** Constructor
+     * @param name the name of the average
      */
     public MarketAverage(String name){
         super(name, 0, "");
@@ -32,6 +33,9 @@ public class MarketAverage extends MarketEquity {
         }
     }
 
+    /**
+     * Calculates the price of this average based on price of children
+     */
     public void calculateValue(){
         int total = 0;
         for (MarketEquity child:children) {

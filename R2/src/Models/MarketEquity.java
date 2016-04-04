@@ -13,6 +13,11 @@ public class MarketEquity implements Serializable{
     protected float lowTrigger;
     protected float highTrigger;
 
+    /** Constructor
+     * @param name the name of the equity
+     * @param value the price of the equity
+     * @param tickerSymbol the ticker symbol of the equity
+     */
     public MarketEquity(String name, float value, String tickerSymbol) {
         this.name = name;
         this.value = value;
@@ -29,18 +34,39 @@ public class MarketEquity implements Serializable{
         return value;
     }
 
-    public void setValue(float newValue){value = newValue;}
-
+    /** Gets the name of this equity
+     * @return the name of this equity
+     */
     public String getName() { return name; }
 
+    /** Gets the ticker of this equity
+     * @return the ticker symbol of this equity
+     */
     public String getTickerSymbol() { return tickerSymbol; }
 
+    /** Gets the low trigger for this equity
+     * @return the low trigger of this equity
+     */
     public float getLowTrigger(){return lowTrigger;}
 
-    public void setLowTrigger(float lowTrigger){this.lowTrigger = lowTrigger;}
-
+    /** Gets the high trigger for this equity
+     * @return the high trigger of this equity
+     */
     public float getHighTrigger(){return highTrigger;}
 
+    /** Sets the value of this equity
+     * @param newValue the value to set the price at
+     */
+    public void setValue(float newValue){value = newValue;}
+
+    /** Sets the low trigger for this equity
+     * @param lowTrigger the value to set the low trigger at
+     */
+    public void setLowTrigger(float lowTrigger){this.lowTrigger = lowTrigger;}
+    
+    /** Sets the high trigger for this equity
+     * @param highTrigger the value to set the high trigger at
+     */
     public void setHighTrigger(float highTrigger){this.highTrigger = highTrigger;}
 
     public void accept(EquityVisitor visitor){System.out.println("Market Equity accepts");}
