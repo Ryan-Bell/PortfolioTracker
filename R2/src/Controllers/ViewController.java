@@ -1,6 +1,9 @@
 package Controllers;
 
-public class ViewController {
+import java.util.Observable;
+import java.util.Observer;
+
+public class ViewController implements Observer{
 
     //reference to the main controller
     protected Main main;
@@ -9,4 +12,6 @@ public class ViewController {
         this.main = main;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {}
 }
