@@ -27,7 +27,10 @@ public class ViewController implements Observer{
 
     public void setMain(Main main){
         this.main = main;
+        setup();
     }
+
+    protected void setup(){}
 
     @Override
     public void update(Observable o, Object arg) {}

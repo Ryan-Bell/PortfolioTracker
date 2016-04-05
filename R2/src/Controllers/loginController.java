@@ -49,14 +49,14 @@ public class LoginController extends ViewController implements Initializable  {
         //endregion
 
         // all @FXML variables will have been injected
-        setup();
+
     }
 
 
     /**
      * Handles setup of local objects and variables
      */
-    private void setup(){
+    protected void setup(){
         //instantiate instances of the IO objects needed
         authentication = new UserAuthentication();
         portfolioIO = new PortfolioIO();
