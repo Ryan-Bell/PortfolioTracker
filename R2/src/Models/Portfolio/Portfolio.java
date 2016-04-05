@@ -87,7 +87,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         holdingEquities.add(newEquity);
 
         setChanged();
-        notifyObservers();
+        notifyObservers(ObserveType.HOLDING_EQUITY);
     }
 
 
@@ -101,7 +101,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         }
 
         setChanged();
-        notifyObservers();
+        notifyObservers(ObserveType.HOLDING_EQUITY);
     }
 
     /**
@@ -115,7 +115,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         cashAccounts.add(newCashAccount);
 
         setChanged();
-        notifyObservers();
+        notifyObservers(ObserveType.CASH_ACCOUNT);
     }
 
     /**
@@ -128,7 +128,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         cashAccounts.remove(index);
 
         setChanged();
-        notifyObservers();
+        notifyObservers(ObserveType.CASH_ACCOUNT);
     }
 
     /**

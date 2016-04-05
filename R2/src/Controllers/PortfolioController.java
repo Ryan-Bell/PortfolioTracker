@@ -8,17 +8,13 @@ import java.util.ResourceBundle;
 
 import Models.Portfolio.CashAccount;
 import Models.Portfolio.HoldingEquity;
-import Models.Portfolio.Portfolio;
+import Models.Portfolio.ObserveType;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 public class PortfolioController extends ViewController implements Initializable, Observer {
     //region FXMLFields
@@ -160,9 +156,7 @@ public class PortfolioController extends ViewController implements Initializable
     }
 
     @FXML
-    void handleme(){
-
-    }
+    void handleme(){}
 
     /**Updates the data displayed when the observable changes
      * @param o the observable object
@@ -170,16 +164,39 @@ public class PortfolioController extends ViewController implements Initializable
      */
     @Override
     public void update(Observable o, Object arg){
-        cashAccountTable.setItems(FXCollections.observableList(main.getPortfolio().getCashAccounts()));
-        cashAccountTable.refresh();
-        cashAccountTable.requestFocus();
-        cashAccountTable.getSelectionModel().selectFirst();
-        cashAccountTable.getFocusModel().focus(0);
+        //attempt to only update the list that has changed otherwise catch it and update all
+        try{
+            //attempt to cast the arg object as an enum that denotes which list was changed
+            switch ((ObserveType)arg){
+                case CASH_ACCOUNT:
+                    //update the cash account table
+                    cashAccountTable.setItems(FXCollections.observableList(main.getPortfolio().getCashAccounts()));
+                    cashAccountTable.refresh();
+                    cashAccountTable.requestFocus();
+                    cashAccountTable.getSelectionModel().selectFirst();
+                    cashAccountTable.getFocusModel().focus(0);
+                    break;
+                case HOLDING_EQUITY:
+                    //update the equity table
+                    equityTable.setItems(FXCollections.observableList(main.getPortfolio().getHoldingEquities()));
+                    equityTable.refresh();
+                    equityTable.getSelectionModel().selectFirst();
+                    equityTable.getFocusModel().focus(0);
+                    break;
+            }
+        } catch (Exception e){
+            //update both the cash account table and the equity table
+            cashAccountTable.setItems(FXCollections.observableList(main.getPortfolio().getCashAccounts()));
+            cashAccountTable.refresh();
+            cashAccountTable.requestFocus();
+            cashAccountTable.getSelectionModel().selectFirst();
+            cashAccountTable.getFocusModel().focus(0);
 
-        equityTable.setItems(FXCollections.observableList(main.getPortfolio().getHoldingEquities()));
-        equityTable.refresh();
-        equityTable.getSelectionModel().selectFirst();
-        equityTable.getFocusModel().focus(0);
+            equityTable.setItems(FXCollections.observableList(main.getPortfolio().getHoldingEquities()));
+            equityTable.refresh();
+            equityTable.getSelectionModel().selectFirst();
+            equityTable.getFocusModel().focus(0);
+        }
     }
 }
 
