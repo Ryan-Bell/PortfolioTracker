@@ -49,7 +49,7 @@ public class PortfolioIO {
      * @param id the filename / identifier
      * @param hashedPass the hashed password to be written in
      */
-    public void createId(String id, String hashedPass){
+    public Portfolio createId(String hashedPass, String id){
         //check that the portfolios directory exist
         String dirPath = "./portfolios/";
         File dirFile = new File(dirPath);
@@ -65,14 +65,16 @@ public class PortfolioIO {
 
         String filepath = "./portfolios/" + id + ".port";
         File newFile = new File(filepath);
+        Portfolio newPort = null;
         if(!newFile.isFile()) {
-            Portfolio newPort = new Portfolio(hashedPass, id);
+            newPort = new Portfolio(hashedPass, id);
             try {
                 serialize(newPort, filepath);
             } catch (IOException e){
                 System.out.println(e.getMessage());
             }
         }
+        return newPort;
     }
     /**
      * Static method that handles reading in serialized objects from file
@@ -81,7 +83,7 @@ public class PortfolioIO {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public Object deserialize(String fileName) throws IOException,
+    public static Object deserialize(String fileName) throws IOException,
             ClassNotFoundException {
         FileInputStream fis = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(fis);
@@ -96,7 +98,7 @@ public class PortfolioIO {
      * @param fileName the name of the file that will be written
      * @throws IOException
      */
-    public void serialize(Object obj, String fileName)
+    public static void serialize(Object obj, String fileName)
             throws IOException {
         FileOutputStream fos = new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

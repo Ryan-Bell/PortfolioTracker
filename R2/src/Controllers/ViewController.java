@@ -1,12 +1,16 @@
 package Controllers;
 
+import Models.FileIO.PortfolioIO;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ViewController implements Observer{
 
@@ -68,7 +72,11 @@ public class ViewController implements Observer{
     }
 
     @FXML void handleSave(ActionEvent actionEvent) {
-
+        try {
+            PortfolioIO.serialize(main.getPortfolio(), "./portfolios/" + main.getPortfolio().getId() + ".port");
+        } catch (IOException e){
+            Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     @FXML void handleLogout(ActionEvent actionEvent) {
