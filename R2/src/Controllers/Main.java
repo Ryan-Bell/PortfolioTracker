@@ -27,6 +27,7 @@ public class Main extends Application {
     private Portfolio portfolio;
 
     public Portfolio getPortfolio(){return portfolio;}
+    public Stage getPrimaryStage(){return primaryStage;}
     public void setPortfolio(Portfolio portfolio){this.portfolio = portfolio;}
 
     /** Starts the FXML Application
