@@ -44,7 +44,7 @@ public class Main extends Application {
         showLogin();
     }
 
-
+    //region ShowViews
     /**
      * Handles displaying of the login scene and only allows for one instance
      */
@@ -114,6 +114,7 @@ public class Main extends Application {
         }
         setAndShow(watchlistView);
     }
+    //endregion
 
     private Scene createScene(String filePrefix){
         try {
