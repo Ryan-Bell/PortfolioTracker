@@ -118,16 +118,28 @@ public class Main extends Application {
     }
     //endregion
 
+    /** Handles loading of many fxml files using the extended loader given their file name
+     * @param filePrefix the name not including the extension of the fxml file to be loaded in
+     * @return the scene created by loading the fxml file
+     */
     private Scene createScene(String filePrefix){
         try {
+            //load in the file using the extended loader
             FXMLLoaderExtended loader = new FXMLLoaderExtended(getClass().getResource("../Views/" + filePrefix + ".fxml"));
+
+            //return the scene created after passing reference to main into the load method
             return new Scene(loader.load(this));
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //return null if the loading failed
         return null;
     }
 
+
+    /** Handles showing the a specific scene
+     * @param target the scene that should be shown
+     */
     private void setAndShow(Scene target){
         //set and show the scene
         primaryStage.setScene(target);
