@@ -1,19 +1,26 @@
 package UndoRedo;
 
+import java.util.ArrayDeque;
 import java.util.EmptyStackException;
-import java.util.Stack;
+import java.util.Deque;
 
 /**
  * Holds functionality for the use of undoing and redoing commands.
  * Objects that wish to be undone/redone must implement the UndoRedo interface.
  */
 public class UndoRedoFunctions {
-    Stack<UndoRedo> undoStack;
-    Stack<UndoRedo> redoStack;
+    private static UndoRedoFunctions undoRedoFunction = new UndoRedoFunctions();
 
-    public UndoRedoFunctions() {
-        this.undoStack = new Stack<>();
-        this.redoStack = new Stack<>();
+    private Deque<UndoRedo> undoStack;
+    private Deque<UndoRedo> redoStack;
+
+    private UndoRedoFunctions() {
+        this.undoStack = new ArrayDeque<>();
+        this.redoStack = new ArrayDeque<>();
+    }
+
+    public static UndoRedoFunctions getInstance() {
+        return undoRedoFunction;
     }
 
     /**
@@ -49,7 +56,7 @@ public class UndoRedoFunctions {
     public void execute(UndoRedo obj) {
         obj.execute();
         pushOnUndoStack(obj);
-        redoStack = new Stack<>();
+        redoStack.removeAll(redoStack);
     }
 
     /**
