@@ -1,6 +1,3 @@
-/**
- * Sample Skeleton for 'market.fxml' Controller Class
- */
 package Controllers;
 
 import java.net.URL;

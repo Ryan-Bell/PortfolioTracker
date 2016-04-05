@@ -1,6 +1,5 @@
 package Models.MarketSimulation;
 
-
 /**
  * An overall increase in the value of a portfolio.
  * Used to provide calculations for a MarketSimulator.

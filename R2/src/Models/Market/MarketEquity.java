@@ -1,4 +1,5 @@
 package Models.Market;
+
 import java.io.Serializable;
 
 /**

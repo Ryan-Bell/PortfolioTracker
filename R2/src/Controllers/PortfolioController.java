@@ -1,7 +1,3 @@
-/**
- * Sample Skeleton for 'portfolio.fxml' Controller Class
- */
-
 package Controllers;
 
 import java.net.URL;

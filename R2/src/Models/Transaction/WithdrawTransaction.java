@@ -1,7 +1,6 @@
 package Models.Transaction;
 
 import Models.Portfolio.CashAccount;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

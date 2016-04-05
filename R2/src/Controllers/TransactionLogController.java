@@ -1,6 +1,3 @@
-/**
- * Sample Skeleton for 'transactionlog.fxml' Controller Class
- */
 package Controllers;
 
 import java.net.URL;

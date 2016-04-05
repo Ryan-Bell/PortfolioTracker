@@ -1,8 +1,3 @@
-/**
- * Sample Skeleton for 'simulation.fxml' Controller Class
- */
-
-
 package Controllers;
 
 import java.net.URL;
