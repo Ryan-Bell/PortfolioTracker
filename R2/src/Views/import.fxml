@@ -56,7 +56,7 @@
                            <HBox spacing="10.0">
                               <children>
                                  <TextField fx:id="fileNameField" promptText="Enter .port File Name" />
-                                 <Button fx:id="importButton" mnemonicParsing="false" onAction="#handleImportTab" prefWidth="100.0" text="Import" />
+                                 <Button fx:id="importButton" mnemonicParsing="false" prefWidth="100.0" text="Import" />
                               </children>
                            </HBox>
                            <Label text="Import Conflicts" />
