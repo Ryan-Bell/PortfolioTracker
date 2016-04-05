@@ -35,8 +35,8 @@ public class ImportController extends ViewController implements Initializable {
     }
 
     @FXML
-    void handleImport(ActionEvent event) {
-
+    void handleme(){
+        portfolioTab.setDisable(false);
     }
 }
 

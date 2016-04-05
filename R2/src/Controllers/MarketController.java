@@ -57,5 +57,11 @@ public class MarketController extends ViewController implements Initializable {
     void handleBuy(ActionEvent event) {
 
     }
+
+    @FXML
+    void handleme(){
+        portfolioTab.setDisable(false);
+        importTab.setDisable(false);
+    }
 }
 

@@ -59,9 +59,9 @@ public class Main extends Application {
      * Handles displaying of the portfolio scene and only allows for one instance
      */
     public void showPortfolio(){
-        if(portfolioView == null) {
+        //if(portfolioView == null) {
             portfolioView = createScene("portfolio");
-        }
+        //}
         setAndShow(portfolioView);
     }
 
@@ -69,19 +69,20 @@ public class Main extends Application {
      * Handles displaying of the import scene and only allows for one instance
      */
     public void showImport(){
-        if(importView == null) {
+        //if(importView == null) {
             importView = createScene("import");
-        }
+        //}
         setAndShow(importView);
+
     }
 
     /**
      * Handles displaying of the market scene and only allows for one instance
      */
     public void showMarket(){
-        if(marketView == null) {
+        //if(marketView == null) {
             marketView = createScene("market");
-        }
+        //}
         setAndShow(marketView);
     }
 
@@ -89,9 +90,9 @@ public class Main extends Application {
      * Handles displaying of the simulation scene and only allows for one instance
      */
     public void showSimulation(){
-        if(simulationView == null) {
+        //if(simulationView == null) {
             simulationView = createScene("simulation");
-        }
+        //}
         setAndShow(simulationView);
     }
 
@@ -99,9 +100,9 @@ public class Main extends Application {
      * Handles displaying of the transaction scene and only allows for one instance
      */
     public void showTransaction(){
-        if(transactionView == null) {
+        //if(transactionView == null) {
             transactionView = createScene("transactionlog");
-        }
+        //}
         setAndShow(transactionView);
     }
 
@@ -109,9 +110,9 @@ public class Main extends Application {
      * Handles displaying of the watchlist scene and only allows for one instance
      */
     public void showWatchlist(){
-        if(watchlistView == null) {
+        //if(watchlistView == null) {
             watchlistView = createScene("watchlist");
-        }
+        //}
         setAndShow(watchlistView);
     }
     //endregion

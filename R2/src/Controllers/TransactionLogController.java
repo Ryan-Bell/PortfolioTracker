@@ -37,5 +37,13 @@ public class TransactionLogController extends ViewController implements Initiali
     void handleFilter(ActionEvent event) {
 
     }
+
+    @FXML
+    void handleme(){
+        portfolioTab.setDisable(false);
+        importTab.setDisable(false);
+        marketTab.setDisable(false);
+        simulationTab.setDisable(false);
+    }
 }
 

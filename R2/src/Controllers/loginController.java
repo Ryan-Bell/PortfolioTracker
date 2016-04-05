@@ -96,6 +96,7 @@ public class LoginController extends ViewController implements Initializable  {
     @FXML
     public void handleLogin() {
         Portfolio portfolio = portfolioIO.getPOFromId(loginUsernameField.getText());
+
         //if user id locates file
         if (portfolio != null){
             //if entered password and portfolio password match

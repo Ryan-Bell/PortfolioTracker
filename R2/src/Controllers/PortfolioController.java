@@ -5,15 +5,21 @@
 package Controllers;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import Models.Portfolio.CashAccount;
+import Models.Portfolio.Portfolio;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PortfolioController extends ViewController implements Initializable {
     //region FXMLFields
@@ -21,10 +27,10 @@ public class PortfolioController extends ViewController implements Initializable
     @FXML private URL location;
 
     //FXML fields related to the cash account table
-    @FXML private TableView<?> cashAccountTable;
-    @FXML private TableColumn<?, ?> cashAccountDate;
-    @FXML private TableColumn<?, ?> cashAccountBalance;
-    @FXML private TableColumn<?, ?> cashAccountName;
+    @FXML private TableView<CashAccount> cashAccountTable;
+    @FXML private TableColumn<CashAccount, LocalDateTime> cashAccountDate;
+    @FXML private TableColumn<CashAccount, String> cashAccountBalance;
+    @FXML private TableColumn<CashAccount, String> cashAccountName;
 
     //FXML fields related to the Equities table
     @FXML private TableView<?> equityTable;
@@ -97,7 +103,12 @@ public class PortfolioController extends ViewController implements Initializable
         assert sellNameField != null : "fx:id=\"sellNameField\" was not injected: check your FXML file 'portfolio.fxml'.";
         //endregion
 
+        cashAccountDate.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
+        cashAccountBalance.setCellValueFactory(new PropertyValueFactory<>("balance"));
+        cashAccountName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        //cashAccountTable.setItems(FXCollections.observableList(main.getPortfolio().getCashAccounts()));
+        //main.getPortfolio().addObserver(this);
 
     }
 
@@ -128,6 +139,11 @@ public class PortfolioController extends ViewController implements Initializable
 
     @FXML
     void handleSellEquity(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleme(){
 
     }
 }

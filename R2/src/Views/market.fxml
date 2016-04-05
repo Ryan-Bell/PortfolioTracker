@@ -5,8 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -39,19 +37,19 @@
    </HBox>
    <TabPane tabClosingPolicy="UNAVAILABLE">
       <tabs>
-         <Tab text="Portfolio">
+         <Tab fx:id="portfolioTab" disable="true" onSelectionChanged="#handlePortfolioTab" text="Portfolio">
             <content>
 
             </content>
          </Tab>
-         <Tab text="Import">
+         <Tab fx:id="importTab" disable="true" onSelectionChanged="#handleImportTab" text="Import">
             <content>
 
             </content>
          </Tab>
-         <Tab text="Market">
+         <Tab fx:id="marketTab" onSelectionChanged="#handleme" text="Market">
             <content>
-               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
                   <children>
                      <Label text="Market Search">
                         <font>
@@ -113,17 +111,17 @@
                </VBox>
             </content>
          </Tab>
-         <Tab text="Simulation">
+         <Tab fx:id="simulationTab" onSelectionChanged="#handleSimulationTab" text="Simulation">
             <content>
 
             </content>
          </Tab>
-         <Tab text="Transaction Log">
+         <Tab fx:id="transactionTab" onSelectionChanged="#handleTransactionTab" text="Transaction Log">
             <content>
 
             </content>
          </Tab>
-         <Tab text="Watchlist">
+         <Tab fx:id="watchlistTab" onSelectionChanged="#handleWatchlistTab" text="Watchlist">
             <content>
 
             </content>
