@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.TransactionLogController">
+<children>
+   <HBox VBox.vgrow="NEVER">
+      <children>
+         <Label text="Financial Portfolio Tracking System">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+         </Label>
+         <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="378.0" spacing="10.0" HBox.hgrow="NEVER">
+            <children>
+               <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefresh" prefWidth="80.0" text="Refresh" HBox.hgrow="NEVER" />
+               <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefWidth="80.0" text="Save" />
+               <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" prefWidth="80.0" text="Logout" />
+            </children>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+         </HBox>
+      </children>
+   </HBox>
+   <TabPane tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+         <Tab fx:id="portfolioTab" disable="true" onSelectionChanged="#handlePortfolioTab" text="Portfolio">
+            <content>
+
+            </content>
+         </Tab>
+         <Tab fx:id="importTab" disable="true" onSelectionChanged="#handleImportTab" text="Import">
+            <content>
+
+            </content>
+         </Tab>
+         <Tab fx:id="marketTab" disable="true" onSelectionChanged="#handleMarketTab" text="Market">
+            <content>
+
+            </content>
+         </Tab>
+         <Tab fx:id="simulationTab" disable="true" onSelectionChanged="#handleSimulationTab" text="Simulation">
+            <content>
+
+            </content>
+         </Tab>
+         <Tab fx:id="transactionTab" onSelectionChanged="#handleme" text="Transaction Log">
+            <content>
+               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                  <children>
+                     <Label text="Filter Transaction Log">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font></Label>
+                     <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <children>
+                           <Label prefWidth="100.0" text="Start Date" />
+                           <DatePicker fx:id="startDatePicker" promptText="Select Date" />
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="57.0" spacing="10.0">
+                        <children>
+                           <Label prefWidth="100.0" text="End Date" />
+                           <DatePicker fx:id="endDatePicker" promptText="Select Date" />
+                           <Button fx:id="filterButton" mnemonicParsing="false" onAction="#handleFilter" prefWidth="100.0" text="Filter" />
+                        </children>
+                     </HBox>
+                     <Label text="Transactions:" />
+                     <ListView fx:id="transactionList" prefHeight="334.0" prefWidth="780.0" />
+                  </children>
+                  <padding>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </padding>
+               </VBox>
+            </content>
+         </Tab>
+         <Tab fx:id="watchlistTab" onSelectionChanged="#handleWatchlistTab" text="Watchlist">
+            <content>
+            </content>
+         </Tab>
+      </tabs>
+   </TabPane>
+</children>
+</VBox>
