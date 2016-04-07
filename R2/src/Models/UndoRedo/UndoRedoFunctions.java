@@ -9,7 +9,7 @@ import java.util.Deque;
  * Objects that wish to be undone/redone must implement the UndoRedo interface.
  */
 public class UndoRedoFunctions {
-    UndoRedoFunctions instance;
+    private static UndoRedoFunctions instance;
 
     Deque<UndoRedo> undoStack;
     Deque<UndoRedo> redoStack;
@@ -19,13 +19,11 @@ public class UndoRedoFunctions {
         this.redoStack = new ArrayDeque<>();
     }
 
-    public UndoRedoFunctions getInstance() {
-        if (this.instance == null) {
-            this.instance = new UndoRedoFunctions();
-            return this.instance;
-        } else {
-            return this.instance;
+    public static UndoRedoFunctions getInstance() {
+        if (instance == null) {
+            instance = new UndoRedoFunctions();
         }
+        return instance;
     }
 
     /**
