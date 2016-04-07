@@ -17,7 +17,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
     private ArrayList<Transaction> transactionLog;
     private String hashedPass;
     private String id;
-    private HashMap<String, Boolean> cashAccountNames;
+    private HashMap<String, Integer> cashAccountNames;
 
     //Used to denote serialized version
     private static final long serialVersionUID = 681129221878275270L;
@@ -45,7 +45,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         return cashAccounts;
     }
 
-    public boolean getCashAccNameExists(String name){return cashAccountNames.containsKey(name);}
+    public int getCashAccNameExists(String name){return cashAccountNames.containsKey(name) ? cashAccountNames.get(name) : -1;}
 
     public ArrayList<Transaction> getTransactionLog() {
         return transactionLog;
@@ -109,7 +109,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         cashAccounts.add(newCashAccount);
 
         //update the names hashmap
-        cashAccountNames.put(name, Boolean.TRUE);
+        cashAccountNames.put(name, cashAccounts.indexOf(newCashAccount));
 
         setChanged();
         notifyObservers(ObserveType.CASH_ACCOUNT);

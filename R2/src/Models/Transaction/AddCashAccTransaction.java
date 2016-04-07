@@ -29,13 +29,7 @@ public class AddCashAccTransaction implements UndoRedo, Serializable {
 
     @Override
     public void execute() {
-        boolean doesntExist = true;
-        for (CashAccount account:portfolio.getCashAccounts()) {
-            if(account.getName().equals(name)){
-                doesntExist = false;
-            }
-        }
-        if(doesntExist) portfolio.addCashAccount(name,amount);
+        if(portfolio.getCashAccNameExists(name) != -1) portfolio.addCashAccount(name,amount);
         else failed = true;
     }
 
@@ -47,6 +41,6 @@ public class AddCashAccTransaction implements UndoRedo, Serializable {
 
     @Override
     public void unExecute() {
-
+        portfolio.removeCashAccount(portfolio.getCashAccounts().get(portfolio.getCashAccNameExists(name)));
     }
 }
