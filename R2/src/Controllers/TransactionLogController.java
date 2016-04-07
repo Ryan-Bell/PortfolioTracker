@@ -1,6 +1,8 @@
 package Controllers;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -32,6 +34,8 @@ public class TransactionLogController extends ViewController implements Initiali
 
     @FXML
     void handleFilter(ActionEvent event) {
+        LocalDate now = startDatePicker.getValue();
+        System.out.println(now);
 
     }
 

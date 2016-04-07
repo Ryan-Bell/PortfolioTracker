@@ -63,47 +63,56 @@
             <content>
                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="798.0">
                      <children>
-                        <Label text="Watchlist">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="Watchlist">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="watchlistErrorLabel" textFill="RED">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
                         <HBox prefHeight="486.0" prefWidth="798.0">
                            <children>
-                              <TableView prefHeight="480.0" prefWidth="536.0">
+                              <TableView fx:id="watchlistTable" prefHeight="480.0" prefWidth="536.0">
                                 <columns>
-                                  <TableColumn prefWidth="55.0" text="Ticker" />
-                                  <TableColumn prefWidth="111.0" text="Name" />
-                                    <TableColumn prefWidth="69.0" text="Price" />
-                                    <TableColumn prefWidth="98.0" text="High Trigger" />
-                                    <TableColumn prefWidth="93.0" text="Low Trigger" />
-                                    <TableColumn prefWidth="71.0" text="Tripped?" />
+                                  <TableColumn fx:id="tickerTableColumn" prefWidth="55.0" text="Ticker" />
+                                  <TableColumn fx:id="nameTableColumn" prefWidth="111.0" text="Name" />
+                                    <TableColumn fx:id="priceTableColumn" prefWidth="69.0" text="Price" />
+                                    <TableColumn fx:id="highTriggerTableColumn" prefWidth="98.0" text="High Trigger" />
+                                    <TableColumn fx:id="lowTriggerTableColumn" prefWidth="93.0" text="Low Trigger" />
+                                    <TableColumn fx:id="trippedTableColumn" prefWidth="71.0" text="Tripped?" />
                                 </columns>
                               </TableView>
                               <VBox prefHeight="480.0" prefWidth="339.0" spacing="5.0">
                                  <children>
                                     <HBox spacing="5.0">
                                        <children>
-                                          <TextField promptText="High Trigger" />
-                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Set Trigger" />
+                                          <TextField fx:id="highTriggerField" promptText="High Trigger" />
+                                          <Button fx:id="setHighTriggerButton" mnemonicParsing="false" onAction="#handleSetHighTrigger" prefWidth="125.0" text="Set Trigger" />
                                        </children>
                                     </HBox>
                                     <HBox layoutX="15.0" layoutY="15.0" spacing="5.0">
                                        <children>
-                                          <TextField promptText="Low Trigger" />
-                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Set Trigger" />
+                                          <TextField fx:id="lowTriggerField" promptText="Low Trigger" />
+                                          <Button fx:id="setLowTriggerButton" mnemonicParsing="false" onAction="#handleSetLowTrigger" prefWidth="125.0" text="Set Trigger" />
                                        </children>
                                     </HBox>
                                     <HBox layoutX="15.0" layoutY="51.0" spacing="5.0">
                                        <children>
-                                          <MenuButton mnemonicParsing="false" prefWidth="186.0" text="MenuButton">
+                                          <MenuButton fx:id="selectTriggerMenuButton" mnemonicParsing="false" prefWidth="186.0" text="Select Trigger">
                                             <items>
                                               <MenuItem mnemonicParsing="false" text="High Trigger" />
                                               <MenuItem mnemonicParsing="false" text="Low Trigger" />
                                                 <MenuItem mnemonicParsing="false" text="Both Triggers" />
                                             </items>
                                           </MenuButton>
-                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Clear Trigger" />
+                                          <Button fx:id="clearTriggerButton" mnemonicParsing="false" onAction="#handleClearTrigger" prefWidth="125.0" text="Clear Trigger" />
                                        </children>
                                        <VBox.margin>
                                           <Insets />
@@ -114,7 +123,7 @@
                                     </HBox>
                                     <HBox layoutX="15.0" layoutY="51.0" spacing="5.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefWidth="173.0" text="Reset Tripped Triggers" />
+                                          <Button fx:id="resetTrippedButton" mnemonicParsing="false" onAction="#handleResetTripped" prefWidth="173.0" text="Reset Tripped Triggers" />
                                        </children>
                                        <padding>
                                           <Insets top="10.0" />
@@ -122,7 +131,7 @@
                                     </HBox>
                                     <HBox layoutX="15.0" layoutY="133.0" spacing="5.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefWidth="173.0" text="Remove Item" />
+                                          <Button fx:id="removeItemButton" mnemonicParsing="false" onAction="#handleRemoveItem" prefWidth="173.0" text="Remove Item" />
                                        </children>
                                        <padding>
                                           <Insets top="10.0" />
@@ -130,8 +139,8 @@
                                     </HBox>
                                     <HBox layoutX="15.0" layoutY="15.0" spacing="5.0">
                                        <children>
-                                          <TextField promptText="Update Interval (min)" />
-                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Set Update" />
+                                          <TextField fx:id="updateIntervalField" onAction="#handleUpdateInterval" promptText="Update Interval (min)" />
+                                          <Button fx:id="setIntervalButton" mnemonicParsing="false" onAction="#handleSetInterval" prefWidth="125.0" text="Set Update" />
                                        </children>
                                        <padding>
                                           <Insets top="50.0" />
