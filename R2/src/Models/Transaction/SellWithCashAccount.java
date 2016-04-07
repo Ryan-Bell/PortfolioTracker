@@ -8,6 +8,7 @@ import Models.UndoRedo.UndoRedo;
 public class SellWithCashAccount extends ExtendedTransactionDecorator{
 
     private CashAccount cashAccount;
+    private int amount;
 
     public SellWithCashAccount(UndoRedo decoratorTarget, CashAccount cashAccount) {
         super(decoratorTarget);
@@ -17,7 +18,7 @@ public class SellWithCashAccount extends ExtendedTransactionDecorator{
     @Override
     public void execute(){
         HoldingEquity target = ((SellTransaction)transactionToBoDecorated).getTarget();
-        int amount = ((SellTransaction)transactionToBoDecorated).getAmount();
+        amount = ((SellTransaction)transactionToBoDecorated).getAmount();
         Portfolio portfolio = ((SellTransaction)transactionToBoDecorated).getPortfolio();
         if(target.getNumShares() - amount >=0) {
             cashAccount.deposit(amount);
@@ -28,6 +29,7 @@ public class SellWithCashAccount extends ExtendedTransactionDecorator{
 
     @Override
     public void unExecute(){
-
+        transactionToBoDecorated.unExecute();
+        cashAccount.withdraw(amount);
     }
 }
