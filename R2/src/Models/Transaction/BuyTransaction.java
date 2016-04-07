@@ -1,6 +1,7 @@
 package Models.Transaction;
 
 import Models.Market.MarketEquity;
+import Models.Portfolio.HoldingEquity;
 import Models.Portfolio.Portfolio;
 import Models.UndoRedo.UndoRedo;
 
@@ -43,6 +44,6 @@ public class BuyTransaction implements UndoRedo, Serializable {
 
     @Override
     public void unExecute() {
-
+        portfolio.sellEquity((HoldingEquity)target, amount);
     }
 }

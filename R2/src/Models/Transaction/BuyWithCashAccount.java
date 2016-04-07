@@ -6,6 +6,7 @@ import Models.UndoRedo.UndoRedo;
 public class BuyWithCashAccount extends ExtendedTransactionDecorator{
 
     private CashAccount cashAccount;
+    private float cost;
 
     public BuyWithCashAccount(UndoRedo decoratorTarget, CashAccount cashAccount) {
         super(decoratorTarget);
@@ -14,7 +15,7 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator{
 
     @Override
     public void execute(){
-        float cost = ((BuyTransaction)transactionToBoDecorated).getAmount() * ((BuyTransaction)transactionToBoDecorated).getTarget().getValue();
+        cost = ((BuyTransaction)transactionToBoDecorated).getAmount() * ((BuyTransaction)transactionToBoDecorated).getTarget().getValue();
         if (cashAccount.sufficientFunds(cost)) {
             cashAccount.withdraw(cost);
         } else failed = true;
@@ -23,6 +24,7 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator{
 
     @Override
     public void unExecute(){
-
+        cashAccount.deposit(cost);
+        transactionToBoDecorated.unExecute();
     }
 }
