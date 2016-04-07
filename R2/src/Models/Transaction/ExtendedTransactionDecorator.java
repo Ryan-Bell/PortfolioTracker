@@ -2,10 +2,12 @@ package Models.Transaction;
 
 import Models.UndoRedo.UndoRedo;
 
+import java.io.Serializable;
+
 /**
  * Abstract class that defines behaviour for decorators of UndoRedo Objects
  */
-public abstract class ExtendedTransactionDecorator implements UndoRedo{
+public abstract class ExtendedTransactionDecorator implements UndoRedo, Serializable{
 
     //region Fields
     //the UndoRedo object that is being decorated

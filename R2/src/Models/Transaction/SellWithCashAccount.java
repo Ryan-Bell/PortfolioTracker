@@ -5,7 +5,9 @@ import Models.Portfolio.HoldingEquity;
 import Models.Portfolio.Portfolio;
 import Models.UndoRedo.UndoRedo;
 
-public class SellWithCashAccount extends ExtendedTransactionDecorator{
+import java.io.Serializable;
+
+public class SellWithCashAccount extends ExtendedTransactionDecorator implements Serializable{
 
     private CashAccount cashAccount;
     private int amount;

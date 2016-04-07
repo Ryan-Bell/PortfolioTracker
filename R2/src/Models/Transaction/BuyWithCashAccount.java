@@ -3,11 +3,13 @@ package Models.Transaction;
 import Models.Portfolio.CashAccount;
 import Models.UndoRedo.UndoRedo;
 
+import java.io.Serializable;
+
 /**
  * A command decorator. Decorates BuyTransaction to
  * purchase Equity with money in a cash account
  */
-public class BuyWithCashAccount extends ExtendedTransactionDecorator{
+public class BuyWithCashAccount extends ExtendedTransactionDecorator implements Serializable{
 
     //region Fields
     //the cash account to withdraw the funds from

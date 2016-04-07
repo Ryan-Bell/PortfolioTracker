@@ -1,9 +1,11 @@
 package Models.Transaction;
 
+import java.io.Serializable;
+
 /**
  * Abstract class that defines behaviour for decorators of Transaction Objects
  */
-public abstract class SimpleTransactionDecorator implements Transaction {
+public abstract class SimpleTransactionDecorator implements Transaction, Serializable {
 
     //region Fields
     //The transaction that is to be decorated
