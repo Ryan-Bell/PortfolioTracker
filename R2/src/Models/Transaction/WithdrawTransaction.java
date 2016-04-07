@@ -1,13 +1,15 @@
 package Models.Transaction;
 
 import Models.Portfolio.CashAccount;
+import Models.UndoRedo.UndoRedo;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * A concrete command. Removes money from a CashAccount.
  */
-public class WithdrawTransaction implements Transaction, Serializable {
+public class WithdrawTransaction implements UndoRedo, Serializable {
 
 
     private CashAccount target;
@@ -35,5 +37,10 @@ public class WithdrawTransaction implements Transaction, Serializable {
     public String toString() {
         if(failed)return "Could not withdraw "+amount+" out of "+target.getName()+" on "+date;
         return "Withdrew "+amount+" out of "+target.getName()+" on "+date;
+    }
+
+    @Override
+    public void unExecute() {
+
     }
 }

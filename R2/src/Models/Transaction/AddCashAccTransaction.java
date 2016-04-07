@@ -2,13 +2,15 @@ package Models.Transaction;
 
 import Models.Portfolio.CashAccount;
 import Models.Portfolio.Portfolio;
+import Models.UndoRedo.UndoRedo;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Responds to user input in order to create a CashAccount.
  */
-public class AddCashAccTransaction implements Transaction, Serializable {
+public class AddCashAccTransaction implements UndoRedo, Serializable {
 
     private float amount;
     private LocalDateTime date;
@@ -41,5 +43,10 @@ public class AddCashAccTransaction implements Transaction, Serializable {
     public String toString() {
         if(failed) return "Could not create Cash Account '"+name+"' with initial balance of "+amount+" on "+date;
         return "Created Cash Account '"+name+"' with initial balance of "+amount+" on "+date;
+    }
+
+    @Override
+    public void unExecute() {
+
     }
 }

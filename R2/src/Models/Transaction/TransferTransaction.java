@@ -1,6 +1,8 @@
 package Models.Transaction;
 
 import Models.Portfolio.CashAccount;
+import Models.UndoRedo.UndoRedo;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -8,7 +10,7 @@ import java.time.LocalDateTime;
  * Command allowing users to withdraw money from a CashAccount and add it to
  * a different CashAccount.
  */
-public class TransferTransaction implements Transaction, Serializable {
+public class TransferTransaction implements UndoRedo, Serializable {
 
 
     private CashAccount withdrawTarget;
@@ -38,5 +40,10 @@ public class TransferTransaction implements Transaction, Serializable {
     public String toString() {
         if(failed) return "Could not withdraw "+amount+" out of "+withdrawTarget.getName()+" and deposit in "+depositTarget.getName()+" on "+date;
         return "Withdrew "+amount+" out of "+withdrawTarget.getName()+" and deposited in "+depositTarget.getName()+" on "+date;
+    }
+
+    @Override
+    public void unExecute() {
+
     }
 }

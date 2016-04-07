@@ -1,13 +1,15 @@
 package Models.Transaction;
 
 import Models.Portfolio.CashAccount;
+import Models.UndoRedo.UndoRedo;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * A concrete command. Adds money to a CashAccount.
  */
-public class DepositTransaction implements Transaction, Serializable {
+public class DepositTransaction implements UndoRedo, Serializable {
 
     private CashAccount target;
     private float amount;
@@ -27,5 +29,10 @@ public class DepositTransaction implements Transaction, Serializable {
     @Override
     public String toString() {
         return "Deposited "+amount+" into "+target.getName()+" on "+date;
+    }
+
+    @Override
+    public void unExecute() {
+
     }
 }

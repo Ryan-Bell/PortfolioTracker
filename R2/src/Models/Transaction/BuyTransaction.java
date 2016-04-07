@@ -3,6 +3,8 @@ package Models.Transaction;
 import Models.Market.MarketEquity;
 import Models.Portfolio.CashAccount;
 import Models.Portfolio.Portfolio;
+import Models.UndoRedo.UndoRedo;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
  * to a portfolio and *optional withdraw money
  * from a holding account.
  */
-public class BuyTransaction implements Transaction, Serializable {
+public class BuyTransaction implements UndoRedo, Serializable {
 
     private MarketEquity target;
     private int amount;
@@ -50,5 +52,10 @@ public class BuyTransaction implements Transaction, Serializable {
     public String toString() {
         if(failed) return "Could not purchase "+amount+" shares of "+target.getName()+"on "+date;
         return "Purchased "+amount+" shares of "+target.getName()+"on "+date;
+    }
+
+    @Override
+    public void unExecute() {
+
     }
 }

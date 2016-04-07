@@ -3,6 +3,8 @@ package Models.Transaction;
 import Models.Portfolio.CashAccount;
 import Models.Portfolio.HoldingEquity;
 import Models.Portfolio.Portfolio;
+import Models.UndoRedo.UndoRedo;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
  * from a holding account.
  */
 
-public class SellTransaction implements Transaction, Serializable {
+public class SellTransaction implements UndoRedo, Serializable {
 
     private HoldingEquity target;
     private int amount;
@@ -46,5 +48,10 @@ public class SellTransaction implements Transaction, Serializable {
     public String toString() {
         if(failed) return "Could not sell "+amount+" shares of "+target.getName()+" equity on "+date;
         return "Sold "+amount+" shares of "+target.getName()+" equity on "+date;
+    }
+
+    @Override
+    public void unExecute() {
+
     }
 }
