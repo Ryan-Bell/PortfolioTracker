@@ -162,13 +162,19 @@ public class PortfolioController extends ViewController implements Initializable
             //try to add the new cash account
             main.getPortfolio().addCashAccount(newCashAccountName, Float.parseFloat(newBalanceField.getText()));
         } catch (Exception e) {
-            //display an error if the float entered was not a valid number 
+            //display an error if the float entered was not a valid number
             cashAccountError.setText("Balance entered is not a valid float");
         }
     }
 
     @FXML
     void handleRemoveCashAccount(ActionEvent event) {
+        //attempt to remove the currrently selected cash account and display error otherwise
+        try {
+            main.getPortfolio().removeCashAccount(cashAccountTable.getSelectionModel().getSelectedItem());
+        } catch (Exception e){
+            cashAccountError.setText("Could not remove the selected account");
+        }
     }
 
     @FXML
