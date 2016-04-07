@@ -53,7 +53,6 @@ public class PortfolioController extends ViewController implements Initializable
     @FXML private TextField newBalanceField;
     @FXML private Button addAccountButton;
 
-    @FXML private TextField removeAccountField;
     @FXML private Button removeAccountButton;
 
     //Equity account actions
@@ -88,7 +87,6 @@ public class PortfolioController extends ViewController implements Initializable
         assert withdrawField != null : "fx:id=\"withdrawField\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert newAccountField != null : "fx:id=\"newAccountField\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert transferTargetField != null : "fx:id=\"transferTargetField\" was not injected: check your FXML file 'portfolio.fxml'.";
-        assert removeAccountField != null : "fx:id=\"removeAccountField\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert depositButton != null : "fx:id=\"depositButton\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert transferButton != null : "fx:id=\"transferButton\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert withdrawButton != null : "fx:id=\"withdrawButton\" was not injected: check your FXML file 'portfolio.fxml'.";

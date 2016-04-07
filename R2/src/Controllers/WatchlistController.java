@@ -128,50 +128,6 @@ public class WatchlistController extends ViewController implements Initializable
 
     }
 
-    @FXML
-    void handleRefresh(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleSave(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleLogout(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handlePortfolioTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleImportTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleMarketTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleSimulationTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleTransactionTab(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleme(ActionEvent event) {
-
-    }
 
     @FXML
     void handleSetHighTrigger(ActionEvent event) {
