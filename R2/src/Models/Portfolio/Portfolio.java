@@ -4,6 +4,7 @@ import Models.Market.MarketEquity;
 import Models.Transaction.Transaction;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,6 +17,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
     private ArrayList<Transaction> transactionLog;
     private String hashedPass;
     private String id;
+    private HashMap<String, Boolean> cashAccountNames;
 
     //Used to denote serialized version
     private static final long serialVersionUID = 681129221878275270L;
@@ -34,6 +36,8 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         this.hashedPass = hashedPass;
         this.id = id;
 
+        //instantiate the cash account name map
+        cashAccountNames = new HashMap<>();
 
     }
 
@@ -41,24 +45,14 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         return cashAccounts;
     }
 
-    public void setCashAccounts(ArrayList<CashAccount> cashAccounts) {
-        this.cashAccounts = cashAccounts;
-    }
+    public boolean getCashAccNameExists(String name){return cashAccountNames.containsKey(name);}
 
     public ArrayList<Transaction> getTransactionLog() {
         return transactionLog;
     }
 
-    public void setTransactionLog(ArrayList<Transaction> transactionLog) {
-        this.transactionLog = transactionLog;
-    }
-
     public ArrayList<HoldingEquity> getHoldingEquities() {
         return holdingEquities;
-    }
-
-    public void setHoldingEquities(ArrayList<HoldingEquity> holdingEquities) {
-        this.holdingEquities = holdingEquities;
     }
 
     /**
@@ -114,6 +108,9 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         CashAccount newCashAccount = new CashAccount(name, initialBalance);
         cashAccounts.add(newCashAccount);
 
+        //update the names hashmap
+        cashAccountNames.put(name, Boolean.TRUE);
+
         setChanged();
         notifyObservers(ObserveType.CASH_ACCOUNT);
     }
@@ -123,9 +120,13 @@ public class Portfolio extends Observable implements Observer,Serializable  {
      * @param target the cash account to  be deleted
      */
     public void removeCashAccount(CashAccount target){
+        //update teh names hashmap
+        cashAccountNames.remove(target.getName());
+
         //remove target cash account
         int index = cashAccounts.indexOf(target);
         cashAccounts.remove(index);
+
 
         setChanged();
         notifyObservers(ObserveType.CASH_ACCOUNT);

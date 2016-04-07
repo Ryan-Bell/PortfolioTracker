@@ -26,6 +26,7 @@ public class PortfolioController extends ViewController implements Initializable
     @FXML private TableColumn<CashAccount, LocalDateTime> cashAccountDate;
     @FXML private TableColumn<CashAccount, String> cashAccountBalance;
     @FXML private TableColumn<CashAccount, String> cashAccountName;
+    @FXML private Label cashAccountError;
 
     //FXML fields related to the Equities table
     @FXML private TableView<HoldingEquity> equityTable;
@@ -35,6 +36,7 @@ public class PortfolioController extends ViewController implements Initializable
     @FXML private TableColumn<HoldingEquity, String> equityName;
     @FXML private TableColumn<HoldingEquity, String> equityShares;
     @FXML private TableColumn<HoldingEquity, String> equityTicker;
+    @FXML private Label equitiesError;
 
     //Cash account actions
     @FXML private TextField withdrawField;
@@ -68,6 +70,7 @@ public class PortfolioController extends ViewController implements Initializable
         assert cashAccountDate != null : "fx:id=\"cashAccountDate\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert cashAccountBalance != null : "fx:id=\"cashAccountBalance\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert cashAccountName != null : "fx:id=\"cashAccountName\" was not injected: check your FXML file 'portfolio.fxml'.";
+        assert cashAccountError != null : "fx:id=\"cashAccountError\" was not injected: check your FXML file 'portfolio.fxml'.";
 
         //related to equity table
         assert equityTable != null : "fx:id=\"equityTable\" was not injected: check your FXML file 'portfolio.fxml'.";
@@ -77,6 +80,7 @@ public class PortfolioController extends ViewController implements Initializable
         assert equityName != null : "fx:id=\"equityName\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert equityShares != null : "fx:id=\"equityShares\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert equityTicker != null : "fx:id=\"equityTicker\" was not injected: check your FXML file 'portfolio.fxml'.";
+        assert equitiesError != null : "fx:id=\"equitiesError\" was not injected: check your FXML file 'portfolio.fxml'.";
 
         //related to cash account actions
         assert addAccountButton != null : "fx:id=\"addAccountButton\" was not injected: check your FXML file 'portfolio.fxml'.";
@@ -98,6 +102,7 @@ public class PortfolioController extends ViewController implements Initializable
         assert sellNameField != null : "fx:id=\"sellNameField\" was not injected: check your FXML file 'portfolio.fxml'.";
         //endregion
 
+        //region CellFactories
         //set value factories for the cash account table
         cashAccountDate.setCellValueFactory(new PropertyValueFactory<>("dateAdded"));
         cashAccountBalance.setCellValueFactory(new PropertyValueFactory<>("balance"));
@@ -110,6 +115,7 @@ public class PortfolioController extends ViewController implements Initializable
         equityName.setCellValueFactory(new PropertyValueFactory<>("name"));
         equityShares.setCellValueFactory(new PropertyValueFactory<>("numShares"));
         equityTicker.setCellValueFactory(new PropertyValueFactory<>("tickerSymbol"));
+        //endregion
 
     }
 
@@ -143,7 +149,22 @@ public class PortfolioController extends ViewController implements Initializable
 
     @FXML
     void handleAddCashAccount(ActionEvent event) {
-        main.getPortfolio().addCashAccount(newAccountField.getText(), Float.parseFloat(newBalanceField.getText()));
+        //get the  proposed name for the new cash account
+        String newCashAccountName = newAccountField.getText();
+
+        //check that a cash account with the same name doesn't already exist
+        if (main.getPortfolio().getCashAccNameExists(newCashAccountName)) {
+            cashAccountError.setText("An account with that name already exists");
+            return;
+        }
+
+        try {
+            //try to add the new cash account
+            main.getPortfolio().addCashAccount(newCashAccountName, Float.parseFloat(newBalanceField.getText()));
+        } catch (Exception e) {
+            //display an error if the float entered was not a valid number 
+            cashAccountError.setText("Balance entered is not a valid float");
+        }
     }
 
     @FXML

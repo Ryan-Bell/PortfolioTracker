@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -43,14 +44,20 @@
                         <content>
                            <VBox>
                               <children>
-                                 <Label text="Cash Accounts">
-                                    <VBox.margin>
-                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                    </VBox.margin>
-                                    <font>
-                                       <Font name="System Bold" size="18.0" />
-                                    </font>
-                                 </Label>
+                                    <HBox prefHeight="0.0" prefWidth="790.0">
+                                       <children>
+                                          <AnchorPane prefHeight="27.0" prefWidth="804.0">
+                                             <children>
+                                             <Label text="Cash Accounts">
+                                                <font>
+                                                   <Font name="System Bold" size="18.0" />
+                                                </font>
+                                             </Label>
+                                                <Label fx:id="cashAccountError" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="513.0" layoutY="5.0" textFill="RED" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </HBox>
                                  <HBox prefHeight="200.0" prefWidth="790.0">
                                     <children>
                                        <TableView fx:id="cashAccountTable" prefHeight="200.0" prefWidth="604.0">
@@ -149,11 +156,20 @@
                         <content>
                            <VBox>
                               <children>
-                                 <Label text="Equities and Market Averages">
-                                    <font>
-                                       <Font name="System Bold" size="18.0" />
-                                    </font>
-                                 </Label>
+                                    <HBox prefHeight="10.0" prefWidth="790.0">
+                                       <children>
+                                          <AnchorPane prefHeight="27.0" prefWidth="798.0">
+                                             <children>
+                                             <Label text="Equities and Market Averages">
+                                                <font>
+                                                   <Font name="System Bold" size="18.0" />
+                                                </font>
+                                             </Label>
+                                                <Label fx:id="equitiesError" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="517.0" layoutY="5.0" textFill="RED" />
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </HBox>
                                  <HBox prefHeight="200.0" prefWidth="790.0">
                                     <children>
                                        <TableView fx:id="equityTable" prefHeight="200.0" prefWidth="756.0">
