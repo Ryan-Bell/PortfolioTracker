@@ -6,12 +6,11 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+import Models.Market.Equity;
 import Models.Portfolio.CashAccount;
 import Models.Portfolio.HoldingEquity;
 import Models.Portfolio.ObserveType;
-import Models.Transaction.AddCashAccTransaction;
-import Models.Transaction.RemoveCashAccTransaction;
-import Models.Transaction.WithdrawTransaction;
+import Models.Transaction.*;
 import Models.UndoRedo.UndoRedo;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
@@ -154,12 +153,31 @@ public class PortfolioController extends ViewController implements Initializable
 
     @FXML
     void handleDepositCashAccount() {
-
+        try{
+            CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
+            float amount = Float.parseFloat(depositField.getText());
+            UndoRedoFunctions.getInstance().execute(new DepositTransaction(target, amount));
+        } catch (Exception e){
+            cashAccountError.setText("The deposit amount is not a valid number");
+        }
     }
 
     @FXML
     void handleTransferCashAccount() {
-
+        try{
+            CashAccount transferFrom = cashAccountTable.getSelectionModel().getSelectedItem();
+            CashAccount transferTo;
+            String transferName = transferTargetField.getText();
+            float amount = Float.parseFloat(transferAmountField.getText());
+            if (main.getPortfolio().getCashAccNameExists(transferName) == -1){
+                cashAccountError.setText("Not a valid cash account name for transfer");
+                return;
+            }
+            transferTo = main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(transferName));
+            UndoRedoFunctions.getInstance().execute(new TransferTransaction(transferFrom, transferTo, amount));
+        } catch (Exception e){
+            cashAccountError.setText("The transfer amount is not a valid number");
+        }
     }
 
     /**
@@ -202,7 +220,24 @@ public class PortfolioController extends ViewController implements Initializable
 
     @FXML
     void handleSellEquity() {
-
+        try{
+            int numShares = Integer.parseInt(sellSharesField.getText());
+            HoldingEquity equity = equityTable.getSelectionModel().getSelectedItem();
+            String accountTarget;
+            if((accountTarget = sellNameField.getText()) != null){
+                int accountIndex = main.getPortfolio().getCashAccNameExists(accountTarget);
+                if(accountIndex != -1) {
+                    CashAccount target = main.getPortfolio().getCashAccounts().get(accountIndex);
+                    UndoRedoFunctions.getInstance().execute(new SellWithCashAccount(new SellTransaction(equity, numShares, main.getPortfolio()), target));
+                } else {
+                    equitiesError.setText("Cash account name is not valid");
+                }
+            } else {
+                UndoRedoFunctions.getInstance().execute(new SellTransaction(equity, numShares, main.getPortfolio()));
+            }
+        } catch (Exception e){
+            equitiesError.setText("Number of shares is not a valid number");
+        }
     }
 
     @FXML

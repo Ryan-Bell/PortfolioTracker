@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
  */
 public class WithdrawTransaction implements UndoRedo, Serializable {
 
-
     private CashAccount target;
     private float amount;
     private LocalDateTime date;
