@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Responds to user input in order to create a CashAccount.
+ * A concrete command. Adds a CashAccount
+ * to a portfolio
  */
 public class AddCashAccTransaction implements UndoRedo, Serializable {
 
