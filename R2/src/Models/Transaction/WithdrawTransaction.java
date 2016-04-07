@@ -41,6 +41,6 @@ public class WithdrawTransaction implements UndoRedo, Serializable {
 
     @Override
     public void unExecute() {
-
+        target.deposit(amount);
     }
 }
