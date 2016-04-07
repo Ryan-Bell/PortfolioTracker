@@ -114,9 +114,11 @@ public class PortfolioController extends ViewController implements Initializable
         equityShares.setCellValueFactory(new PropertyValueFactory<>("numShares"));
         equityTicker.setCellValueFactory(new PropertyValueFactory<>("tickerSymbol"));
         //endregion
-
     }
 
+    /**
+     * Handles setup logic that needs to happen after the reference to main is set
+     */
     @Override
     protected void setup(){
         //set the observable list cash account table points to
@@ -131,22 +133,34 @@ public class PortfolioController extends ViewController implements Initializable
     }
 
     @FXML
-    void handleWithdrawCashAccount(ActionEvent event) {
+    void handleWithdrawCashAccount() {
+        try{
+            if (cashAccountTable.getSelectionModel().getSelectedItem().sufficientFunds(Float.parseFloat(withdrawField.getText()))) {
+                cashAccountTable.getSelectionModel().getSelectedItem().withdraw(Float.parseFloat(withdrawField.getText()));
+            } else {
+                cashAccountError.setText("The withdraw amount exceeds the balance");
+            }
+
+        } catch (Exception e) {
+            cashAccountError.setText("The withdraw amount is not a valid number");
+        }
+    }
+
+    @FXML
+    void handleDepositCashAccount() {
 
     }
 
     @FXML
-    void handleDepositCashAccount(ActionEvent event) {
+    void handleTransferCashAccount() {
 
     }
 
+    /**
+     * Handles the attempted addition of a cash account
+     */
     @FXML
-    void handleTransferCashAccount(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleAddCashAccount(ActionEvent event) {
+    void handleAddCashAccount() {
         //get the  proposed name for the new cash account
         String newCashAccountName = newAccountField.getText();
 
@@ -165,9 +179,12 @@ public class PortfolioController extends ViewController implements Initializable
         }
     }
 
+    /**
+     * Handles the attempted removal of a cash account
+     */
     @FXML
-    void handleRemoveCashAccount(ActionEvent event) {
-        //attempt to remove the currrently selected cash account and display error otherwise
+    void handleRemoveCashAccount() {
+        //attempt to remove the currently selected cash account and display error otherwise
         try {
             main.getPortfolio().removeCashAccount(cashAccountTable.getSelectionModel().getSelectedItem());
         } catch (Exception e){
@@ -176,7 +193,7 @@ public class PortfolioController extends ViewController implements Initializable
     }
 
     @FXML
-    void handleSellEquity(ActionEvent event) {
+    void handleSellEquity() {
 
     }
 
