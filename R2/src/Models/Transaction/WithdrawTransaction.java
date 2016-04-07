@@ -41,6 +41,7 @@ public class WithdrawTransaction implements UndoRedo, Serializable {
 
     @Override
     public void unExecute() {
+        if(failed) return;
         target.deposit(amount);
     }
 }

@@ -44,6 +44,7 @@ public class TransferTransaction implements UndoRedo, Serializable {
 
     @Override
     public void unExecute() {
+        if(failed) return;
         withdrawTarget.deposit(amount);
         depositTarget.withdraw(amount);
     }

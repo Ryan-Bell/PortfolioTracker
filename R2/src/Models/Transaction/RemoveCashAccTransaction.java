@@ -35,6 +35,7 @@ public class RemoveCashAccTransaction implements UndoRedo, Serializable {
 
     @Override
     public void unExecute() {
+        if(failed) return;
         portfolio.addCashAccount(cashAccount.getName(), cashAccount.getBalance());
     }
 

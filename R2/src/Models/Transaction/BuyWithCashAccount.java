@@ -24,7 +24,9 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator{
 
     @Override
     public void unExecute(){
-        cashAccount.deposit(cost);
+        if(!failed) {
+            cashAccount.deposit(cost);
+        }
         transactionToBoDecorated.unExecute();
     }
 }

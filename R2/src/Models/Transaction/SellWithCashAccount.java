@@ -29,7 +29,9 @@ public class SellWithCashAccount extends ExtendedTransactionDecorator{
 
     @Override
     public void unExecute(){
-        transactionToBoDecorated.unExecute();
+        if(!failed) {
+            transactionToBoDecorated.unExecute();
+        }
         cashAccount.withdraw(amount);
     }
 }

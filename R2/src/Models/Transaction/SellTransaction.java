@@ -50,6 +50,7 @@ public class SellTransaction implements UndoRedo, Serializable {
 
     @Override
     public void unExecute() {
+        if(failed) return;
         portfolio.buyEquity(target, amount);
     }
 }
