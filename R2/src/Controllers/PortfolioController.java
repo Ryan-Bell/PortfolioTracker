@@ -1,24 +1,21 @@
 package Controllers;
 
+import Models.Portfolio.CashAccount;
+import Models.Portfolio.HoldingEquity;
+import Models.Portfolio.ObserveType;
+import Models.Transaction.*;
+import Models.UndoRedo.UndoRedoFunctions;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
-import Models.Market.Equity;
-import Models.Portfolio.CashAccount;
-import Models.Portfolio.HoldingEquity;
-import Models.Portfolio.ObserveType;
-import Models.Transaction.*;
-import Models.UndoRedo.UndoRedo;
-import Models.UndoRedo.UndoRedoFunctions;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PortfolioController extends ViewController implements Initializable, Observer {
     //region FXMLFields
