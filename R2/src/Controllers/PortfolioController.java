@@ -9,6 +9,11 @@ import java.util.ResourceBundle;
 import Models.Portfolio.CashAccount;
 import Models.Portfolio.HoldingEquity;
 import Models.Portfolio.ObserveType;
+import Models.Transaction.AddCashAccTransaction;
+import Models.Transaction.RemoveCashAccTransaction;
+import Models.Transaction.WithdrawTransaction;
+import Models.UndoRedo.UndoRedo;
+import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -135,12 +140,13 @@ public class PortfolioController extends ViewController implements Initializable
     @FXML
     void handleWithdrawCashAccount() {
         try{
-            if (cashAccountTable.getSelectionModel().getSelectedItem().sufficientFunds(Float.parseFloat(withdrawField.getText()))) {
-                cashAccountTable.getSelectionModel().getSelectedItem().withdraw(Float.parseFloat(withdrawField.getText()));
+            CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
+            float amount = Float.parseFloat(withdrawField.getText());
+            if (target.sufficientFunds(amount)) {
+                UndoRedoFunctions.getInstance().execute(new WithdrawTransaction(target, amount));
             } else {
                 cashAccountError.setText("The withdraw amount exceeds the balance");
             }
-
         } catch (Exception e) {
             cashAccountError.setText("The withdraw amount is not a valid number");
         }
@@ -165,14 +171,16 @@ public class PortfolioController extends ViewController implements Initializable
         String newCashAccountName = newAccountField.getText();
 
         //check that a cash account with the same name doesn't already exist
-        if (main.getPortfolio().getCashAccNameExists(newCashAccountName)) {
+        if (main.getPortfolio().getCashAccNameExists(newCashAccountName) != -1) {
             cashAccountError.setText("An account with that name already exists");
             return;
         }
 
         try {
+            float amount = Float.parseFloat(newBalanceField.getText());
+
             //try to add the new cash account
-            main.getPortfolio().addCashAccount(newCashAccountName, Float.parseFloat(newBalanceField.getText()));
+            UndoRedoFunctions.getInstance().execute(new AddCashAccTransaction(newCashAccountName, amount, main.getPortfolio()));
         } catch (Exception e) {
             //display an error if the float entered was not a valid number
             cashAccountError.setText("Balance entered is not a valid float");
@@ -186,7 +194,7 @@ public class PortfolioController extends ViewController implements Initializable
     void handleRemoveCashAccount() {
         //attempt to remove the currently selected cash account and display error otherwise
         try {
-            main.getPortfolio().removeCashAccount(cashAccountTable.getSelectionModel().getSelectedItem());
+            UndoRedoFunctions.getInstance().execute(new RemoveCashAccTransaction(cashAccountTable.getSelectionModel().getSelectedItem(), main.getPortfolio()));
         } catch (Exception e){
             cashAccountError.setText("Could not remove the selected account");
         }
