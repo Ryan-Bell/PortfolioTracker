@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * A concrete command. Removes a holdingEquity
- * from a portfolio and *optional deposit money
- * from a holding account.
+ * from a portfolio
  */
 
 public class SellTransaction implements UndoRedo, Serializable {
@@ -21,16 +20,17 @@ public class SellTransaction implements UndoRedo, Serializable {
     private int amount;
     private LocalDateTime date;
     private Portfolio portfolio;
-    private CashAccount cashAccount;
-    private String description;
     private boolean failed;
 
-    public SellTransaction(HoldingEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
+    public HoldingEquity getTarget(){return target;}
+    public int getAmount(){return amount;}
+    public Portfolio getPortfolio(){return portfolio;}
+
+    public SellTransaction(HoldingEquity target, int amount, Portfolio portfolio) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();
         this.portfolio = portfolio;
-        this.cashAccount = cashAccount;
         this.failed = false;
     }
 
@@ -38,8 +38,6 @@ public class SellTransaction implements UndoRedo, Serializable {
     public void execute() {
         if(target.getNumShares() - amount >=0) {
             portfolio.sellEquity(target, amount);
-            cashAccount.deposit(amount);
-            target.getValue();
         }
         else failed = true;
     }

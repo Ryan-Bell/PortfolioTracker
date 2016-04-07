@@ -1,7 +1,6 @@
 package Models.Transaction;
 
 import Models.Market.MarketEquity;
-import Models.Portfolio.CashAccount;
 import Models.Portfolio.Portfolio;
 import Models.UndoRedo.UndoRedo;
 
@@ -10,8 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * A concrete command. Adds a holdingEquity
- * to a portfolio and *optional withdraw money
- * from a holding account.
+ * to a portfolio
  */
 public class BuyTransaction implements UndoRedo, Serializable {
 
@@ -19,33 +17,22 @@ public class BuyTransaction implements UndoRedo, Serializable {
     private int amount;
     private LocalDateTime date;
     private Portfolio portfolio;
-    private CashAccount cashAccount;
     private boolean failed;
 
+    public int getAmount(){return amount;}
+    public MarketEquity getTarget(){return target;}
 
-    public BuyTransaction(MarketEquity target, int amount, Portfolio portfolio, CashAccount cashAccount) {
+    public BuyTransaction(MarketEquity target, int amount, Portfolio portfolio) {
         this.target = target;
         this.amount = amount;
         this.date = LocalDateTime.now();
         this.portfolio = portfolio;
-        this.cashAccount = cashAccount;
         this.failed = false;
     }
 
     @Override
     public void execute() {
-        if(cashAccount != null) {
-            float cost = amount * target.getValue();
-            if (cashAccount.sufficientFunds(cost)) {
-                cashAccount.withdraw(cost);
-
-                //call buyEquity on target with num of shares
-                portfolio.buyEquity(target, amount);
-            } else failed = true;
-        }
-        else{
-            portfolio.buyEquity(target, amount);
-        }
+        portfolio.buyEquity(target, amount);
     }
 
     @Override
