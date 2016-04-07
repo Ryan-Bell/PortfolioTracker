@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
@@ -60,10 +61,90 @@
          </Tab>
          <Tab fx:id="watchlistTab" onSelectionChanged="#handleme" text="Watchlist">
             <content>
-               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-                  <children>
-                     <Label text="Watchlist Stuff Here" />
-                  </children>
+               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="507.0" prefWidth="798.0">
+                     <children>
+                        <Label text="Watchlist">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox prefHeight="486.0" prefWidth="798.0">
+                           <children>
+                              <TableView prefHeight="480.0" prefWidth="536.0">
+                                <columns>
+                                  <TableColumn prefWidth="55.0" text="Ticker" />
+                                  <TableColumn prefWidth="111.0" text="Name" />
+                                    <TableColumn prefWidth="69.0" text="Price" />
+                                    <TableColumn prefWidth="98.0" text="High Trigger" />
+                                    <TableColumn prefWidth="93.0" text="Low Trigger" />
+                                    <TableColumn prefWidth="71.0" text="Tripped?" />
+                                </columns>
+                              </TableView>
+                              <VBox prefHeight="480.0" prefWidth="339.0" spacing="5.0">
+                                 <children>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <TextField promptText="High Trigger" />
+                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Set Trigger" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="15.0" spacing="5.0">
+                                       <children>
+                                          <TextField promptText="Low Trigger" />
+                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Set Trigger" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="51.0" spacing="5.0">
+                                       <children>
+                                          <MenuButton mnemonicParsing="false" prefWidth="186.0" text="MenuButton">
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="High Trigger" />
+                                              <MenuItem mnemonicParsing="false" text="Low Trigger" />
+                                                <MenuItem mnemonicParsing="false" text="Both Triggers" />
+                                            </items>
+                                          </MenuButton>
+                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Clear Trigger" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="51.0" spacing="5.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefWidth="173.0" text="Reset Tripped Triggers" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="133.0" spacing="5.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefWidth="173.0" text="Remove Item" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox layoutX="15.0" layoutY="15.0" spacing="5.0">
+                                       <children>
+                                          <TextField promptText="Update Interval (min)" />
+                                          <Button mnemonicParsing="false" prefWidth="125.0" text="Set Update" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
                </VBox>
             </content>
          </Tab>
