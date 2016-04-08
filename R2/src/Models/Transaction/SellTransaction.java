@@ -82,8 +82,8 @@ public class SellTransaction implements UndoRedo, Serializable {
      */
     @Override
     public String toString() {
-        if(failed) return "Could not sell "+amount+" shares of "+target.getName()+" equity on "+date;
-        return "Sold "+amount+" shares of "+target.getName()+" equity on "+date;
+        if(failed) return "Could not sell " + amount + " shares of " + target.getName() + " equity on " + date;
+        return "Sold " + amount + " shares of " + target.getName() + " equity on " + date;
     }
 
     /**
