@@ -30,6 +30,9 @@ public class ImportController extends ViewController implements Initializable {
     @FXML private ListView<String> importResultsList;
     @FXML private TextField fileNameField;
     @FXML private Button importButton;
+    @FXML private Button mergeButton;
+    @FXML private Button ignoreButton;
+    @FXML private Button replaceButton;
     //endregion
 
     //a portfolio IO  object to read in the other portfolio
@@ -42,6 +45,9 @@ public class ImportController extends ViewController implements Initializable {
         assert importResultsList != null : "fx:id=\"importResultsList\" was not injected: check your FXML file 'import.fxml'.";
         assert fileNameField != null : "fx:id=\"fileNameField\" was not injected: check your FXML file 'import.fxml'.";
         assert importButton != null : "fx:id=\"importButton\" was not injected: check your FXML file 'import.fxml'.";
+        assert mergeButton != null : "fx:id=\"mergeButton\" was not injected: check your FXML file 'import.fxml'.";
+        assert ignoreButton != null : "fx:id=\"ignoreButton\" was not injected: check your FXML file 'import.fxml'.";
+        assert replaceButton != null : "fx:id=\"replaceButton\" was not injected: check your FXML file 'import.fxml'.";
         //endregion
 
         //instantiate the PortfolioIO object
@@ -52,6 +58,15 @@ public class ImportController extends ViewController implements Initializable {
     void handleme(){
         portfolioTab.setDisable(false);
     }
+
+    @FXML
+    void handleMerge(){}
+
+    @FXML
+    void handleReplace(){}
+
+    @FXML
+    void handleIgnore(){}
 
     @FXML
     void handleImport() {
