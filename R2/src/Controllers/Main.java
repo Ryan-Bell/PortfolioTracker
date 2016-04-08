@@ -1,10 +1,15 @@
 package Controllers;
 
 import Models.FileIO.FXMLLoaderExtended;
+import Models.FileIO.Parser;
+import Models.Market.Market;
 import Models.Portfolio.Portfolio;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import javafx.concurrent.ScheduledService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +35,18 @@ public class Main extends Application {
     public Stage getPrimaryStage(){return primaryStage;}
     public void setPortfolio(Portfolio portfolio){this.portfolio = portfolio;}
 
+
+    //Temporary variables for all the models
+    private Parser parser;
+    private Market market;
+
+    public Market getMarket(){return market;}
+    public void setMarket(Market market){this.market = market;}
+
+    public ScheduledService<Void> updateService;
+    public ScheduledService<Void> getUpdateService(){return updateService;}
+    public void setUpdateService(ScheduledService<Void> updateService){this.updateService = updateService;}
+
     /** Starts the FXML Application
      * @param primaryStage the stage to build all the scenes on
      * @throws Exception
@@ -43,6 +60,25 @@ public class Main extends Application {
 
         //show the login page on startup
         showLogin();
+
+        market = new Market();
+        parser = new Parser(market, "./market.csv");
+        parser.parseFile();
+        market.updateEquities();
+
+        updateService = new ScheduledService<Void>() {
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    protected Void call(){
+                        System.out.println("Update Service");
+                        getMarket().updateEquities();
+                        return null;
+                    }
+                };
+            }
+        };
+        updateService.setPeriod(Duration.seconds(60));
+        updateService.start();
     }
 
     //region ShowViews

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -56,13 +58,27 @@
                      <HBox spacing="10.0">
                         <children>
                            <Label prefWidth="125.0" text="Ticker" />
-                           <MenuButton fx:id="tickerQueryType" mnemonicParsing="false" text="Select Query Type">
+                           <MenuButton mnemonicParsing="false" text="Select Query Type">
                               <items>
                                  <MenuItem mnemonicParsing="false" text="Exact" />
                                  <MenuItem mnemonicParsing="false" text="Begin" />
                                  <MenuItem mnemonicParsing="false" text="Contains" />
                               </items>
                            </MenuButton>
+
+                           <ChoiceBox  fx:id="tickerQueryType">
+                              <items>
+                                 <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Exact"/>
+                                    <String fx:value="Begin"/>
+                                    <String fx:value="Contains"/>
+                                 </FXCollections>
+                              </items>
+                              <value>
+                                 <String fx:value="Select Query Type"/>
+                              </value>
+                           </ChoiceBox>
+
                            <TextField fx:id="tickerSearchField" promptText="Enter Ticker Symbol" />
                         </children>
                      </HBox>

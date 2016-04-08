@@ -6,10 +6,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class MarketController extends ViewController implements Initializable {
     //region FXMLFields
@@ -18,7 +15,7 @@ public class MarketController extends ViewController implements Initializable {
     @FXML private MenuButton indexQueryType;
     @FXML private MenuButton nameQueryType;
     @FXML private Button searchButton;
-    @FXML private MenuButton tickerQueryType;
+    @FXML private ChoiceBox tickerQueryType;
     @FXML private TextField indexSearchField;
     @FXML private TextField nameSearchField;
     @FXML private ListView<?> searchResultsField;

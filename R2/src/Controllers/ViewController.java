@@ -66,7 +66,7 @@ public class ViewController implements Observer{
     }
 
     @FXML void handleRefresh(ActionEvent actionEvent) {
-
+        main.getUpdateService().restart();
     }
 
     @FXML void handleSave(ActionEvent actionEvent) {
