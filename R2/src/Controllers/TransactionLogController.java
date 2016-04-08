@@ -34,6 +34,7 @@ public class TransactionLogController extends ViewController implements Initiali
 
     @FXML
     void handleFilter(ActionEvent event) {
+        //how to acquire the date from the date picker
         LocalDate now = startDatePicker.getValue();
         System.out.println(now);
 
