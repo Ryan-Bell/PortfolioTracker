@@ -48,7 +48,7 @@ public class AddCashAccTransaction implements UndoRedo, Serializable {
     @Override
     public void execute() {
         //check that an account with the same name doesn't already exist
-        if(portfolio.getCashAccNameExists(name) != -1) portfolio.addCashAccount(name,amount);
+        if(portfolio.getCashAccNameExists(name) == -1) portfolio.addCashAccount(name,amount);
 
         //set the failed status to true otherwise
         else failed = true;

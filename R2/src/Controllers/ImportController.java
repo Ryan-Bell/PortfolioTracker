@@ -10,7 +10,9 @@ import Models.Portfolio.HoldingEquity;
 import Models.Portfolio.Portfolio;
 import Models.Transaction.AddCashAccTransaction;
 import Models.Transaction.BuyTransaction;
+import Models.Transaction.DepositTransaction;
 import Models.UndoRedo.UndoRedoFunctions;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,7 +20,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ImportController extends ViewController implements Initializable {
@@ -26,7 +28,7 @@ public class ImportController extends ViewController implements Initializable {
     //region FXMLFields
     @FXML private ResourceBundle resources;
     @FXML private URL location;
-    @FXML private ListView<String> importConflictsList;
+    @FXML private ListView<CashAccount> importConflictsList;
     @FXML private ListView<String> importResultsList;
     @FXML private TextField fileNameField;
     @FXML private Button importButton;
@@ -37,6 +39,8 @@ public class ImportController extends ViewController implements Initializable {
 
     //a portfolio IO  object to read in the other portfolio
     PortfolioIO portfolioIO;
+    ArrayList<CashAccount> conflicts;
+    ArrayList<String> results;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -52,6 +56,12 @@ public class ImportController extends ViewController implements Initializable {
 
         //instantiate the PortfolioIO object
         portfolioIO = new PortfolioIO();
+
+        //instantiate the conflicts
+        conflicts = new ArrayList<>();
+
+        //instantiate the results
+        results = new ArrayList<>();
     }
 
     @FXML
@@ -60,13 +70,30 @@ public class ImportController extends ViewController implements Initializable {
     }
 
     @FXML
-    void handleMerge(){}
+    void handleMerge(){
+        CashAccount mergeAccount = importConflictsList.getSelectionModel().getSelectedItem();
+        UndoRedoFunctions.getInstance().execute(new DepositTransaction(main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(mergeAccount.getName())), mergeAccount.getBalance()));
+        results.add("Merged Cash Accounts '"+ mergeAccount.getName() + "'");
+        conflicts.remove(mergeAccount);
+        displayConflicts();
+    }
 
     @FXML
-    void handleReplace(){}
+    void handleReplace(){
+        main.getPortfolio().removeCashAccount(main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(importConflictsList.getSelectionModel().getSelectedItem().getName())));
+        CashAccount replacementAccount = importConflictsList.getSelectionModel().getSelectedItem();
+        UndoRedoFunctions.getInstance().execute(new AddCashAccTransaction(replacementAccount.getName(), replacementAccount.getBalance(), main.getPortfolio()));
+        results.add("Replaced Cash Account '" + replacementAccount.getName() + "'");
+        conflicts.remove(replacementAccount);
+        displayConflicts();
+    }
 
     @FXML
-    void handleIgnore(){}
+    void handleIgnore() {
+        results.add("Ignored Cash Account '" + importConflictsList.getSelectionModel().getSelectedItem().getName() + "'");
+        conflicts.remove(importConflictsList.getSelectionModel().getSelectedItem());
+        displayConflicts();
+    }
 
     @FXML
     void handleImport() {
@@ -82,11 +109,13 @@ public class ImportController extends ViewController implements Initializable {
 
         importEquities(importPortfolio);
         importTransactions(importPortfolio);
-        displayConflicts(importCashAccounts(importPortfolio));
+        importCashAccounts(importPortfolio);
+        displayConflicts();
     }
 
-    private void displayConflicts(HashMap<CashAccount, CashAccount> conflicts){
-
+    private void displayConflicts(){
+        importConflictsList.setItems(FXCollections.observableList(conflicts));
+        importResultsList.setItems(FXCollections.observableList(results));
     }
 
     private void importEquities(Portfolio importPortfolio){
@@ -97,10 +126,10 @@ public class ImportController extends ViewController implements Initializable {
             if((currentIndex = main.getPortfolio().getEquityNameExists(equity.getName())) != -1){
                 currentEquity = main.getPortfolio().getHoldingEquities().get(currentIndex);
                 currentEquity.setNumShares(currentEquity.getNumShares() + equity.getNumShares());
-                //add description to results description "Added "+equity.getNumShares()+" shares to "+equity.getName()
+                results.add("Added " + equity.getNumShares() + " shares to " + equity.getName());
             } else {
                 UndoRedoFunctions.getInstance().execute(new BuyTransaction(equity, equity.getNumShares(), main.getPortfolio()));
-                //add description to results description "Added "+equity.getNumShares()+" shares to "+equity.getName()
+                results.add("Added " + equity.getNumShares() +  " shares to " + equity.getName());
             }
         }
     }
@@ -110,18 +139,15 @@ public class ImportController extends ViewController implements Initializable {
         main.getPortfolio().getTransactionLog().addAll(importPortfolio.getTransactionLog());
     }
 
-    private HashMap<CashAccount, CashAccount> importCashAccounts(Portfolio importPortfolio){
-        HashMap<CashAccount, CashAccount> cashAccountConflicts = new HashMap<>();
+    private void importCashAccounts(Portfolio importPortfolio){
         for(CashAccount account : importPortfolio.getCashAccounts()){
-            int currentIndex;
-            if((currentIndex = main.getPortfolio().getCashAccNameExists(account.getName())) != -1){
-                cashAccountConflicts.put(account, main.getPortfolio().getCashAccounts().get(currentIndex));
+            if(main.getPortfolio().getCashAccNameExists(account.getName()) != -1){
+                conflicts.add(account);
             } else {
                 UndoRedoFunctions.getInstance().execute(new AddCashAccTransaction(account.getName(), account.getBalance(), main.getPortfolio()));
-                //add description to results description "Added Cash Account '"+account.getName()+"' with balance of "+account.getBalance()
+                results.add("Added Cash Account '" + account.getName() + "' with balance of " + account.getBalance());
             }
         }
-        return cashAccountConflicts;
     }
 }
 

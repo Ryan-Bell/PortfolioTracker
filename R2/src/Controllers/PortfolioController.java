@@ -140,6 +140,7 @@ public class PortfolioController extends ViewController implements Initializable
             float amount = Float.parseFloat(withdrawField.getText());
             if (target.sufficientFunds(amount)) {
                 UndoRedoFunctions.getInstance().execute(new WithdrawTransaction(target, amount));
+                cashAccountTable.refresh();
             } else {
                 cashAccountError.setText("The withdraw amount exceeds the balance");
             }
@@ -154,6 +155,7 @@ public class PortfolioController extends ViewController implements Initializable
             CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
             float amount = Float.parseFloat(depositField.getText());
             UndoRedoFunctions.getInstance().execute(new DepositTransaction(target, amount));
+            cashAccountTable.refresh();
         } catch (Exception e){
             cashAccountError.setText("The deposit amount is not a valid number");
         }
@@ -172,6 +174,7 @@ public class PortfolioController extends ViewController implements Initializable
             }
             transferTo = main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(transferName));
             UndoRedoFunctions.getInstance().execute(new TransferTransaction(transferFrom, transferTo, amount));
+            cashAccountTable.refresh();
         } catch (Exception e){
             cashAccountError.setText("The transfer amount is not a valid number");
         }
@@ -196,6 +199,7 @@ public class PortfolioController extends ViewController implements Initializable
 
             //try to add the new cash account
             UndoRedoFunctions.getInstance().execute(new AddCashAccTransaction(newCashAccountName, amount, main.getPortfolio()));
+            cashAccountTable.refresh();
         } catch (Exception e) {
             //display an error if the float entered was not a valid number
             cashAccountError.setText("Balance entered is not a valid float");
@@ -210,6 +214,7 @@ public class PortfolioController extends ViewController implements Initializable
         //attempt to remove the currently selected cash account and display error otherwise
         try {
             UndoRedoFunctions.getInstance().execute(new RemoveCashAccTransaction(cashAccountTable.getSelectionModel().getSelectedItem(), main.getPortfolio()));
+            cashAccountTable.refresh();
         } catch (Exception e){
             cashAccountError.setText("Could not remove the selected account");
         }
@@ -232,6 +237,7 @@ public class PortfolioController extends ViewController implements Initializable
             } else {
                 UndoRedoFunctions.getInstance().execute(new SellTransaction(equity, numShares, main.getPortfolio()));
             }
+            equityTable.refresh();
         } catch (Exception e){
             equitiesError.setText("Number of shares is not a valid number");
         }

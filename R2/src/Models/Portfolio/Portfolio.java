@@ -133,7 +133,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
      * @param target the cash account to  be deleted
      */
     public void removeCashAccount(CashAccount target){
-        //update teh names hashmap
+        //update the names hashmap
         cashAccountNames.remove(target.getName());
 
         //remove target cash account
