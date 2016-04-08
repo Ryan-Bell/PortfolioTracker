@@ -130,52 +130,94 @@ public class PortfolioController extends ViewController implements Initializable
         equityTable.setItems(FXCollections.observableList(main.getPortfolio().getHoldingEquities()));
         equityTable.refresh();
 
+        //add this controller to the list observers that portfolio will notify on change
         main.getPortfolio().addObserver(this);
     }
 
+    /**
+     * Handles the attempted withdraw from a cash account
+     */
     @FXML
     void handleWithdrawCashAccount() {
         try{
+            //capture the currently selected cash account from the table
             CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
+
+            //try to parse the withdraw from the text field
             float amount = Float.parseFloat(withdrawField.getText());
+
+            //check that the selected account has enough funds to support the withdrawal
             if (target.sufficientFunds(amount)) {
+                //create and execute a new withdraw transaction
                 UndoRedoFunctions.getInstance().execute(new WithdrawTransaction(target, amount));
+
+                //refresh the cash account table
                 cashAccountTable.refresh();
             } else {
+                //notify the user that the cash account cannot support the withdrawal
                 cashAccountError.setText("The withdraw amount exceeds the balance");
             }
         } catch (Exception e) {
+            //notify the user that the withdraw amount was not a valid number
             cashAccountError.setText("The withdraw amount is not a valid number");
         }
     }
 
+    /**
+     * Handles the attempted deposit from a cash account
+     */
     @FXML
     void handleDepositCashAccount() {
         try{
+            //capture the cash account that is currently selected in the table
             CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
+
+            //attempt to parse the deposit amount from the text field
             float amount = Float.parseFloat(depositField.getText());
+
+            //create and execute a new deposit transaction
             UndoRedoFunctions.getInstance().execute(new DepositTransaction(target, amount));
+
+            //refresh the cash account table
             cashAccountTable.refresh();
         } catch (Exception e){
+            //notify the user that the amount they entered was not a valid number
             cashAccountError.setText("The deposit amount is not a valid number");
         }
     }
 
+    /**
+     * Handles the attempted transfer between two accounts
+     */
     @FXML
     void handleTransferCashAccount() {
         try{
+            //capture the currently selected cash account from the table
             CashAccount transferFrom = cashAccountTable.getSelectionModel().getSelectedItem();
             CashAccount transferTo;
+
+            //get the other cash account name from the text field
             String transferName = transferTargetField.getText();
+
+            //attempt to parse the transfer amount
             float amount = Float.parseFloat(transferAmountField.getText());
+
+            //check that the account name entered is a valid account
             if (main.getPortfolio().getCashAccNameExists(transferName) == -1){
+                //notify the user that the account is not valid
                 cashAccountError.setText("Not a valid cash account name for transfer");
                 return;
             }
+            //set the cash account being deposited into
             transferTo = main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(transferName));
+
+            //create and execute a new transfer transaction
             UndoRedoFunctions.getInstance().execute(new TransferTransaction(transferFrom, transferTo, amount));
+
+            //refresh the account table
             cashAccountTable.refresh();
         } catch (Exception e){
+            //notify the user that the transfer amount was invalid
             cashAccountError.setText("The transfer amount is not a valid number");
         }
     }
@@ -190,11 +232,13 @@ public class PortfolioController extends ViewController implements Initializable
 
         //check that a cash account with the same name doesn't already exist
         if (main.getPortfolio().getCashAccNameExists(newCashAccountName) != -1) {
+            //notify the user that the name already exists
             cashAccountError.setText("An account with that name already exists");
             return;
         }
 
         try {
+            //attempt to parse the initial balance
             float amount = Float.parseFloat(newBalanceField.getText());
 
             //try to add the new cash account
@@ -213,32 +257,52 @@ public class PortfolioController extends ViewController implements Initializable
     void handleRemoveCashAccount() {
         //attempt to remove the currently selected cash account and display error otherwise
         try {
+            //attempt to create and execute a remove transaction on the currently selected account
             UndoRedoFunctions.getInstance().execute(new RemoveCashAccTransaction(cashAccountTable.getSelectionModel().getSelectedItem(), main.getPortfolio()));
+
+            //refresh the account table
             cashAccountTable.refresh();
         } catch (Exception e){
+            //notify the user that there was an error in the process
             cashAccountError.setText("Could not remove the selected account");
         }
     }
 
+    /**
+     * Handles the attempted selling of an equity
+     */
     @FXML
     void handleSellEquity() {
         try{
+            //attempt to parse the number of shares
             int numShares = Integer.parseInt(sellSharesField.getText());
+
+            //capture the currently selected equity from the table
             HoldingEquity equity = equityTable.getSelectionModel().getSelectedItem();
             String accountTarget;
+
+            //check if a cash account destination has been specified
             if((accountTarget = sellNameField.getText()) != null){
+                //check that the account name specified exists
                 int accountIndex = main.getPortfolio().getCashAccNameExists(accountTarget);
                 if(accountIndex != -1) {
+                    //get the cash account specified by name
                     CashAccount target = main.getPortfolio().getCashAccounts().get(accountIndex);
+
+                    //execute a new decorated sell command
                     UndoRedoFunctions.getInstance().execute(new SellWithCashAccount(new SellTransaction(equity, numShares, main.getPortfolio()), target));
                 } else {
+                    //notify the user the cash account is invalid
                     equitiesError.setText("Cash account name is not valid");
                 }
             } else {
+                //execute a new simple sell transaction
                 UndoRedoFunctions.getInstance().execute(new SellTransaction(equity, numShares, main.getPortfolio()));
             }
+            //refresh the equity table
             equityTable.refresh();
         } catch (Exception e){
+            //notify the user that the share count was invalid
             equitiesError.setText("Number of shares is not a valid number");
         }
     }
