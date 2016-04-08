@@ -52,7 +52,7 @@ public class WithdrawTransaction implements UndoRedo, Serializable {
     }
 
     /** Provides a string representation of this command based on the failure status
-     * @return
+     * @return the string representation
      */
     @Override
     public String toString() {
