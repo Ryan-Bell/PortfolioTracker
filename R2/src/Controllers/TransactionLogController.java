@@ -48,6 +48,7 @@ public class TransactionLogController extends ViewController implements Initiali
         if (undoRedoFunctions.isRedoEmpty()) {
             redoButton.setVisible(false);
         }
+
     }
 
     @FXML
