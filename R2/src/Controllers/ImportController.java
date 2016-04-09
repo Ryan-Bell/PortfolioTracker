@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -34,6 +35,7 @@ public class ImportController extends ViewController implements Initializable {
     @FXML private Button mergeButton;
     @FXML private Button ignoreButton;
     @FXML private Button replaceButton;
+    @FXML private Label importErrorLabel;
     //endregion
 
     //a portfolio IO  object to read in the other portfolio
@@ -55,6 +57,7 @@ public class ImportController extends ViewController implements Initializable {
         assert mergeButton != null : "fx:id=\"mergeButton\" was not injected: check your FXML file 'import.fxml'.";
         assert ignoreButton != null : "fx:id=\"ignoreButton\" was not injected: check your FXML file 'import.fxml'.";
         assert replaceButton != null : "fx:id=\"replaceButton\" was not injected: check your FXML file 'import.fxml'.";
+        assert importErrorLabel != null : "fx:id=\"importErrorLabel\" was not injected: check your FXML file 'import.fxml'.";
         //endregion
 
         //instantiate the PortfolioIO object

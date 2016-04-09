@@ -27,6 +27,7 @@ public class MarketController extends ViewController implements Initializable {
     @FXML private ChoiceBox<MatchType> nameChoiceBox;
     @FXML private ChoiceBox<MatchType> indexChoiceBox;
     @FXML private ChoiceBox<MatchType> tickerChoiceBox;
+    @FXML private Label marketErrorLabel;
     //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -43,6 +44,7 @@ public class MarketController extends ViewController implements Initializable {
         assert cashAccountField != null : "fx:id=\"cashAccountField\" was not injected: check your FXML file 'market.fxml'.";
         assert buyButton != null : "fx:id=\"buyButton\" was not injected: check your FXML file 'market.fxml'.";
         assert tickerSearchField != null : "fx:id=\"tickerSearchField\" was not injected: check your FXML file 'market.fxml'.";
+        assert marketErrorLabel != null : "fx:id=\"marketErrorLabel\" was not injected: check your FXML file 'market.fxml'.";
         //endregion
 
         tickerChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));

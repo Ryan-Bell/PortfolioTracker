@@ -23,6 +23,7 @@ public class SimulationController extends ViewController implements Initializabl
     @FXML private ChoiceBox<SimulationType> simulationChoiceBox;
     @FXML private Button nextStepButton;
     @FXML private Button previousStepButton;
+    @FXML private Label simulationErrorLabel;
     //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -36,6 +37,7 @@ public class SimulationController extends ViewController implements Initializabl
         assert simResultsList != null : "fx:id=\"simResultsList\" was not injected: check your FXML file 'simulation.fxml'.";
         assert nextStepButton != null : "fx:id=\"nextStepButton\" was not injected: check your FXML file 'simulation.fxml'.";
         assert previousStepButton != null : "fx:id=\"nextStepButton\" was not injected: check your FXML file 'simulation.fxml'.";
+        assert simulationErrorLabel != null : "fx:id=\"simulationErrorLabel\" was not injected: check your FXML file 'simulation.fxml'.";
         //endregion
 
         simulationChoiceBox.setItems(FXCollections.observableArrayList(SimulationType.BULL,SimulationType.NO_GROWTH,SimulationType.BEAR));

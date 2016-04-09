@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -59,10 +60,20 @@
             <content>
                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
                   <children>
-                     <Label text="Filter Transaction Log">
-                        <font>
-                           <Font name="System Bold" size="18.0" />
-                        </font></Label>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                           <Label text="Filter Transaction Log">
+                              <font>
+                                 <Font name="System Bold" size="18.0" />
+                              </font>
+                              </Label>
+                              <Label fx:id="transactionLogErrorLabel" textFill="RED">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
                         <children>
                            <Label prefWidth="100.0" text="Start Date" />
