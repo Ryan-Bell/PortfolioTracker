@@ -7,6 +7,7 @@ import Models.Market.Market;
 import Models.Market.MarketEquity;
 import Models.Market.MatchType;
 import Models.Market.QueryType;
+import Models.Transaction.BuyTransaction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -102,6 +103,7 @@ public class MarketController extends ViewController implements Initializable {
 
     @FXML
     void handleBuy(ActionEvent event) {
+        //BuyTransaction buyEquity = new BuyTransaction
 
     }
 

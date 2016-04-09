@@ -6,6 +6,7 @@ import Models.Portfolio.ObserveType;
 import Models.Transaction.*;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -60,6 +61,7 @@ public class PortfolioController extends ViewController implements Initializable
     @FXML private TextField sellSharesField;
     @FXML private TextField sellNameField;
     @FXML private Button sellEquityButton;
+    @FXML private Button addToWatchlistButton;
     //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -99,6 +101,7 @@ public class PortfolioController extends ViewController implements Initializable
         assert sellSharesField != null : "fx:id=\"sellSharesField\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert sellEquityButton != null : "fx:id=\"sellEquityButton\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert sellNameField != null : "fx:id=\"sellNameField\" was not injected: check your FXML file 'portfolio.fxml'.";
+        assert addToWatchlistButton != null : "fx:id=\"setHighTriggerButton\" was not injected: check your FXML file 'watchlist.fxml'.";
         //endregion
 
         //region CellFactories
@@ -305,6 +308,11 @@ public class PortfolioController extends ViewController implements Initializable
             //notify the user that the share count was invalid
             equitiesError.setText("Number of shares is not a valid number");
         }
+    }
+
+    @FXML
+    void handleAddToWatchlist(ActionEvent event) {
+
     }
 
     @FXML
