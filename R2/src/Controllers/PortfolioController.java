@@ -1,20 +1,21 @@
 package Controllers;
 
+import Models.Portfolio.CashAccount;
+import Models.Portfolio.HoldingEquity;
+import Models.Portfolio.ObserveType;
+import Models.Transaction.*;
+import Models.UndoRedo.UndoRedoFunctions;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
-import Models.Portfolio.CashAccount;
-import Models.Portfolio.HoldingEquity;
-import Models.Portfolio.ObserveType;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PortfolioController extends ViewController implements Initializable, Observer {
     //region FXMLFields
@@ -114,9 +115,11 @@ public class PortfolioController extends ViewController implements Initializable
         equityShares.setCellValueFactory(new PropertyValueFactory<>("numShares"));
         equityTicker.setCellValueFactory(new PropertyValueFactory<>("tickerSymbol"));
         //endregion
-
     }
 
+    /**
+     * Handles setup logic that needs to happen after the reference to main is set
+     */
     @Override
     protected void setup(){
         //set the observable list cash account table points to
@@ -131,53 +134,113 @@ public class PortfolioController extends ViewController implements Initializable
     }
 
     @FXML
-    void handleWithdrawCashAccount(ActionEvent event) {
-
+    void handleWithdrawCashAccount() {
+        try{
+            CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
+            float amount = Float.parseFloat(withdrawField.getText());
+            if (target.sufficientFunds(amount)) {
+                UndoRedoFunctions.getInstance().execute(new WithdrawTransaction(target, amount));
+                cashAccountTable.refresh();
+            } else {
+                cashAccountError.setText("The withdraw amount exceeds the balance");
+            }
+        } catch (Exception e) {
+            cashAccountError.setText("The withdraw amount is not a valid number");
+        }
     }
 
     @FXML
-    void handleDepositCashAccount(ActionEvent event) {
-
+    void handleDepositCashAccount() {
+        try{
+            CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
+            float amount = Float.parseFloat(depositField.getText());
+            UndoRedoFunctions.getInstance().execute(new DepositTransaction(target, amount));
+            cashAccountTable.refresh();
+        } catch (Exception e){
+            cashAccountError.setText("The deposit amount is not a valid number");
+        }
     }
 
     @FXML
-    void handleTransferCashAccount(ActionEvent event) {
-
+    void handleTransferCashAccount() {
+        try{
+            CashAccount transferFrom = cashAccountTable.getSelectionModel().getSelectedItem();
+            CashAccount transferTo;
+            String transferName = transferTargetField.getText();
+            float amount = Float.parseFloat(transferAmountField.getText());
+            if (main.getPortfolio().getCashAccNameExists(transferName) == -1){
+                cashAccountError.setText("Not a valid cash account name for transfer");
+                return;
+            }
+            transferTo = main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(transferName));
+            UndoRedoFunctions.getInstance().execute(new TransferTransaction(transferFrom, transferTo, amount));
+            cashAccountTable.refresh();
+        } catch (Exception e){
+            cashAccountError.setText("The transfer amount is not a valid number");
+        }
     }
 
+    /**
+     * Handles the attempted addition of a cash account
+     */
     @FXML
-    void handleAddCashAccount(ActionEvent event) {
+    void handleAddCashAccount() {
         //get the  proposed name for the new cash account
         String newCashAccountName = newAccountField.getText();
 
         //check that a cash account with the same name doesn't already exist
-        if (main.getPortfolio().getCashAccNameExists(newCashAccountName)) {
+        if (main.getPortfolio().getCashAccNameExists(newCashAccountName) != -1) {
             cashAccountError.setText("An account with that name already exists");
             return;
         }
 
         try {
+            float amount = Float.parseFloat(newBalanceField.getText());
+
             //try to add the new cash account
-            main.getPortfolio().addCashAccount(newCashAccountName, Float.parseFloat(newBalanceField.getText()));
+            UndoRedoFunctions.getInstance().execute(new AddCashAccTransaction(newCashAccountName, amount, main.getPortfolio()));
+            cashAccountTable.refresh();
         } catch (Exception e) {
             //display an error if the float entered was not a valid number
             cashAccountError.setText("Balance entered is not a valid float");
         }
     }
 
+    /**
+     * Handles the attempted removal of a cash account
+     */
     @FXML
-    void handleRemoveCashAccount(ActionEvent event) {
-        //attempt to remove the currrently selected cash account and display error otherwise
+    void handleRemoveCashAccount() {
+        //attempt to remove the currently selected cash account and display error otherwise
         try {
-            main.getPortfolio().removeCashAccount(cashAccountTable.getSelectionModel().getSelectedItem());
+            UndoRedoFunctions.getInstance().execute(new RemoveCashAccTransaction(cashAccountTable.getSelectionModel().getSelectedItem(), main.getPortfolio()));
+            cashAccountTable.refresh();
         } catch (Exception e){
             cashAccountError.setText("Could not remove the selected account");
         }
     }
 
     @FXML
-    void handleSellEquity(ActionEvent event) {
-
+    void handleSellEquity() {
+        try{
+            int numShares = Integer.parseInt(sellSharesField.getText());
+            HoldingEquity equity = equityTable.getSelectionModel().getSelectedItem();
+            String accountTarget;
+            if((accountTarget = sellNameField.getText()) != null){
+                int accountIndex = main.getPortfolio().getCashAccNameExists(accountTarget);
+                if(accountIndex != -1) {
+                    CashAccount target = main.getPortfolio().getCashAccounts().get(accountIndex);
+                    UndoRedoFunctions.getInstance().execute(new SellWithCashAccount(new SellTransaction(equity, numShares, main.getPortfolio()), target));
+                } else {
+                    equitiesError.setText("Cash account name is not valid");
+                }
+            } else {
+                UndoRedoFunctions.getInstance().execute(new SellTransaction(equity, numShares, main.getPortfolio()));
+            }
+            equityTable.refresh();
+        } catch (Exception e){
+            equitiesError.setText("Number of shares is not a valid number");
+        }
     }
 
     @FXML

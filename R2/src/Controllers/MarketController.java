@@ -19,9 +19,7 @@ public class MarketController extends ViewController implements Initializable {
     @FXML private MenuButton indexQueryType;
     @FXML private MenuButton nameQueryType;
     @FXML private Button searchButton;
-    @FXML private MenuButton tickerQueryType;
-    @FXML
-    private MenuItem containsTicker;
+    @FXML private ChoiceBox tickerQueryType;
     @FXML private TextField indexSearchField;
     @FXML private TextField nameSearchField;
     @FXML private ListView<?> searchResultsField;

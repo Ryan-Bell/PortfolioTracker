@@ -13,6 +13,7 @@ public class MarketEquity implements Serializable{
     protected String tickerSymbol;
     protected float lowTrigger;
     protected float highTrigger;
+    protected String triggerStatus;
 
     /** Constructor
      * @param name the name of the equity
@@ -25,6 +26,7 @@ public class MarketEquity implements Serializable{
         this.tickerSymbol = tickerSymbol;
         this.lowTrigger = -1;
         this.highTrigger = -1;
+        triggerStatus="";
     }
 
     //region GettersSetters
@@ -71,6 +73,9 @@ public class MarketEquity implements Serializable{
      */
     public void setHighTrigger(float highTrigger){this.highTrigger = highTrigger;}
     //endregion
+
+    public String getTriggerStatus(){return triggerStatus;}
+    public void setTriggerStatus(String triggerStatus){this.triggerStatus = triggerStatus;}
 
     public void accept(EquityVisitor visitor){System.out.println("Market Equity accepts");}
 

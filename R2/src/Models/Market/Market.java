@@ -3,13 +3,14 @@ package Models.Market;
 import Models.WebService.RequestYahooAPI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
 /**
  * Holds all the information related to
  * the virtual Equity Market. Can search
  * and return a query of MarketEquities
  */
-public class Market {
+public class Market extends Observable {
     private ArrayList<MarketEquity> marketEquities;
     private ArrayList<String> indexNames;
     private ArrayList<MarketEquity> indexes;
@@ -193,5 +194,9 @@ public class Market {
             if(equity instanceof MarketAverage) ((MarketAverage)equity).accept(updateVisitor);
             else if(equity instanceof Equity) ((Equity)equity).accept(updateVisitor);
         }
+        System.out.println("Updated");
+
+        setChanged();
+        notifyObservers();
     }
 }

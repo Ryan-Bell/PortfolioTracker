@@ -56,4 +56,9 @@ public class CashAccount implements Serializable {
         return dateAdded;
     }
 
+    @Override
+    public String toString(){
+        return "Name: " + this.getName() + " Balance: " + this.getBalance();
+    }
+
 }

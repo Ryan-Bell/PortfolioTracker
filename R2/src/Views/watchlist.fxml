@@ -7,6 +7,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
 
 <VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.WatchlistController">
 <children>
@@ -105,13 +106,15 @@
                                     </HBox>
                                     <HBox layoutX="15.0" layoutY="51.0" spacing="5.0">
                                        <children>
-                                          <MenuButton fx:id="selectTriggerMenuButton" mnemonicParsing="false" prefWidth="186.0" text="Select Trigger">
-                                            <items>
-                                              <MenuItem mnemonicParsing="false" text="High Trigger" />
-                                              <MenuItem mnemonicParsing="false" text="Low Trigger" />
-                                                <MenuItem mnemonicParsing="false" text="Both Triggers" />
-                                            </items>
-                                          </MenuButton>
+                                          <ChoiceBox fx:id="selectTriggerChoiceBox" prefWidth="186.0" value="Select Trigger">
+                                             <items>
+                                                <FXCollections fx:factory="observableArrayList">
+                                                   <String fx:value="High Trigger"/>
+                                                   <String fx:value="Low Trigger"/>
+                                                   <String fx:value="Both"/>
+                                                </FXCollections>
+                                             </items>
+                                          </ChoiceBox>
                                           <Button fx:id="clearTriggerButton" mnemonicParsing="false" onAction="#handleClearTrigger" prefWidth="125.0" text="Clear Trigger" />
                                        </children>
                                        <VBox.margin>
