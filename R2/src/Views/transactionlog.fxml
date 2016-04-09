@@ -62,7 +62,7 @@
                   <children>
                         <HBox alignment="CENTER_LEFT">
                            <children>
-                           <Label text="Filter Transaction Log">
+                           <Label text="Transaction Log">
                               <font>
                                  <Font name="System Bold" size="18.0" />
                               </font>
@@ -87,7 +87,13 @@
                            <Button fx:id="filterButton" mnemonicParsing="false" onAction="#handleFilter" prefWidth="100.0" text="Filter" />
                         </children>
                      </HBox>
-                     <Label text="Transactions:" />
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                           <Label prefWidth="100.0" text="Transactions:" />
+                              <Button fx:id="undoButton" mnemonicParsing="false" onAction="#handleUndo" prefWidth="100.0" text="Undo" />
+                              <Button fx:id="redoButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleRedo" prefWidth="100.0" text="Redo" />
+                           </children>
+                        </HBox>
                      <ListView fx:id="transactionList" prefHeight="334.0" prefWidth="780.0" />
                   </children>
                   <padding>
