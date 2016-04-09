@@ -8,7 +8,9 @@ import Models.Market.MarketEquity;
 import Models.Market.MatchType;
 import Models.Market.QueryType;
 import Models.Transaction.BuyTransaction;
+import Models.Transaction.BuyWithCashAccount;
 import Models.UndoRedo.UndoRedoFunctions;
+import Models.Portfolio.CashAccount;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -102,13 +104,52 @@ public class MarketController extends ViewController implements Initializable {
 
     }
 
+    /**
+     *
+     *
+     */
     @FXML
-    void handleBuy(ActionEvent event) {
-        MarketEquity target = searchResultsField.getSelectionModel().getSelectedItem();
-        int shares = Integer.parseInt(numberSharesField.getText());
-        //BuyTransaction buyEquity = new BuyTransaction(target,shares,main.getPortfolio());
-        UndoRedoFunctions.getInstance().execute(new BuyTransaction(target,shares,main.getPortfolio()));
+    void handleBuy() {
+        System.out.println(searchResultsField.getSelectionModel().getSelectedItem());
+        if (searchResultsField.getSelectionModel().getSelectedItem() != null){
+            MarketEquity target = searchResultsField.getSelectionModel().getSelectedItem();
+            if (!(numberSharesField.getText().equals(""))){
+                if (!(cashAccountField.getText().equals(""))){
+                    if (main.getPortfolio().getCashAccNameExists(cashAccountField.getText()) != -1){
+                        try{
+                            int shares = Integer.parseInt(numberSharesField.getText());
+                            int index = main.getPortfolio().getCashAccNameExists(cashAccountField.getText());
+                            CashAccount cashAccount = main.getPortfolio().getCashAccounts().get(index);
+                            UndoRedoFunctions.getInstance().execute(new BuyWithCashAccount(new BuyTransaction(target,shares,main.getPortfolio()),cashAccount));
+                        }
+                        catch (NumberFormatException e){
+                            marketErrorLabel.setText("Please Enter Integer Number of Shares");
+                        }
 
+                    }
+                    else {
+                        marketErrorLabel.setText("Please Enter Valid Cash Account");
+                    }
+                }
+                else{
+                    try{
+                        int shares = Integer.parseInt(numberSharesField.getText());
+                        UndoRedoFunctions.getInstance().execute(new BuyTransaction(target,shares,main.getPortfolio()));
+                    }
+                    catch (NumberFormatException e){
+                        marketErrorLabel.setText("Please Enter Integer Number of Shares");
+                    }
+                }
+
+
+            }
+            else{
+                marketErrorLabel.setText("Please Enter Number of Shares");
+            }
+        }
+        else{
+            marketErrorLabel.setText("Please Select Equity");
+        }
     }
 
     @FXML
