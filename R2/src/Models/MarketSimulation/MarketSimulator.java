@@ -75,7 +75,6 @@ public class MarketSimulator {
         int lastIndex = valuesAtSteps.size() - 1;
         this.basePortfolioValue = valuesAtSteps.get(lastIndex);
 
-        System.out.println(valuesAtSteps);
         return valuesAtSteps;
     }
 
