@@ -1,12 +1,17 @@
 package Controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
+import Models.MarketSimulation.MarketSimulator;
 import Models.MarketSimulation.Simulation;
 import Models.MarketSimulation.SimulationType;
 import Models.MarketSimulation.StepType;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +31,7 @@ public class SimulationController extends ViewController implements Initializabl
     @FXML private Button previousStepButton;
     @FXML private Label simulationErrorLabel;
     //endregion
+    private MarketSimulator marketSimulator;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -41,25 +47,32 @@ public class SimulationController extends ViewController implements Initializabl
         assert simulationErrorLabel != null : "fx:id=\"simulationErrorLabel\" was not injected: check your FXML file 'simulation.fxml'.";
         //endregion
 
+        previousStepButton.setVisible(false);
+        nextStepButton.setVisible(false);
+
         simulationChoiceBox.setItems(FXCollections.observableArrayList(SimulationType.BULL,SimulationType.NO_GROWTH,SimulationType.BEAR));
         simulationChoiceBox.setValue(SimulationType.BULL);
         stepChoiceBox.setItems(FXCollections.observableArrayList(StepType.YEAR,StepType.MONTH,StepType.DAY));
         stepChoiceBox.setValue(StepType.YEAR);
-
     }
 
     @FXML
     void handleRunSim(ActionEvent event) {
+        previousStepButton.setVisible(false);
+        nextStepButton.setVisible(false);
+        this.marketSimulator = new MarketSimulator(main.getPortfolio().getPortfolioValue());
+
         try {
             float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
             int steps = Integer.parseInt(numStepsField.getCharacters().toString());
             SimulationType simulationType = simulationChoiceBox.getValue();
             StepType stepType = stepChoiceBox.getValue();
 
-//            System.out.println(percent + steps + simulationType + stepType);
-
+            ObservableList values =FXCollections.observableArrayList(this.marketSimulator.runSimulation(percent, steps, stepType, simulationType));
+            simResultsList.setItems(values);
+            nextStepButton.setVisible(true);
         } catch (Exception e) {
-            System.out.println("!!! " + e.getMessage());
+            System.out.println("!!! SimulationController: " + e.getMessage());
         }
     }
 
@@ -70,7 +83,7 @@ public class SimulationController extends ViewController implements Initializabl
 
     @FXML
     void handleNextStep(ActionEvent event) {
-
+        previousStepButton.setVisible(true);
     }
 
     @FXML
