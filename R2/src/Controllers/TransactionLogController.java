@@ -3,8 +3,10 @@ package Controllers;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
+import Models.UndoRedo.UndoRedoFunctions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +27,7 @@ public class TransactionLogController extends ViewController implements Initiali
     @FXML private Button undoButton;
     @FXML private Button redoButton;
     //endregion
+    UndoRedoFunctions undoRedoFunctions;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -37,16 +40,45 @@ public class TransactionLogController extends ViewController implements Initiali
         assert redoButton != null : "fx:id=\"redoButton\" was not injected: check your FXML file 'transactionlog.fxml'.";
         assert undoButton != null : "fx:id=\"redoButton\" was not injected: check your FXML file 'transactionlog.fxml'.";
         //endregion
+
+        undoRedoFunctions = UndoRedoFunctions.getInstance();
+
+        if (undoRedoFunctions.isUndoEmpty()) {
+            undoButton.setVisible(false);
+        }
+        if (undoRedoFunctions.isRedoEmpty()) {
+            redoButton.setVisible(false);
+        }
     }
 
     @FXML
     void handleUndo(ActionEvent event) {
+        try {
+            undoRedoFunctions.undo();
+            redoButton.setVisible(true);
 
+            if (undoRedoFunctions.isUndoEmpty()) {
+                undoButton.setVisible(false);
+            }
+
+        } catch (NoSuchElementException e) {
+            System.out.println("No more commands to undo");
+        }
     }
 
     @FXML
     void handleRedo(ActionEvent event) {
+        try {
+            undoRedoFunctions.redo();
+            undoButton.setVisible(true);
 
+            if (undoRedoFunctions.isRedoEmpty()) {
+                redoButton.setVisible(false);
+            }
+
+        } catch (NoSuchElementException e) {
+            System.out.println("No more commands to redo");
+        }
     }
 
     @FXML

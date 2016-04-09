@@ -3,6 +3,7 @@ package Models.UndoRedo;
 import java.util.ArrayDeque;
 import java.util.EmptyStackException;
 import java.util.Deque;
+import java.util.NoSuchElementException;
 
 /**
  * Holds functionality for the use of undoing and redoing commands.
@@ -30,26 +31,18 @@ public class UndoRedoFunctions {
      * call to undo the last command
      */
     public void undo() {
-        try {
-            UndoRedo obj = undoStack.pop();
-            obj.unExecute();
-            pushOnRedoStack(obj);
-        } catch (EmptyStackException e) {
-            System.out.println("No more commands to undo");
-        }
+        UndoRedo obj = undoStack.pop();
+        obj.unExecute();
+        pushOnRedoStack(obj);
     }
 
     /**
      * call to redo the last command
      */
     public void redo() {
-        try {
-            UndoRedo obj = redoStack.pop();
-            obj.execute();
-            pushOnUndoStack(obj);
-        } catch (EmptyStackException e) {
-            System.out.println("No more commands to redo");
-        }
+        UndoRedo obj = redoStack.pop();
+        obj.execute();
+        pushOnUndoStack(obj);
     }
 
     /**
@@ -77,5 +70,13 @@ public class UndoRedoFunctions {
 
     public void pushOnUndoStack(UndoRedo obj) {
         this.undoStack.push(obj);
+    }
+
+    public boolean isUndoEmpty() {
+        return this.undoStack.size() == 0;
+    };
+
+    public boolean isRedoEmpty() {
+        return this.redoStack.size() == 0;
     }
 }
