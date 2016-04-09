@@ -1,5 +1,6 @@
 package Models.Portfolio;
 
+import Models.Market.Market;
 import Models.Market.MarketEquity;
 import Models.Transaction.Transaction;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
     private String id;
     private HashMap<String, Integer> cashAccountNames;
     private HashMap<String, Integer> equityNames;
+    private ArrayList<MarketEquity> watchEquities;
 
     //Used to denote serialized version
     private static final long serialVersionUID = 681129221878275270L;
@@ -32,6 +34,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         holdingEquities =  new ArrayList<>();
         cashAccounts = new ArrayList<>();
         transactionLog = new ArrayList<>();
+        watchEquities = new ArrayList<>();
 
         //save the hashed password
         this.hashedPass = hashedPass;
@@ -42,6 +45,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
 
         //Instantiate the equities name map
         equityNames = new HashMap<>();
+
 
     }
 
@@ -60,6 +64,10 @@ public class Portfolio extends Observable implements Observer,Serializable  {
     public ArrayList<HoldingEquity> getHoldingEquities() {
         return holdingEquities;
     }
+
+    public ArrayList<MarketEquity> getWatchEquities(){return watchEquities;}
+
+    public void setWatchEquities(ArrayList<MarketEquity> watchEquities){this.watchEquities = watchEquities;}
 
     /**
      * returns the password

@@ -67,6 +67,7 @@ public class MarketController extends ViewController implements Initializable {
         ArrayList<ArrayList<MarketEquity>> searchResults = new ArrayList<>();
 
         //ticker symbol
+        //if(tickerChoiceBox.getValue() == MatchType.CONTAINED)
         tickerResults = main.getMarket().search(QueryType.TICKER,tickerSearchField.getText(),tickerChoiceBox.getValue());
 
         //name
