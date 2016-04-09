@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.concurrent.ScheduledService;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,6 +63,10 @@ public class Main extends Application {
         showLogin();
 
         market = new Market();
+
+        if (!(new File("./market.csv").exists())){
+            System.out.println("Market CSV does not exist");
+        }
         parser = new Parser(market, "./market.csv");
         parser.parseFile();
         market.updateEquities();
