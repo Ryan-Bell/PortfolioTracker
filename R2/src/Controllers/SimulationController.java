@@ -6,11 +6,9 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 import Models.MarketSimulation.MarketSimulator;
-import Models.MarketSimulation.Simulation;
 import Models.MarketSimulation.SimulationType;
 import Models.MarketSimulation.StepType;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,6 +73,9 @@ public class SimulationController extends ViewController implements Initializabl
             previousStepButton.setVisible(true);
 
         } catch (Exception e) {
+            ObservableList values = FXCollections.observableArrayList("Please enter all fields");
+            simResultsList.setItems(values);
+
             System.out.println("!!! SimulationController: " + e.getMessage());
         }
     }
