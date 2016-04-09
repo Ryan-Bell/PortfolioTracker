@@ -1,7 +1,9 @@
 package Models.Market;
 
 import Models.WebService.RequestYahooAPI;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Observable;
 
@@ -12,14 +14,17 @@ import java.util.Observable;
  */
 public class Market extends Observable {
     private ArrayList<MarketEquity> marketEquities;
-    private ArrayList<String> indexNames;
     private ArrayList<MarketEquity> indexes;
+    private HashMap<String, Integer> marketMap;
 
     public Market(){
         marketEquities = new ArrayList<>();
-        indexNames = new ArrayList<>();
         indexes = new ArrayList<>();
+        marketMap = new HashMap<>();
     }
+
+    public int getEquityExists(String name){return marketMap.containsKey(name) ? marketMap.get(name) : -1;}
+    public ArrayList<MarketEquity> getMarketEquities() {return marketEquities;}
 
     /**
      * Creates and adds a MarketEquity to the
@@ -31,52 +36,31 @@ public class Market extends Observable {
      * @param index         the index the equity belongs to
      */
     public void addMarketEquity(String tickerSymbol, String name, float value, String sector, String index) {
+        ArrayList<MarketEquity> searchResults = null;
+        if (!(searchResults = search(QueryType.TICKER, tickerSymbol, MatchType.EXACT)).isEmpty()){return;}
+        MarketEquity newEquity = new Equity(tickerSymbol, name, value, sector, index);
+        marketEquities.add(newEquity);
+        marketMap.put(newEquity.getName(), marketEquities.indexOf(newEquity));
+        checkIndex(sector, newEquity);
+        checkIndex(index, newEquity);
+    }
 
+    private void checkIndex(String average, MarketEquity newEquity){
+        if(average == null){ return;}
 
         //create the index
         MarketEquity newIndex = null;
-        MarketEquity newEquity = null;
 
-        ArrayList<MarketEquity> searchResults = null;
-
-        if ((searchResults = search(QueryType.TICKER, tickerSymbol, MatchType.EXACT)).isEmpty()){
-            newEquity = new Equity(tickerSymbol, name, value, sector, index);
-            marketEquities.add(newEquity);
-            if(sector != null){
-                if (!indexNames.contains(sector)){
-                    newIndex = new MarketAverage(sector);
-                    marketEquities.add(newIndex);
-                    ((MarketAverage) newIndex).addChildren(newEquity);
-                    indexNames.add(sector);
-                    indexes.add(newIndex);
-                } else {
-                    ((MarketAverage)indexes.get(indexNames.indexOf(sector))).addChildren(newEquity);
-                }
-            }
-            if(index != null){
-                if (!indexNames.contains(index)){
-                    newIndex = new MarketAverage(index);
-                    marketEquities.add(newIndex);
-                    ((MarketAverage) newIndex).addChildren(newEquity);
-                    indexNames.add(index);
-                    indexes.add(newIndex);
-                } else {
-                    ((MarketAverage)indexes.get(indexNames.indexOf(index))).addChildren(newEquity);
-                }
-            }
+        if(getEquityExists(average) == -1){
+            newIndex = new MarketAverage(average);
+            marketEquities.add(newIndex);
+            marketMap.put(average, marketEquities.indexOf(newIndex));
+            ((MarketAverage)newIndex).addChildren(newEquity);
+            indexes.add(newIndex);
+        } else {
+            ((MarketAverage)marketEquities.get(marketMap.get(average))).addChildren(newEquity);
         }
-    }
 
-    @Override
-    public String toString(){
-        for (MarketEquity e: marketEquities) {
-            System.out.println(e);
-        }
-        return "Done";
-    }
-
-    public ArrayList<MarketEquity> getMarketEquities() {
-        return marketEquities;
     }
 
     /**
@@ -88,98 +72,74 @@ public class Market extends Observable {
      * @return  query the Array of matching MarketEquities based on the search params
      */
     public ArrayList<MarketEquity> search(QueryType type, String query, MatchType matchType) {
+        Comparator<String> compFunc;
         ArrayList<MarketEquity> results = new ArrayList<>();
-        switch (type) {
-            case TICKER:
-                for (MarketEquity equity : marketEquities) {
-                    if (equity instanceof Equity) {
-                        switch (matchType) {
-                            case EXACT:
-                                if (((Equity) equity).getTickerSymbol().toLowerCase().equals(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                            case BEGIN:
-                                if (((Equity) equity).getTickerSymbol().toLowerCase().startsWith(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                            case CONTAINED:
-                                if (((Equity) equity).getTickerSymbol().toLowerCase().contains(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                        }
+        for(MarketEquity equity : marketEquities){
 
-                    }
-                }
+            compFunc = pickCompFunc(matchType);
+
+            if (type == QueryType.INDEX_OR_SECTOR){
+                if (equity instanceof Equity)
+                    checkEq((Equity) equity, compFunc, query, results);
+                else
+                    checkEq((MarketAverage) equity, compFunc, query, results);
+                break;
+            } else {
+                checkEq(equity, compFunc, query, type, results);
+            }
+        }
+        return results;
+    }
+
+    private Comparator<String> pickCompFunc(MatchType matchType){
+        switch (matchType){
+            case CONTAINED:
+                return new MatchContained();
+            case EXACT:
+                return new MatchExact();
+            default:
+                return new MatchBegins();
+        }
+    }
+
+    private void checkEq(MarketEquity equity, Comparator<String> comp, String query, QueryType queryType, ArrayList<MarketEquity> results ){
+        switch (queryType){
+            case TICKER:
+                if (!(equity instanceof Equity)){ return;}
+                if(comp.compare(equity.getTickerSymbol(), query) == 0)
+                    results.add(equity);
                 break;
             case NAME:
-                for (MarketEquity equity : marketEquities) {
-                    switch (matchType) {
-                        case EXACT:
-                            if (equity.name.toLowerCase().equals(query.toLowerCase())) {
-                                results.add(equity);
-                            }
-                            break;
-                        case BEGIN:
-                            if (equity.name.toLowerCase().startsWith(query.toLowerCase())) {
-                                results.add(equity);
-                            }
-                            break;
-                        case CONTAINED:
-                            if (equity.name.toLowerCase().contains(query.toLowerCase())) {
-                                results.add(equity);
-                            }
-                            break;
-                    }
-                }
-                break;
-            case INDEX_OR_SECTOR:
-                for (MarketEquity equity : marketEquities) {
-                    if (equity instanceof Equity) {
-                        switch (matchType) {
-                            case EXACT:
-                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().toLowerCase().equals(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                            case BEGIN:
-                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().toLowerCase().startsWith(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                            case CONTAINED:
-                                if (((Equity) equity).getSector() != null && ((Equity) equity).getSector().toLowerCase().contains(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                        }
-                    }
-                    if (equity instanceof MarketAverage) {
-                        switch (matchType) {
-                            case EXACT:
-                                if (equity.name.toLowerCase().equals(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                            case BEGIN:
-                                if (equity.name.toLowerCase().startsWith(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                            case CONTAINED:
-                                if (equity.name.toLowerCase().contains(query.toLowerCase())) {
-                                    results.add(equity);
-                                }
-                                break;
-                        }
-                    }
-                }
+                if(comp.compare(equity.getName(), query) == 0)
+                    results.add(equity);
                 break;
         }
-        //System.out.println(results);
-        return results;
+    }
+
+    private void checkEq(Equity equity, Comparator<String> comp, String query, ArrayList<MarketEquity> results){
+        if (comp.compare(equity.getSector(), query) == 0)
+            results.add(equity);
+    }
+    private void checkEq(MarketAverage equity, Comparator<String> comp, String query, ArrayList<MarketEquity> results){
+        if (comp.compare(equity.getName(), query) == 0)
+            results.add(equity);
+    }
+
+    private class MatchExact implements Comparator<String>{
+        @Override public int compare(String subject, String query) {
+            return subject.toLowerCase().equals(query.toLowerCase()) ? 0 : -1;
+        }
+    }
+
+    private class MatchContained implements Comparator<String>{
+        @Override public int compare(String subject, String query) {
+            return subject.toLowerCase().contains(query.toLowerCase()) ? 0 : -1;
+        }
+    }
+    private class MatchBegins implements Comparator<String> {
+        @Override public int compare(String subject, String query) {
+            return subject.toLowerCase().startsWith(query.toLowerCase()) ? 0 : -1;
+        }
     }
 
     public void updateEquities(){
@@ -188,13 +148,11 @@ public class Market extends Observable {
         EquityUpdateVisitor updateVisitor = new EquityUpdateVisitor(newValues);
 
         for (MarketEquity equity: marketEquities) {
-//            System.out.print("Name: "+equity.getName() + " Old Value: "+equity.getValue());
             float o = equity.getValue();
 
             if(equity instanceof MarketAverage) ((MarketAverage)equity).accept(updateVisitor);
             else if(equity instanceof Equity) ((Equity)equity).accept(updateVisitor);
         }
-        System.out.println("Updated");
 
         setChanged();
         notifyObservers();
