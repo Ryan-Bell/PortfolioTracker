@@ -1,10 +1,12 @@
 package Controllers;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import Models.Market.Market;
+import Models.Market.MarketEquity;
 import Models.Market.MatchType;
+import Models.Market.QueryType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,7 +59,38 @@ public class MarketController extends ViewController implements Initializable {
 
     @FXML
     void handleSearch(ActionEvent event) {
-        System.out.println(tickerChoiceBox.getValue());
+        ArrayList<MarketEquity> tickerResults;
+        ArrayList<MarketEquity> nameResults;
+        ArrayList<MarketEquity> indexResults;
+        HashSet<MarketEquity> combinedResults = new HashSet<>();
+        ArrayList<TextField> searchFields = new ArrayList<>();
+        ArrayList<ArrayList<MarketEquity>> searchResults = new ArrayList<>();
+
+        //ticker symbol
+        tickerResults = main.getMarket().search(QueryType.TICKER,tickerSearchField.getText(),tickerChoiceBox.getValue());
+
+        //name
+        nameResults = main.getMarket().search(QueryType.NAME,nameSearchField.getText(),nameChoiceBox.getValue());
+
+        //sector or index
+        indexResults =  main.getMarket().search(QueryType.INDEX_OR_SECTOR,indexSearchField.getText(),indexChoiceBox.getValue());
+
+
+        searchFields.add(tickerSearchField);
+        searchFields.add(nameSearchField);
+        searchFields.add(indexSearchField);
+        searchResults.add(tickerResults);
+        searchResults.add(nameResults);
+        searchResults.add(indexResults);
+        int i = 0;
+        for (TextField searchField : searchFields){
+            if (!(searchField.getText().equals(""))){
+                combinedResults.addAll(searchResults.get(i));
+            }
+            i++;
+        }
+        System.out.println(combinedResults.toString());
+
     }
 
     @FXML
