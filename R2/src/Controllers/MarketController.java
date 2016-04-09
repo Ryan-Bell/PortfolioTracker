@@ -109,7 +109,7 @@ public class MarketController extends ViewController implements Initializable {
 
     @FXML
     void handleAddToWatchlist(ActionEvent event) {
-
+        main.getPortfolio().getWatchEquities().add( searchResultsField.getSelectionModel().getSelectedItem());
     }
 
     @FXML

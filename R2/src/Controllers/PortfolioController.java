@@ -312,7 +312,7 @@ public class PortfolioController extends ViewController implements Initializable
 
     @FXML
     void handleAddToWatchlist(ActionEvent event) {
-
+        main.getPortfolio().getWatchEquities().add(equityTable.getSelectionModel().getSelectedItem());
     }
 
     @FXML
