@@ -2,7 +2,6 @@ package Controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
@@ -57,14 +56,17 @@ public class TransactionLogController extends ViewController implements Initiali
 
         try {
             undoRedoFunctions.undo();
-            redoButton.setVisible(true);
+
+            if (!undoRedoFunctions.isRedoEmpty()) {
+                redoButton.setVisible(true);
+            }
 
             if (undoRedoFunctions.isUndoEmpty()) {
                 undoButton.setVisible(false);
             }
 
         } catch (NoSuchElementException e) {
-            showError("No more commands to undo");
+            showErrorLabel("No more commands to undo");
         }
     }
 
@@ -74,14 +76,17 @@ public class TransactionLogController extends ViewController implements Initiali
 
         try {
             undoRedoFunctions.redo();
-            undoButton.setVisible(true);
+
+            if (!undoRedoFunctions.isUndoEmpty()) {
+                undoButton.setVisible(true);
+            }
 
             if (undoRedoFunctions.isRedoEmpty()) {
                 redoButton.setVisible(false);
             }
 
         } catch (NoSuchElementException e) {
-            showError("No more commands to redo");
+            showErrorLabel("No more commands to redo");
         }
     }
 
@@ -103,7 +108,7 @@ public class TransactionLogController extends ViewController implements Initiali
         simulationTab.setDisable(false);
     }
 
-    void showError(String text) {
+    void showErrorLabel(String text) {
         transactionLogErrorLabel.setText(text);
     }
 

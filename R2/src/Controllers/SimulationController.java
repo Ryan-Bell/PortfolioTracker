@@ -1,8 +1,6 @@
 package Controllers;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 import Models.MarketSimulation.MarketSimulator;
@@ -74,7 +72,7 @@ public class SimulationController extends ViewController implements Initializabl
             previousStepButton.setVisible(true);
 
         } catch (Exception e) {
-            showError("Please fill in all fields");
+            showErrorLabel("Please fill in all fields");
         }
     }
 
@@ -105,7 +103,7 @@ public class SimulationController extends ViewController implements Initializabl
 
             previousStepButton.setVisible(true);
         } catch (Exception e) {
-            showError("Please fill in all fields");
+            showErrorLabel("Please fill in all fields");
         }
     }
 
@@ -116,7 +114,7 @@ public class SimulationController extends ViewController implements Initializabl
         marketTab.setDisable(false);
     }
 
-    void showError(String text) {
+    void showErrorLabel(String text) {
         simulationErrorLabel.setText(text);
     }
 
