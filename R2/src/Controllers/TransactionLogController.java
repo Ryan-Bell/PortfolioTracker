@@ -53,6 +53,8 @@ public class TransactionLogController extends ViewController implements Initiali
 
     @FXML
     void handleUndo(ActionEvent event) {
+        resetErrorLabel();
+
         try {
             undoRedoFunctions.undo();
             redoButton.setVisible(true);
@@ -62,12 +64,14 @@ public class TransactionLogController extends ViewController implements Initiali
             }
 
         } catch (NoSuchElementException e) {
-            System.out.println("No more commands to undo");
+            showError("No more commands to undo");
         }
     }
 
     @FXML
     void handleRedo(ActionEvent event) {
+        resetErrorLabel();
+
         try {
             undoRedoFunctions.redo();
             undoButton.setVisible(true);
@@ -77,12 +81,14 @@ public class TransactionLogController extends ViewController implements Initiali
             }
 
         } catch (NoSuchElementException e) {
-            System.out.println("No more commands to redo");
+            showError("No more commands to redo");
         }
     }
 
     @FXML
     void handleFilter(ActionEvent event) {
+        resetErrorLabel();
+
         //how to acquire the date from the date picker
         LocalDate now = startDatePicker.getValue();
         System.out.println(now);
@@ -95,6 +101,14 @@ public class TransactionLogController extends ViewController implements Initiali
         importTab.setDisable(false);
         marketTab.setDisable(false);
         simulationTab.setDisable(false);
+    }
+
+    void showError(String text) {
+        transactionLogErrorLabel.setText(text);
+    }
+
+    void resetErrorLabel() {
+        transactionLogErrorLabel.setText("");
     }
 }
 

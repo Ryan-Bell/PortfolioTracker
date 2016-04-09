@@ -56,6 +56,7 @@ public class SimulationController extends ViewController implements Initializabl
 
     @FXML
     void handleRunSim(ActionEvent event) {
+        resetErrorLabel();
         previousStepButton.setVisible(false);
         nextStepButton.setVisible(false);
         marketSimulator = new MarketSimulator(main.getPortfolio().getPortfolioValue());
@@ -73,15 +74,13 @@ public class SimulationController extends ViewController implements Initializabl
             previousStepButton.setVisible(true);
 
         } catch (Exception e) {
-            ObservableList values = FXCollections.observableArrayList("Please enter all fields");
-            simResultsList.setItems(values);
-
-            System.out.println("!!! SimulationController: " + e.getMessage());
+            showError("Please fill in all fields");
         }
     }
 
     @FXML
     void handlePreviousStep(ActionEvent event) {
+        resetErrorLabel();
         float value = marketSimulator.popMemento();
         ObservableList values = FXCollections.observableArrayList("--Back To Previous Simulation--", value);
         simResultsList.getItems().addAll(values);
@@ -93,6 +92,8 @@ public class SimulationController extends ViewController implements Initializabl
 
     @FXML
     void handleNextStep(ActionEvent event) {
+        resetErrorLabel();
+
         try {
             float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
             int steps = Integer.parseInt(numStepsField.getCharacters().toString());
@@ -104,7 +105,7 @@ public class SimulationController extends ViewController implements Initializabl
 
             previousStepButton.setVisible(true);
         } catch (Exception e) {
-            System.out.println("!!! SimulationController: " + e.getMessage());
+            showError("Please fill in all fields");
         }
     }
 
@@ -113,6 +114,14 @@ public class SimulationController extends ViewController implements Initializabl
         portfolioTab.setDisable(false);
         importTab.setDisable(false);
         marketTab.setDisable(false);
+    }
+
+    void showError(String text) {
+        simulationErrorLabel.setText(text);
+    }
+
+    void resetErrorLabel() {
+        simulationErrorLabel.setText("");
     }
 }
 
