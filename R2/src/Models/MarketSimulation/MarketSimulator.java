@@ -64,6 +64,7 @@ public class MarketSimulator {
      * @return  valuesAtSteps   the array of values mapped to each step
      */
     public ArrayList<Float> runSimulation(float percent, int steps, StepType stepType, SimulationType type){
+        percent /= 100;
         PortfolioMemento memento = createMemento(percent, steps, stepType, type);
         ArrayList<Float> valuesAtSteps = memento.getSimulation().evaluate();
 
@@ -74,6 +75,7 @@ public class MarketSimulator {
         int lastIndex = valuesAtSteps.size() - 1;
         this.basePortfolioValue = valuesAtSteps.get(lastIndex);
 
+        System.out.println(valuesAtSteps);
         return valuesAtSteps;
     }
 

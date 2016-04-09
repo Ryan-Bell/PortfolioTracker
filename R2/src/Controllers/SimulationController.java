@@ -60,7 +60,7 @@ public class SimulationController extends ViewController implements Initializabl
     void handleRunSim(ActionEvent event) {
         previousStepButton.setVisible(false);
         nextStepButton.setVisible(false);
-        this.marketSimulator = new MarketSimulator(main.getPortfolio().getPortfolioValue());
+        marketSimulator = new MarketSimulator(500);//main.getPortfolio().getPortfolioValue());
 
         try {
             float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
@@ -68,9 +68,12 @@ public class SimulationController extends ViewController implements Initializabl
             SimulationType simulationType = simulationChoiceBox.getValue();
             StepType stepType = stepChoiceBox.getValue();
 
-            ObservableList values =FXCollections.observableArrayList(this.marketSimulator.runSimulation(percent, steps, stepType, simulationType));
+            ObservableList values =FXCollections.observableArrayList(marketSimulator.runSimulation(percent, steps, stepType, simulationType));
             simResultsList.setItems(values);
+
             nextStepButton.setVisible(true);
+            previousStepButton.setVisible(true);
+
         } catch (Exception e) {
             System.out.println("!!! SimulationController: " + e.getMessage());
         }
@@ -78,12 +81,30 @@ public class SimulationController extends ViewController implements Initializabl
 
     @FXML
     void handlePreviousStep(ActionEvent event) {
+        float value = marketSimulator.popMemento();
+        ObservableList values = FXCollections.observableArrayList("--Back To Previous Simulation--", value);
+        simResultsList.getItems().addAll(values);
 
+        if (value == 500){// main.getPortfolio().getPortfolioValue()) {
+            previousStepButton.setVisible(false);
+        }
     }
 
     @FXML
     void handleNextStep(ActionEvent event) {
-        previousStepButton.setVisible(true);
+        try {
+            float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
+            int steps = Integer.parseInt(numStepsField.getCharacters().toString());
+            SimulationType simulationType = simulationChoiceBox.getValue();
+            StepType stepType = stepChoiceBox.getValue();
+
+            ObservableList values = FXCollections.observableArrayList(marketSimulator.runSimulation(percent, steps, stepType, simulationType));
+            simResultsList.getItems().addAll(values);
+
+            previousStepButton.setVisible(true);
+        } catch (Exception e) {
+            System.out.println("!!! SimulationController: " + e.getMessage());
+        }
     }
 
     @FXML
