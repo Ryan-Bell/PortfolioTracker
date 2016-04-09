@@ -3,9 +3,14 @@ package Controllers;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
+import Models.Transaction.Transaction;
 import Models.UndoRedo.UndoRedoFunctions;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +19,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-public class TransactionLogController extends ViewController implements Initializable{
+public class TransactionLogController extends ViewController implements Initializable, Observer{
     //region FXMLFields
     @FXML private ResourceBundle resources;
     @FXML private URL location;
@@ -49,6 +54,14 @@ public class TransactionLogController extends ViewController implements Initiali
             redoButton.setVisible(false);
         }
 
+
+    }
+    @Override
+    protected void setup() {
+        ObservableList transactions =FXCollections.observableArrayList(main.getPortfolio().getTransactionLog());
+        transactionList.setItems(transactions);
+
+        main.getPortfolio().addObserver(this);
     }
 
     @FXML
@@ -115,6 +128,20 @@ public class TransactionLogController extends ViewController implements Initiali
 
     void resetErrorLabel() {
         transactionLogErrorLabel.setText("");
+    }
+
+    @Override
+    public void update(Observable o, Object arg){
+        System.out.println("updating this");
+        ObservableList transactions =FXCollections.observableArrayList(main.getPortfolio().getTransactionLog());
+        transactionList.setItems(transactions);
+
+
+        System.out.println("Length: "+main.getPortfolio().getTransactionLog().size());
+        for (Transaction t:main.getPortfolio().getTransactionLog()
+             ) {
+            System.out.println(t.toString());
+        }
     }
 }
 

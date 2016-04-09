@@ -9,6 +9,7 @@ import Models.Market.MatchType;
 import Models.Market.QueryType;
 import Models.Transaction.BuyTransaction;
 import Models.Transaction.BuyWithCashAccount;
+import Models.UndoRedo.UndoRedo;
 import Models.UndoRedo.UndoRedoFunctions;
 import Models.Portfolio.CashAccount;
 import javafx.collections.FXCollections;
@@ -120,7 +121,10 @@ public class MarketController extends ViewController implements Initializable {
                             int shares = Integer.parseInt(numberSharesField.getText());
                             int index = main.getPortfolio().getCashAccNameExists(cashAccountField.getText());
                             CashAccount cashAccount = main.getPortfolio().getCashAccounts().get(index);
-                            UndoRedoFunctions.getInstance().execute(new BuyWithCashAccount(new BuyTransaction(target,shares,main.getPortfolio()),cashAccount));
+
+                            BuyWithCashAccount newBuy = new BuyWithCashAccount(new BuyTransaction(target,shares,main.getPortfolio()),cashAccount);
+                            main.getPortfolio().addTransaction(newBuy);
+                            UndoRedoFunctions.getInstance().execute(newBuy);
                         }
                         catch (NumberFormatException e){
                             marketErrorLabel.setText("Please Enter Integer Number of Shares");
@@ -134,7 +138,10 @@ public class MarketController extends ViewController implements Initializable {
                 else{
                     try{
                         int shares = Integer.parseInt(numberSharesField.getText());
-                        UndoRedoFunctions.getInstance().execute(new BuyTransaction(target,shares,main.getPortfolio()));
+
+                        BuyTransaction newBuy = new BuyTransaction(target,shares,main.getPortfolio());
+                        main.getPortfolio().addTransaction(newBuy);
+                        UndoRedoFunctions.getInstance().execute(newBuy);
                     }
                     catch (NumberFormatException e){
                         marketErrorLabel.setText("Please Enter Integer Number of Shares");
@@ -154,7 +161,13 @@ public class MarketController extends ViewController implements Initializable {
 
     @FXML
     void handleAddToWatchlist(ActionEvent event) {
-        main.getPortfolio().getWatchEquities().add( searchResultsField.getSelectionModel().getSelectedItem());
+        if(searchResultsField.getSelectionModel().getSelectedItem() != null){
+            main.getPortfolio().getWatchEquities().add( searchResultsField.getSelectionModel().getSelectedItem());
+        }
+        else{
+            marketErrorLabel.setText("Nothing is selected");
+        }
+
     }
 
     @FXML

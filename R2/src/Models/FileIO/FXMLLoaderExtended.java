@@ -19,7 +19,7 @@ public class FXMLLoaderExtended extends FXMLLoader {
     }
 
     /** Override load method that does default load and sets reference to main
-     * @param main reference to the3 main object
+     * @param main reference to the3 main objecta
      * @return the result of the default load operation
      */
     public Parent load(Main main){

@@ -72,6 +72,7 @@ public class LoginController extends ViewController implements Initializable  {
         //check to make sure that the user id doesn't already exist
         if (portfolio == null){
             if (registerPasswordField.getText().equals(registerConfirmField.getText())){
+                main.getUpdateService().start();
                 main.setPortfolio(portfolioIO.createId(authentication.hash(registerPasswordField.getText()), registerUsernameField.getText()));
                 main.showPortfolio();
 
@@ -101,6 +102,7 @@ public class LoginController extends ViewController implements Initializable  {
         if (portfolio != null){
             //if entered password and portfolio password match
             if (authentication.checkPassword(loginPasswordField.getText(),portfolio.getPassword())){
+                main.getUpdateService().start();
                 main.setPortfolio(portfolio);
                 main.showPortfolio();
             }

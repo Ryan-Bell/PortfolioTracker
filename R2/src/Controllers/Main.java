@@ -69,7 +69,7 @@ public class Main extends Application {
         }
         parser = new Parser(market, "./market.csv");
         parser.parseFile();
-        market.updateEquities();
+        //market.updateEquities();
 
         updateService = new ScheduledService<Void>() {
             protected Task<Void> createTask() {
@@ -83,7 +83,6 @@ public class Main extends Application {
             }
         };
         updateService.setPeriod(Duration.seconds(60));
-        updateService.start();
     }
 
     //region ShowViews
