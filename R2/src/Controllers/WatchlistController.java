@@ -39,7 +39,6 @@ public class WatchlistController extends ViewController implements Initializable
     @FXML private TextField lowTriggerField;
     @FXML private ChoiceBox selectTriggerChoiceBox;
     @FXML private Label watchlistErrorLabel;
-    @FXML private Button addToWatchlistButton;
     //endregion
 
 
@@ -64,7 +63,7 @@ public class WatchlistController extends ViewController implements Initializable
         assert lowTriggerField != null : "fx:id=\"lowTriggerField\" was not injected: check your FXML file 'watchlist.fxml'.";
         assert selectTriggerChoiceBox != null : "fx:id=\"selectTriggerChoiceBox\" was not injected: check your FXML file 'watchlist.fxml'.";
         assert watchlistErrorLabel != null : "fx:id=\"watchlistErrorLabel\" was not injected: check your FXML file 'watchlist.fxml'.";
-        assert addToWatchlistButton != null : "fx:id=\"setHighTriggerButton\" was not injected: check your FXML file 'watchlist.fxml'.";
+
         //endregion
 
         selectTriggerChoiceBox.setItems(FXCollections.observableArrayList("High Trigger","Low Trigger","Both"));
@@ -172,11 +171,6 @@ public class WatchlistController extends ViewController implements Initializable
 
     @FXML
     void handleUpdateInterval(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleAddToWatchlist(ActionEvent event) {
 
     }
 
