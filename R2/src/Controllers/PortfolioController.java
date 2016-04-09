@@ -285,7 +285,8 @@ public class PortfolioController extends ViewController implements Initializable
             String accountTarget;
 
             //check if a cash account destination has been specified
-            if((accountTarget = sellNameField.getText()) != null){
+            if(!(sellNameField.getText().equals(""))){
+                accountTarget = sellNameField.getText();
                 //check that the account name specified exists
                 int accountIndex = main.getPortfolio().getCashAccNameExists(accountTarget);
                 if(accountIndex != -1) {
