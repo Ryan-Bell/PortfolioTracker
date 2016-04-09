@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -60,31 +61,27 @@
                         </font></Label>
                      <HBox spacing="10.0">
                         <children>
-                           <MenuButton fx:id="simulationType" mnemonicParsing="false" prefWidth="200.0" text="Select Simulation Type">
-                              <items>
-                                 <MenuItem mnemonicParsing="false" text="Bear" />
-                                 <MenuItem mnemonicParsing="false" text="Bull" />
-                                 <MenuItem mnemonicParsing="false" text="No Growth" />
-                              </items>
-                           </MenuButton>
+                              <ChoiceBox fx:id="simulationChoiceBox" prefWidth="150.0" />
                            <TextField fx:id="percentChangeField" promptText="Enter Percent Change" />
                         </children>
                      </HBox>
                      <HBox layoutX="10.0" layoutY="37.0" spacing="10.0">
                         <children>
-                           <MenuButton fx:id="stepType" mnemonicParsing="false" prefWidth="200.0" text="Select Step Type">
-                              <items>
-                                 <MenuItem mnemonicParsing="false" text="Day" />
-                                 <MenuItem mnemonicParsing="false" text="Month" />
-                                 <MenuItem mnemonicParsing="false" text="Year" />
-                              </items>
-                           </MenuButton>
+                              <ChoiceBox fx:id="stepChoiceBox" prefWidth="150.0" />
                            <TextField fx:id="numStepsField" promptText="Enter Number of Steps" />
                         </children>
                      </HBox>
                      <Button fx:id="runSimButton" mnemonicParsing="false" onAction="#handleRunSim" text="Run Simulation" />
                      <Label text="Results:" />
                      <ListView fx:id="simResultsList" prefHeight="287.0" prefWidth="780.0" />
+                        <BorderPane>
+                           <left>
+                              <Button fx:id="previousStepButton" mnemonicParsing="false" onAction="#handlePreviousStep" prefWidth="110.0" text="Previous Step" BorderPane.alignment="CENTER" />
+                           </left>
+                           <right>
+                              <Button fx:id="nextStepButton" mnemonicParsing="false" onAction="#handleNextStep" prefWidth="110.0" text="Next Step" BorderPane.alignment="CENTER" />
+                           </right>
+                        </BorderPane>
                   </children>
                   <padding>
                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
