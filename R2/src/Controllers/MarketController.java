@@ -21,7 +21,7 @@ public class MarketController extends ViewController implements Initializable {
     @FXML private Button searchButton;
     @FXML private TextField indexSearchField;
     @FXML private TextField nameSearchField;
-    @FXML private ListView<?> searchResultsField;
+    @FXML private ListView<MarketEquity> searchResultsField;
     @FXML private TextField numberSharesField;
     @FXML private TextField cashAccountField;
     @FXML private Button buyButton;
@@ -30,6 +30,7 @@ public class MarketController extends ViewController implements Initializable {
     @FXML private ChoiceBox<MatchType> indexChoiceBox;
     @FXML private ChoiceBox<MatchType> tickerChoiceBox;
     @FXML private Label marketErrorLabel;
+    @FXML private Button addToWatchlistButton;
     //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -47,6 +48,7 @@ public class MarketController extends ViewController implements Initializable {
         assert buyButton != null : "fx:id=\"buyButton\" was not injected: check your FXML file 'market.fxml'.";
         assert tickerSearchField != null : "fx:id=\"tickerSearchField\" was not injected: check your FXML file 'market.fxml'.";
         assert marketErrorLabel != null : "fx:id=\"marketErrorLabel\" was not injected: check your FXML file 'market.fxml'.";
+        assert addToWatchlistButton != null : "fx:id=\"buyButton\" was not injected: check your FXML file 'market.fxml'.";
         //endregion
 
         tickerChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
@@ -65,8 +67,10 @@ public class MarketController extends ViewController implements Initializable {
         HashSet<MarketEquity> combinedResults = new HashSet<>();
         ArrayList<TextField> searchFields = new ArrayList<>();
         ArrayList<ArrayList<MarketEquity>> searchResults = new ArrayList<>();
+        ObservableList<MarketEquity> finalList;
 
         //ticker symbol
+        //if(tickerChoiceBox.getValue() == MatchType.CONTAINED)
         tickerResults = main.getMarket().search(QueryType.TICKER,tickerSearchField.getText(),tickerChoiceBox.getValue());
 
         //name
@@ -90,11 +94,19 @@ public class MarketController extends ViewController implements Initializable {
             i++;
         }
         System.out.println(combinedResults.toString());
+        finalList = FXCollections.observableArrayList(combinedResults);
+        searchResultsField.setItems(finalList);
+
 
     }
 
     @FXML
     void handleBuy(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleAddToWatchlist(ActionEvent event) {
 
     }
 

@@ -39,10 +39,9 @@ public class WatchlistController extends ViewController implements Initializable
     @FXML private TextField lowTriggerField;
     @FXML private ChoiceBox selectTriggerChoiceBox;
     @FXML private Label watchlistErrorLabel;
+    @FXML private Button addToWatchlistButton;
     //endregion
 
-
-    private ArrayList<MarketEquity> watchEquities;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -65,23 +64,22 @@ public class WatchlistController extends ViewController implements Initializable
         assert lowTriggerField != null : "fx:id=\"lowTriggerField\" was not injected: check your FXML file 'watchlist.fxml'.";
         assert selectTriggerChoiceBox != null : "fx:id=\"selectTriggerChoiceBox\" was not injected: check your FXML file 'watchlist.fxml'.";
         assert watchlistErrorLabel != null : "fx:id=\"watchlistErrorLabel\" was not injected: check your FXML file 'watchlist.fxml'.";
+        assert addToWatchlistButton != null : "fx:id=\"setHighTriggerButton\" was not injected: check your FXML file 'watchlist.fxml'.";
         //endregion
 
         selectTriggerChoiceBox.setItems(FXCollections.observableArrayList("High Trigger","Low Trigger","Both"));
         selectTriggerChoiceBox.setValue("Both");
 
-        watchEquities = new ArrayList<>();
-
     }
     @Override
     protected void setup() {
         //System.out.println("ay2");
-        watchEquities.add(main.getMarket().getMarketEquities().get(22));
-        watchEquities.add(main.getMarket().getMarketEquities().get(40));
-        watchEquities.add(main.getMarket().getMarketEquities().get(52));
-        watchEquities.add(main.getMarket().getMarketEquities().get(42));
-        watchEquities.add(main.getMarket().getMarketEquities().get(62));
-        watchlistTable.setItems(FXCollections.observableList(watchEquities));
+        //main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(20));
+        //main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(21));
+       // main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(22));
+       // main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(23));
+       // main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(24));
+        watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
 
         tickerTableColumn.setCellValueFactory(new PropertyValueFactory<>("tickerSymbol"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -101,9 +99,9 @@ public class WatchlistController extends ViewController implements Initializable
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
         try{
             float amount = Float.parseFloat(highTriggerField.getText());
-            watchEquities.get(currentSelection).setHighTrigger(amount);
+            main.getPortfolio().getWatchEquities().get(currentSelection).setHighTrigger(amount);
 
-            watchlistTable.setItems(FXCollections.observableList(watchEquities));
+            watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
             watchlistTable.refresh();
             watchlistTable.getSelectionModel().selectFirst();
             watchlistTable.getFocusModel().focus(0);
@@ -117,9 +115,9 @@ public class WatchlistController extends ViewController implements Initializable
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
         try{
             float amount = Float.parseFloat(lowTriggerField.getText());
-            watchEquities.get(currentSelection).setLowTrigger(amount);
+            main.getPortfolio().getWatchEquities().get(currentSelection).setLowTrigger(amount);
 
-            watchlistTable.setItems(FXCollections.observableList(watchEquities));
+            watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
             watchlistTable.refresh();
             watchlistTable.getSelectionModel().selectFirst();
             watchlistTable.getFocusModel().focus(0);
@@ -132,19 +130,19 @@ public class WatchlistController extends ViewController implements Initializable
     void handleClearTrigger(ActionEvent event) {
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
         if(selectTriggerChoiceBox.getValue().equals("Low Trigger")){
-            watchEquities.get(currentSelection).setLowTrigger(-1);
+            main.getPortfolio().getWatchEquities().get(currentSelection).setLowTrigger(-1);
         }
         else if(selectTriggerChoiceBox.getValue().equals("High Trigger")){
-            watchEquities.get(currentSelection).setHighTrigger(-1);
+            main.getPortfolio().getWatchEquities().get(currentSelection).setHighTrigger(-1);
         }
         else if(selectTriggerChoiceBox.getValue().equals("Both")){
-            watchEquities.get(currentSelection).setHighTrigger(-1);
-            watchEquities.get(currentSelection).setLowTrigger(-1);
+            main.getPortfolio().getWatchEquities().get(currentSelection).setHighTrigger(-1);
+            main.getPortfolio().getWatchEquities().get(currentSelection).setLowTrigger(-1);
         }
 
 
 
-        watchlistTable.setItems(FXCollections.observableList(watchEquities));
+        watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();
         watchlistTable.getFocusModel().focus(0);
@@ -152,10 +150,10 @@ public class WatchlistController extends ViewController implements Initializable
 
     @FXML
     void handleResetTripped(ActionEvent event) {
-        for (MarketEquity e:watchEquities){
+        for (MarketEquity e:main.getPortfolio().getWatchEquities()){
             e.setTriggerStatus("");
         }
-        watchlistTable.setItems(FXCollections.observableList(watchEquities));
+        watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();
         watchlistTable.getFocusModel().focus(0);
@@ -164,9 +162,9 @@ public class WatchlistController extends ViewController implements Initializable
     @FXML
     void handleRemoveItem(ActionEvent event) {
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
-        watchEquities.remove(currentSelection);
+        main.getPortfolio().getWatchEquities().remove(currentSelection);
 
-        watchlistTable.setItems(FXCollections.observableList(watchEquities));
+        watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();
         watchlistTable.getFocusModel().focus(0);
@@ -174,6 +172,11 @@ public class WatchlistController extends ViewController implements Initializable
 
     @FXML
     void handleUpdateInterval(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleAddToWatchlist(ActionEvent event) {
 
     }
 
@@ -198,7 +201,7 @@ public class WatchlistController extends ViewController implements Initializable
 
     @Override
     public void update(Observable o, Object arg){
-        for (MarketEquity e:watchEquities) {
+        for (MarketEquity e:main.getPortfolio().getWatchEquities()) {
             if(e.getValue() > e.getHighTrigger() && e.getHighTrigger()!=-1){
                 e.setTriggerStatus("Is above high");
             }
@@ -214,7 +217,7 @@ public class WatchlistController extends ViewController implements Initializable
                 }
             }
         }
-        watchlistTable.setItems(FXCollections.observableList(watchEquities));
+        watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();
         watchlistTable.getFocusModel().focus(0);
