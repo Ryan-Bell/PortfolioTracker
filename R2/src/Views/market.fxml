@@ -58,54 +58,22 @@
                      <HBox spacing="10.0">
                         <children>
                            <Label prefWidth="125.0" text="Ticker" />
-                           <MenuButton mnemonicParsing="false" text="Select Query Type">
-                              <items>
-                                 <MenuItem fx:id="exactTicker" mnemonicParsing="false" text="Exact" />
-                                 <MenuItem fx:id="beginTicker" mnemonicParsing="false" text="Begin" />
-                                 <MenuItem fx:id="containsTicker" mnemonicParsing="false" text="Contains" />
-                              </items>
-                           </MenuButton>
-
-                           <ChoiceBox  fx:id="tickerQueryType">
-                              <items>
-                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Exact"/>
-                                    <String fx:value="Begin"/>
-                                    <String fx:value="Contains"/>
-                                 </FXCollections>
-                              </items>
-                              <value>
-                                 <String fx:value="Select Query Type"/>
-                              </value>
-                           </ChoiceBox>
+                              <ChoiceBox fx:id="tickerChoiceBox" prefWidth="150.0" />
 
                            <TextField fx:id="tickerSearchField" promptText="Enter Ticker Symbol" />
-                              <ChoiceBox fx:id="tickerChoiceBox" prefWidth="150.0" />
                         </children>
                      </HBox>
                      <HBox layoutX="20.0" layoutY="47.0" spacing="10.0">
                         <children>
                            <Label prefWidth="125.0" text="Name" />
-                           <MenuButton fx:id="nameQueryType" mnemonicParsing="false" text="Select Query Type">
-                              <items>
-                                 <MenuItem mnemonicParsing="false" text="Exact" />
-                                 <MenuItem mnemonicParsing="false" text="Begin" />
-                                 <MenuItem mnemonicParsing="false" text="Contains" />
-                              </items>
-                           </MenuButton>
+                              <ChoiceBox fx:id="nameChoiceBox" prefWidth="150.0" />
                            <TextField fx:id="nameSearchField" promptText="Enter Name" />
                         </children>
                      </HBox>
                      <HBox layoutX="20.0" layoutY="98.0" spacing="10.0">
                         <children>
                            <Label prefWidth="125.0" text="Sector or Index" />
-                           <MenuButton fx:id="indexQueryType" mnemonicParsing="false" text="Select Query Type">
-                              <items>
-                                 <MenuItem mnemonicParsing="false" text="Exact" />
-                                 <MenuItem mnemonicParsing="false" text="Begin" />
-                                 <MenuItem mnemonicParsing="false" text="Contains" />
-                              </items>
-                           </MenuButton>
+                              <ChoiceBox fx:id="indexChoiceBox" prefWidth="150.0" />
                            <TextField fx:id="indexSearchField" promptText="Enter Sector or Index" />
                            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch" prefWidth="100.0" text="Search" />
                         </children>

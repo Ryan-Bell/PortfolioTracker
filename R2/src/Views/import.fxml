@@ -64,9 +64,9 @@
                                  <ListView fx:id="importConflictsList" prefHeight="103.0" prefWidth="696.0" />
                                     <AnchorPane prefHeight="103.0" prefWidth="216.0">
                                        <children>
-                                          <Button fx:id="mergeButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMerge" text="Merge" AnchorPane.leftAnchor="10.0" />
-                                          <Button fx:id="ignoreButton" contentDisplay="CENTER" layoutY="77.0" mnemonicParsing="false" onAction="#handleIgnore" text="Ignore" AnchorPane.leftAnchor="10.0" />
-                                          <Button fx:id="replaceButton" contentDisplay="CENTER" layoutY="39.0" mnemonicParsing="false" onAction="#handleReplace" text="Replace" AnchorPane.leftAnchor="10.0" />
+                                          <Button fx:id="mergeButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleMerge" prefWidth="100.0" text="Merge" AnchorPane.leftAnchor="10.0" />
+                                          <Button fx:id="ignoreButton" contentDisplay="CENTER" layoutY="77.0" mnemonicParsing="false" onAction="#handleIgnore" prefWidth="100.0" text="Ignore" AnchorPane.leftAnchor="10.0" />
+                                          <Button fx:id="replaceButton" contentDisplay="CENTER" layoutY="39.0" mnemonicParsing="false" onAction="#handleReplace" prefWidth="100.0" text="Replace" AnchorPane.leftAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>
