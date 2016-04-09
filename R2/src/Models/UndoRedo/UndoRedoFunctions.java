@@ -77,7 +77,6 @@ public class UndoRedoFunctions {
     }
 
     public boolean isUndoEmpty() {
-        System.out.println(undoStack);
         return this.undoStack.size() == 0;
     };
 
