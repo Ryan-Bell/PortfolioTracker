@@ -64,6 +64,7 @@ public class WatchlistController extends ViewController implements Initializable
         assert lowTriggerTableColumn != null : "fx:id=\"lowTriggerTableColumn\" was not injected: check your FXML file 'watchlist.fxml'.";
         assert lowTriggerField != null : "fx:id=\"lowTriggerField\" was not injected: check your FXML file 'watchlist.fxml'.";
         assert selectTriggerChoiceBox != null : "fx:id=\"selectTriggerChoiceBox\" was not injected: check your FXML file 'watchlist.fxml'.";
+        assert watchlistErrorLabel != null : "fx:id=\"watchlistErrorLabel\" was not injected: check your FXML file 'watchlist.fxml'.";
         //endregion
 
         selectTriggerChoiceBox.setItems(FXCollections.observableArrayList("High Trigger","Low Trigger","Both"));
