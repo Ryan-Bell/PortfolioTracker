@@ -41,10 +41,14 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator implements 
         if (cashAccount.sufficientFunds(cost)) {
             //withdraw the cost
             cashAccount.withdraw(cost);
-        } else failed = true;
+            //call the execute of the undecorated transaction
+            transactionToBoDecorated.execute();
+        }
+        else{
+            failed = true;
+        }
 
-        //call the execute of the undecorated transaction
-        transactionToBoDecorated.execute();
+
     }
 
     /**
