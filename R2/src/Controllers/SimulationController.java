@@ -60,7 +60,7 @@ public class SimulationController extends ViewController implements Initializabl
     void handleRunSim(ActionEvent event) {
         previousStepButton.setVisible(false);
         nextStepButton.setVisible(false);
-        marketSimulator = new MarketSimulator(500);//main.getPortfolio().getPortfolioValue());
+        marketSimulator = new MarketSimulator(main.getPortfolio().getPortfolioValue());
 
         try {
             float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
@@ -85,7 +85,7 @@ public class SimulationController extends ViewController implements Initializabl
         ObservableList values = FXCollections.observableArrayList("--Back To Previous Simulation--", value);
         simResultsList.getItems().addAll(values);
 
-        if (value == 500){// main.getPortfolio().getPortfolioValue()) {
+        if (value == main.getPortfolio().getPortfolioValue()) {
             previousStepButton.setVisible(false);
         }
     }
