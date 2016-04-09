@@ -3,7 +3,7 @@ package Controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import MarketSimulation.SimulationType;
+import Models.MarketSimulation.SimulationType;
 import Models.MarketSimulation.StepType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

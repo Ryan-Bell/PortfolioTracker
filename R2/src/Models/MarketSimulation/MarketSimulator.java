@@ -18,7 +18,7 @@ public class MarketSimulator {
      * Creates a simulation then creates a memento.
      * @return  memento the memento
      */
-    public PortfolioMemento createMemento(float percent, int steps, Simulation.StepTypes stepType, SimulationType type){
+    public PortfolioMemento createMemento(float percent, int steps, StepType stepType, SimulationType type){
 
         Simulation simulation;
         switch (type) {
@@ -63,7 +63,7 @@ public class MarketSimulator {
      * @param type      the type of symulation. Bear, Bull, or No Growth
      * @return  valuesAtSteps   the array of values mapped to each step
      */
-    public ArrayList<Float> runSimulation(float percent, int steps, Simulation.StepTypes stepType, SimulationType type){
+    public ArrayList<Float> runSimulation(float percent, int steps, StepType stepType, SimulationType type){
         PortfolioMemento memento = createMemento(percent, steps, stepType, type);
         ArrayList<Float> valuesAtSteps = memento.getSimulation().evaluate();
 
