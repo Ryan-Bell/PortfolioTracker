@@ -22,9 +22,13 @@ public class UndoRedoFunctions {
 
     public static UndoRedoFunctions getInstance() {
         if (instance == null) {
-            instance = new UndoRedoFunctions();
+            createNewUndoRedoFunctions();
         }
         return instance;
+    }
+
+    public static void createNewUndoRedoFunctions() {
+        instance = new UndoRedoFunctions();
     }
 
     /**
