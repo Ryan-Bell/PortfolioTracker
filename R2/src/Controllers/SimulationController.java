@@ -3,6 +3,7 @@ package Controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Models.MarketSimulation.Simulation;
 import Models.MarketSimulation.SimulationType;
 import Models.MarketSimulation.StepType;
 import javafx.collections.FXCollections;
@@ -41,15 +42,25 @@ public class SimulationController extends ViewController implements Initializabl
         //endregion
 
         simulationChoiceBox.setItems(FXCollections.observableArrayList(SimulationType.BULL,SimulationType.NO_GROWTH,SimulationType.BEAR));
-        simulationChoiceBox.setValue(SimulationType.BEAR);
+        simulationChoiceBox.setValue(SimulationType.BULL);
         stepChoiceBox.setItems(FXCollections.observableArrayList(StepType.YEAR,StepType.MONTH,StepType.DAY));
-        stepChoiceBox.setValue(StepType.MONTH);
+        stepChoiceBox.setValue(StepType.YEAR);
 
     }
 
     @FXML
     void handleRunSim(ActionEvent event) {
+        try {
+            float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
+            int steps = Integer.parseInt(numStepsField.getCharacters().toString());
+            SimulationType simulationType = simulationChoiceBox.getValue();
+            StepType stepType = stepChoiceBox.getValue();
 
+//            System.out.println(percent + steps + simulationType + stepType);
+
+        } catch (Exception e) {
+            System.out.println("!!! " + e.getMessage());
+        }
     }
 
     @FXML

@@ -43,7 +43,7 @@ public class MarketSimulator {
     }
 
     /**
-     * Pops the last memento off the stack and runs set the
+     * Pops the last memento off the stack and sets the
      * basePortfolioValue to its value. Used to undo a simulation.
      */
     public float popMemento(){
