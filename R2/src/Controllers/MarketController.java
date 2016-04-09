@@ -8,6 +8,7 @@ import Models.Market.MarketEquity;
 import Models.Market.MatchType;
 import Models.Market.QueryType;
 import Models.Transaction.BuyTransaction;
+import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -103,13 +104,16 @@ public class MarketController extends ViewController implements Initializable {
 
     @FXML
     void handleBuy(ActionEvent event) {
-        //BuyTransaction buyEquity = new BuyTransaction
+        MarketEquity target = searchResultsField.getSelectionModel().getSelectedItem();
+        int shares = Integer.parseInt(numberSharesField.getText());
+        //BuyTransaction buyEquity = new BuyTransaction(target,shares,main.getPortfolio());
+        UndoRedoFunctions.getInstance().execute(new BuyTransaction(target,shares,main.getPortfolio()));
 
     }
 
     @FXML
     void handleAddToWatchlist(ActionEvent event) {
-
+        main.getPortfolio().getWatchEquities().add( searchResultsField.getSelectionModel().getSelectedItem());
     }
 
     @FXML
