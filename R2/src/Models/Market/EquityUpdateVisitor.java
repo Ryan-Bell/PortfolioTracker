@@ -13,7 +13,9 @@ public class EquityUpdateVisitor implements EquityVisitor {
     @Override
     public void visit(Equity equity) {
         if(newValues.containsKey(equity.getTickerSymbol())){
-            equity.setValue(newValues.get(equity.getTickerSymbol()));
+            if(newValues.get(equity.getTickerSymbol()) != -1) {
+                equity.setValue(newValues.get(equity.getTickerSymbol()));
+            }
         }
     }
 
@@ -21,7 +23,9 @@ public class EquityUpdateVisitor implements EquityVisitor {
     public void visit(MarketAverage marketAverage) {
         for(MarketEquity child:marketAverage.getChildren()) {
             if(newValues.containsKey(child.getTickerSymbol())){
-                child.setValue(newValues.get(child.getTickerSymbol()));
+                if(newValues.get(child.getTickerSymbol()) != -1) {
+                    child.setValue(newValues.get(child.getTickerSymbol()));
+                }
             }
         }
         marketAverage.calculateValue();

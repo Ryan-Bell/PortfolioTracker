@@ -12,7 +12,7 @@ public class BearSimulation extends Simulation {
      * @param steps         the number of steps in this simulation
      * @param equitiesValue the value to evaluate at
      */
-    public BearSimulation(float percentage, int steps, float equitiesValue, StepTypes stepType) {
+    public BearSimulation(float percentage, int steps, float equitiesValue, StepType stepType) {
         super(-percentage, steps, equitiesValue, stepType);
     }
 }

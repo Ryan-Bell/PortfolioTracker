@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -34,6 +35,7 @@ public class ImportController extends ViewController implements Initializable {
     @FXML private Button mergeButton;
     @FXML private Button ignoreButton;
     @FXML private Button replaceButton;
+    @FXML private Label importErrorLabel;
     //endregion
 
     //a portfolio IO  object to read in the other portfolio
@@ -55,6 +57,7 @@ public class ImportController extends ViewController implements Initializable {
         assert mergeButton != null : "fx:id=\"mergeButton\" was not injected: check your FXML file 'import.fxml'.";
         assert ignoreButton != null : "fx:id=\"ignoreButton\" was not injected: check your FXML file 'import.fxml'.";
         assert replaceButton != null : "fx:id=\"replaceButton\" was not injected: check your FXML file 'import.fxml'.";
+        assert importErrorLabel != null : "fx:id=\"importErrorLabel\" was not injected: check your FXML file 'import.fxml'.";
         //endregion
 
         //instantiate the PortfolioIO object
@@ -77,20 +80,26 @@ public class ImportController extends ViewController implements Initializable {
      */
     @FXML
     void handleMerge(){
+        importErrorLabel.setText("");
         //capture the currently selected cash account from the conflict list
-        CashAccount mergeAccount = importConflictsList.getSelectionModel().getSelectedItem();
+        if (importConflictsList.getSelectionModel().getSelectedItem() != null){
+            CashAccount mergeAccount = importConflictsList.getSelectionModel().getSelectedItem();
 
-        //execute a new deposit transaction to move the funds from one account into the other
-        UndoRedoFunctions.getInstance().execute(new DepositTransaction(main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(mergeAccount.getName())), mergeAccount.getBalance()));
+            //execute a new deposit transaction to move the funds from one account into the other
+            UndoRedoFunctions.getInstance().execute(new DepositTransaction(main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(mergeAccount.getName())), mergeAccount.getBalance()));
 
-        //display to the user that the merge took place
-        results.add("Merged Cash Accounts '"+ mergeAccount.getName() + "'");
+            //display to the user that the merge took place
+            results.add("Merged Cash Accounts '"+ mergeAccount.getName() + "'");
 
-        //remove the imported account from the conflict list
-        conflicts.remove(mergeAccount);
+            //remove the imported account from the conflict list
+            conflicts.remove(mergeAccount);
 
-        //update the conflict list
-        displayConflicts();
+            //update the conflict list
+            displayConflicts();
+        }
+        else{
+            importErrorLabel.setText("Please Select Cash Account to Merge");
+        }
     }
 
     /**
@@ -98,6 +107,7 @@ public class ImportController extends ViewController implements Initializable {
      */
     @FXML
     void handleReplace(){
+        importErrorLabel.setText("");
         //capture the currently selected account in the conflict list
         CashAccount replacementAccount = importConflictsList.getSelectionModel().getSelectedItem();
 
@@ -122,6 +132,7 @@ public class ImportController extends ViewController implements Initializable {
      */
     @FXML
     void handleIgnore() {
+        importErrorLabel.setText("");
         //capture the currently selected account from the conflicts list
         CashAccount ignoredAccount = importConflictsList.getSelectionModel().getSelectedItem();
 
@@ -140,7 +151,7 @@ public class ImportController extends ViewController implements Initializable {
      */
     @FXML
     void handleImport() {
-
+        importErrorLabel.setText("");
         //attempt to read in the portfolio
         Portfolio importPortfolio = portfolioIO.getPOFromId(fileNameField.getText());
 

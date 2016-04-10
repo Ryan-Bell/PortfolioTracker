@@ -7,13 +7,11 @@ import java.util.ArrayList;
  *  to calculate the current portfolio's simulated value.
  */
 public class Simulation {
-    public enum StepTypes{ DAY, MONTH, YEAR }
-
     protected float percentage;
     protected int steps;
     protected float equitiesValue;
     protected int compoundDay;
-    protected StepTypes stepType;
+    protected StepType stepType;
     protected ArrayList<Float> equityValuesAtStep;
 
     /**
@@ -23,7 +21,7 @@ public class Simulation {
      * @param equitiesValue the value to evaluate at
      * @param stepType      the type of step to run through (day, month, year)
      */
-    public Simulation(float percentage, int steps, float equitiesValue, StepTypes stepType) {
+    public Simulation(float percentage, int steps, float equitiesValue, StepType stepType) {
         this.percentage = Math.max(percentage, -1);
         this.steps = steps;
         this.equitiesValue = equitiesValue;

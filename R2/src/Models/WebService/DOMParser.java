@@ -38,8 +38,6 @@ public class DOMParser {
 
                 NodeList childNodes = node.getChildNodes();
 
-                System.out.println("Test "+childNodes.getLength());
-
                 for (int j = 0; j < childNodes.getLength(); j++) {
                     Node cNode = childNodes.item(j);
 

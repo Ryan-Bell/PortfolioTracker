@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.FileIO.PortfolioIO;
+import Models.UndoRedo.UndoRedoFunctions;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -80,7 +81,9 @@ public class ViewController implements Observer{
     @FXML void handleLogout(ActionEvent actionEvent) {
         //ask the user if they want to save
         logoutBox = new LogoutConfirmationController();
+
         try {
+            UndoRedoFunctions.createNewUndoRedoFunctions();
             logoutBox.showMessageBox(main.getPrimaryStage(), main);
         } catch (Exception e) {
             Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, e);

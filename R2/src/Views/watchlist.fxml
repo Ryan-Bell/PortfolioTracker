@@ -77,6 +77,9 @@
                                  </padding>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
                         </HBox>
                         <HBox prefHeight="486.0" prefWidth="798.0">
                            <children>
@@ -106,16 +109,8 @@
                                     </HBox>
                                     <HBox layoutX="15.0" layoutY="51.0" spacing="5.0">
                                        <children>
-                                          <ChoiceBox fx:id="selectTriggerChoiceBox" prefWidth="186.0" value="Select Trigger">
-                                             <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                   <String fx:value="High Trigger"/>
-                                                   <String fx:value="Low Trigger"/>
-                                                   <String fx:value="Both"/>
-                                                </FXCollections>
-                                             </items>
-                                          </ChoiceBox>
-                                          <Button fx:id="clearTriggerButton" mnemonicParsing="false" onAction="#handleClearTrigger" prefWidth="125.0" text="Clear Trigger" />
+                                          <ChoiceBox fx:id="selectTriggerChoiceBox" prefWidth="174.0" />
+                                          <Button fx:id="clearTriggerButton" mnemonicParsing="false" onAction="#handleClearTrigger" prefWidth="112.0" text="Clear Trigger" />
                                        </children>
                                        <VBox.margin>
                                           <Insets />

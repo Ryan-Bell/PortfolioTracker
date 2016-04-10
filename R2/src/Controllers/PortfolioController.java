@@ -6,6 +6,7 @@ import Models.Portfolio.ObserveType;
 import Models.Transaction.*;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -60,6 +61,7 @@ public class PortfolioController extends ViewController implements Initializable
     @FXML private TextField sellSharesField;
     @FXML private TextField sellNameField;
     @FXML private Button sellEquityButton;
+    @FXML private Button addToWatchlistButton;
     //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -99,6 +101,7 @@ public class PortfolioController extends ViewController implements Initializable
         assert sellSharesField != null : "fx:id=\"sellSharesField\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert sellEquityButton != null : "fx:id=\"sellEquityButton\" was not injected: check your FXML file 'portfolio.fxml'.";
         assert sellNameField != null : "fx:id=\"sellNameField\" was not injected: check your FXML file 'portfolio.fxml'.";
+        assert addToWatchlistButton != null : "fx:id=\"setHighTriggerButton\" was not injected: check your FXML file 'watchlist.fxml'.";
         //endregion
 
         //region CellFactories
@@ -149,7 +152,9 @@ public class PortfolioController extends ViewController implements Initializable
             //check that the selected account has enough funds to support the withdrawal
             if (target.sufficientFunds(amount)) {
                 //create and execute a new withdraw transaction
-                UndoRedoFunctions.getInstance().execute(new WithdrawTransaction(target, amount));
+                WithdrawTransaction newWithdraw = new WithdrawTransaction(target, amount);
+                main.getPortfolio().addTransaction(newWithdraw);
+                UndoRedoFunctions.getInstance().execute(newWithdraw);
 
                 //refresh the cash account table
                 cashAccountTable.refresh();
@@ -176,7 +181,9 @@ public class PortfolioController extends ViewController implements Initializable
             float amount = Float.parseFloat(depositField.getText());
 
             //create and execute a new deposit transaction
-            UndoRedoFunctions.getInstance().execute(new DepositTransaction(target, amount));
+            DepositTransaction newDeposit = new DepositTransaction(target, amount);
+            main.getPortfolio().addTransaction(newDeposit);
+            UndoRedoFunctions.getInstance().execute(newDeposit);
 
             //refresh the cash account table
             cashAccountTable.refresh();
@@ -212,7 +219,9 @@ public class PortfolioController extends ViewController implements Initializable
             transferTo = main.getPortfolio().getCashAccounts().get(main.getPortfolio().getCashAccNameExists(transferName));
 
             //create and execute a new transfer transaction
-            UndoRedoFunctions.getInstance().execute(new TransferTransaction(transferFrom, transferTo, amount));
+            TransferTransaction newTransfer = new TransferTransaction(transferFrom, transferTo, amount);
+            main.getPortfolio().addTransaction(newTransfer);
+            UndoRedoFunctions.getInstance().execute(newTransfer);
 
             //refresh the account table
             cashAccountTable.refresh();
@@ -242,7 +251,10 @@ public class PortfolioController extends ViewController implements Initializable
             float amount = Float.parseFloat(newBalanceField.getText());
 
             //try to add the new cash account
-            UndoRedoFunctions.getInstance().execute(new AddCashAccTransaction(newCashAccountName, amount, main.getPortfolio()));
+            AddCashAccTransaction newCashAcc = new AddCashAccTransaction(newCashAccountName, amount, main.getPortfolio());
+            main.getPortfolio().addTransaction(newCashAcc);
+            UndoRedoFunctions.getInstance().execute(newCashAcc);
+
             cashAccountTable.refresh();
         } catch (Exception e) {
             //display an error if the float entered was not a valid number
@@ -258,7 +270,9 @@ public class PortfolioController extends ViewController implements Initializable
         //attempt to remove the currently selected cash account and display error otherwise
         try {
             //attempt to create and execute a remove transaction on the currently selected account
-            UndoRedoFunctions.getInstance().execute(new RemoveCashAccTransaction(cashAccountTable.getSelectionModel().getSelectedItem(), main.getPortfolio()));
+            RemoveCashAccTransaction newRemoveCashAcc = new RemoveCashAccTransaction(cashAccountTable.getSelectionModel().getSelectedItem(), main.getPortfolio());
+            main.getPortfolio().addTransaction(newRemoveCashAcc);
+            UndoRedoFunctions.getInstance().execute(newRemoveCashAcc);
 
             //refresh the account table
             cashAccountTable.refresh();
@@ -282,7 +296,8 @@ public class PortfolioController extends ViewController implements Initializable
             String accountTarget;
 
             //check if a cash account destination has been specified
-            if((accountTarget = sellNameField.getText()) != null){
+            if(!(sellNameField.getText().equals(""))){
+                accountTarget = sellNameField.getText();
                 //check that the account name specified exists
                 int accountIndex = main.getPortfolio().getCashAccNameExists(accountTarget);
                 if(accountIndex != -1) {
@@ -290,14 +305,18 @@ public class PortfolioController extends ViewController implements Initializable
                     CashAccount target = main.getPortfolio().getCashAccounts().get(accountIndex);
 
                     //execute a new decorated sell command
-                    UndoRedoFunctions.getInstance().execute(new SellWithCashAccount(new SellTransaction(equity, numShares, main.getPortfolio()), target));
+                    SellWithCashAccount newSell = new SellWithCashAccount(new SellTransaction(equity, numShares, main.getPortfolio()), target);
+                    main.getPortfolio().addTransaction(newSell);
+                    UndoRedoFunctions.getInstance().execute(newSell);
                 } else {
                     //notify the user the cash account is invalid
                     equitiesError.setText("Cash account name is not valid");
                 }
             } else {
                 //execute a new simple sell transaction
-                UndoRedoFunctions.getInstance().execute(new SellTransaction(equity, numShares, main.getPortfolio()));
+                SellTransaction newSell = new SellTransaction(equity, numShares, main.getPortfolio());
+                main.getPortfolio().addTransaction(newSell);
+                UndoRedoFunctions.getInstance().execute(newSell);
             }
             //refresh the equity table
             equityTable.refresh();
@@ -305,6 +324,11 @@ public class PortfolioController extends ViewController implements Initializable
             //notify the user that the share count was invalid
             equitiesError.setText("Number of shares is not a valid number");
         }
+    }
+
+    @FXML
+    void handleAddToWatchlist(ActionEvent event) {
+        main.getPortfolio().getWatchEquities().add(equityTable.getSelectionModel().getSelectedItem());
     }
 
     @FXML

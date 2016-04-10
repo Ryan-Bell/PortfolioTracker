@@ -12,7 +12,7 @@ public class NoGrowthSimulation extends Simulation {
      * @param steps         the number of steps in this simulation
      * @param equitiesValue the value to evaluate at
      */
-    public NoGrowthSimulation(float percentage, int steps, float equitiesValue, StepTypes stepType) {
+    public NoGrowthSimulation(float percentage, int steps, float equitiesValue, StepType stepType) {
         super(0, steps, equitiesValue, stepType);
     }
 }
