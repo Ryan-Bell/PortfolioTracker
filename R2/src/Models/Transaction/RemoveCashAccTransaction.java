@@ -49,7 +49,7 @@ public class RemoveCashAccTransaction implements UndoRedo, Serializable {
             if(portfolio.getCashAccounts().indexOf(cashAccount) == -1)
             {
                 for (CashAccount cashA:portfolio.getCashAccounts()) {
-                    if(cashA.getName().equals(cashAccount)){
+                    if(cashA.getName().equals(cashAccount.getName())){
                         cashAccount = cashA;
                     }
                 }

@@ -72,4 +72,9 @@ public class SellWithCashAccount extends ExtendedTransactionDecorator implements
         }
 
     }
+    @Override
+    public String toString() {
+        if(failed) return transactionToBoDecorated.toString() + " with account " + cashAccount;
+        return transactionToBoDecorated.toString()+ " with account " + cashAccount;
+    }
 }

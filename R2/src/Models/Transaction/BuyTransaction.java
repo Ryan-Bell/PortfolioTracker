@@ -82,8 +82,15 @@ public class BuyTransaction implements UndoRedo, Serializable {
         //Don't do anything if the execute failed
         if(failed) return;
 
-        //remove the equity from the portfolio that was added by the execute method
-
-        portfolio.sellEquity((HoldingEquity)target, amount);
+        HoldingEquity targetHolding = null;
+        for (HoldingEquity equity:portfolio.getHoldingEquities()) {
+            if(equity.getName().equals(target.getName())){
+                targetHolding = equity;
+            }
+        }
+        if(targetHolding != null) {
+            //remove the equity from the portfolio that was added by the execute method
+            portfolio.sellEquity(targetHolding, amount);
+        }
     }
 }

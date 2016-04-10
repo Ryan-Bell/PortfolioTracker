@@ -98,12 +98,19 @@ public class Portfolio extends Observable implements Observer,Serializable  {
      * @param numShares the number of shares that are being aquired
      */
     public void buyEquity(MarketEquity target, int numShares){
-        //add target equity to HoldingEquity with numShares
-        HoldingEquity newEquity = new HoldingEquity(numShares,target.getValue(),target.getName(), target.getTickerSymbol(), target);
-        holdingEquities.add(newEquity);
+        //If the portfolio already has a copy of the equity
+        if(getEquityNameExists(target.getName()) != -1){
+            HoldingEquity currentEquity = holdingEquities.get(getEquityNameExists((target.getName())));
+            currentEquity.setNumShares(currentEquity.getNumShares() + numShares);
+        }
+        else {
+            //add target equity to HoldingEquity with numShares
+            HoldingEquity newEquity = new HoldingEquity(numShares, target.getValue(), target.getName(), target.getTickerSymbol(), target);
+            holdingEquities.add(newEquity);
 
-        //update the equities hashmap
-        equityNames.put(newEquity.getName(), holdingEquities.indexOf(newEquity));
+            //update the equities hashmap
+            equityNames.put(newEquity.getName(), holdingEquities.indexOf(newEquity));
+        }
 
         setChanged();
         notifyObservers(ObserveType.HOLDING_EQUITY);
