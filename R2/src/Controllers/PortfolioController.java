@@ -176,6 +176,9 @@ public class PortfolioController extends ViewController implements Initializable
         try{
             //capture the cash account that is currently selected in the table
             CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
+            if (target == null) {
+                throw new NullPointerException();
+            }
 
             //attempt to parse the deposit amount from the text field
             float amount = Float.parseFloat(depositField.getText());
