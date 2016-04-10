@@ -168,7 +168,7 @@ public class PortfolioController extends ViewController implements Initializable
             }
         } catch (Exception e) {
             //notify the user that the withdraw amount was not a valid number
-            cashAccountError.setText("Please choose a account and enter a valid amount");
+            cashAccountError.setText("Please choose an account and enter a valid amount");
         }
     }
 
@@ -197,7 +197,7 @@ public class PortfolioController extends ViewController implements Initializable
             cashAccountTable.refresh();
         } catch (Exception e){
             //notify the user that the amount they entered was not a valid number
-            cashAccountError.setText("Please choose a account and enter a valid amount");
+            cashAccountError.setText("Please choose an account and enter a valid amount");
         }
     }
 
@@ -217,6 +217,10 @@ public class PortfolioController extends ViewController implements Initializable
             //attempt to parse the transfer amount
             float amount = Float.parseFloat(transferAmountField.getText());
 
+            if (transferName == null || amount < 0) {
+                throw new NullPointerException();
+            }
+
             //check that the account name entered is a valid account
             if (main.getPortfolio().getCashAccNameExists(transferName) == -1){
                 //notify the user that the account is not valid
@@ -235,7 +239,7 @@ public class PortfolioController extends ViewController implements Initializable
             cashAccountTable.refresh();
         } catch (Exception e){
             //notify the user that the transfer amount was invalid
-            cashAccountError.setText("The transfer amount is not a valid number");
+            cashAccountError.setText("Please choose a valid account and amount");
         }
     }
 
@@ -258,6 +262,10 @@ public class PortfolioController extends ViewController implements Initializable
             //attempt to parse the initial balance
             float amount = Float.parseFloat(newBalanceField.getText());
 
+            if (amount < 0) {
+                throw new Exception();
+            }
+
             //try to add the new cash account
             AddCashAccTransaction newCashAcc = new AddCashAccTransaction(newCashAccountName, amount, main.getPortfolio());
             main.getPortfolio().addTransaction(newCashAcc);
@@ -266,7 +274,7 @@ public class PortfolioController extends ViewController implements Initializable
             cashAccountTable.refresh();
         } catch (Exception e) {
             //display an error if the float entered was not a valid number
-            cashAccountError.setText("Balance entered is not a valid float");
+            cashAccountError.setText("Balance entered is not a valid amount");
         }
     }
 
