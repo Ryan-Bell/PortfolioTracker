@@ -64,122 +64,161 @@ public class WatchlistController extends ViewController implements Initializable
 
         //endregion
 
+        //set the values and default for the trigger choice box
         selectTriggerChoiceBox.setItems(FXCollections.observableArrayList("High Trigger","Low Trigger","Both"));
         selectTriggerChoiceBox.setValue("Both");
 
     }
     @Override
     protected void setup() {
-        //System.out.println("ay2");
-        //main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(20));
-        //main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(21));
-       // main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(22));
-       // main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(23));
-       // main.getPortfolio().getWatchEquities().add(main.getMarket().getMarketEquities().get(24));
+        //set the watchlist as the watch equities in the portfolio
         watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
 
+        //region CellFactories
+        //set the column values for the table
         tickerTableColumn.setCellValueFactory(new PropertyValueFactory<>("tickerSymbol"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceTableColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         highTriggerTableColumn.setCellValueFactory(new PropertyValueFactory<>("highTrigger"));
         lowTriggerTableColumn.setCellValueFactory(new PropertyValueFactory<>("lowTrigger"));
         trippedTableColumn.setCellValueFactory(new PropertyValueFactory<>("triggerStatus"));
+        //endregion
 
+        //set the default for the trigger choice box
         selectTriggerChoiceBox.getSelectionModel().selectFirst();
 
+        //add this as an observer of portfolio
         main.getMarket().addObserver(this);
     }
 
 
+    /**
+     * Action listener for setting the high trigger of an equity
+     */
     @FXML
-    void handleSetHighTrigger(ActionEvent event) {
+    void handleSetHighTrigger() {
+        //capture the currently selected watchlist item
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
         try{
+            //attempt to parse the high trigger number
             float amount = Float.parseFloat(highTriggerField.getText());
+
+            //set the high  trigger for the selected item
             main.getPortfolio().getWatchEquities().get(currentSelection).setHighTrigger(amount);
 
+            //update the watchlist table
             watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
             watchlistTable.refresh();
             watchlistTable.getSelectionModel().selectFirst();
             watchlistTable.getFocusModel().focus(0);
-
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
+    /**
+     * Action listener for setting the low trigger of an equity
+     */
     @FXML
-    void handleSetLowTrigger(ActionEvent event) {
+    void handleSetLowTrigger() {
+        //capture the currently selected watchlist item
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
         try{
+            //attempt to parse the low trigger number
             float amount = Float.parseFloat(lowTriggerField.getText());
+
+            //set the low trigger for the selected item
             main.getPortfolio().getWatchEquities().get(currentSelection).setLowTrigger(amount);
 
+            //update the watchlist table
             watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
             watchlistTable.refresh();
             watchlistTable.getSelectionModel().selectFirst();
             watchlistTable.getFocusModel().focus(0);
 
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
+    /**
+     * Action listener for the clear button
+     */
     @FXML
-    void handleClearTrigger(ActionEvent event) {
+    void handleClearTrigger() {
+        //capture the currently selected watchlist item
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
+
+        //clear the low trigger if it has it
         if(selectTriggerChoiceBox.getValue().equals("Low Trigger")){
             main.getPortfolio().getWatchEquities().get(currentSelection).setLowTrigger(-1);
         }
+
+        //clear the high trigger if it has it
         else if(selectTriggerChoiceBox.getValue().equals("High Trigger")){
             main.getPortfolio().getWatchEquities().get(currentSelection).setHighTrigger(-1);
         }
+
+        //clear both triggers if it has both
         else if(selectTriggerChoiceBox.getValue().equals("Both")){
             main.getPortfolio().getWatchEquities().get(currentSelection).setHighTrigger(-1);
             main.getPortfolio().getWatchEquities().get(currentSelection).setLowTrigger(-1);
         }
 
 
-
+        //update the watchlist table
         watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();
         watchlistTable.getFocusModel().focus(0);
     }
 
+    /**
+     * Action listener for the reset button
+     */
     @FXML
-    void handleResetTripped(ActionEvent event) {
+    void handleResetTripped() {
+        //loop through all watchlist equities in portfolio and reset the triggers
         for (MarketEquity e:main.getPortfolio().getWatchEquities()){
             e.setTriggerStatus("");
         }
+
+        //update the watchlist table
         watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();
         watchlistTable.getFocusModel().focus(0);
     }
 
+    /**
+     * Action listener for the remove button
+     */
     @FXML
-    void handleRemoveItem(ActionEvent event) {
+    void handleRemoveItem() {
+        //capture the currently selected object
         int currentSelection = watchlistTable.getSelectionModel().getSelectedIndex();
+
+        //remove the item from the portfolio's list of watchlist equities
         main.getPortfolio().getWatchEquities().remove(currentSelection);
 
+        //update the watchlist table
         watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();
         watchlistTable.getFocusModel().focus(0);
     }
 
-    @FXML
-    void handleUpdateInterval(ActionEvent event) {
+    @FXML void handleUpdateInterval() {}
 
-    }
-
+    /**
+     * Handles an attempt to set the interval for the update service
+     */
     @FXML
-    void handleSetInterval(ActionEvent event) {
+    void handleSetInterval() {
         try{
+            //attempt to parse the interval
             float amount = Float.parseFloat(updateIntervalField.getText());
+
+            //set the update period and restart the service
             main.getUpdateService().setPeriod(Duration.minutes(amount));
             main.getUpdateService().restart();
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
     @FXML
@@ -191,16 +230,26 @@ public class WatchlistController extends ViewController implements Initializable
         transactionTab.setDisable(false);
     }
 
+    /** Handles updating the watchlist when portfolio changes
+     * @param o   the object being observed
+     * @param arg the identifying arg for what is being updated
+     */
     @Override
     public void update(Observable o, Object arg){
+        //loop through  all watchlist equities
         for (MarketEquity e:main.getPortfolio().getWatchEquities()) {
+
+            //check if the high trigger is currently being hit
             if(e.getValue() > e.getHighTrigger() && e.getHighTrigger()!=-1){
                 e.setTriggerStatus("Is above high");
             }
+
+            //check if the low trigger is currently being  hit
             else if(e.getValue() < e.getLowTrigger()){
                 e.setTriggerStatus("Is under low");
             }
             else{
+                //update the trigger status to show it is no longer being hit
                 if(e.getTriggerStatus().equals("Is above high")){
                     e.setTriggerStatus("Was above high");
                 }
@@ -209,6 +258,8 @@ public class WatchlistController extends ViewController implements Initializable
                 }
             }
         }
+
+        //update the watchlist table
         watchlistTable.setItems(FXCollections.observableList(main.getPortfolio().getWatchEquities()));
         watchlistTable.refresh();
         watchlistTable.getSelectionModel().selectFirst();

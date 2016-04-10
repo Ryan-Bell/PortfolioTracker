@@ -48,8 +48,6 @@ public class LoginController extends ViewController implements Initializable  {
         assert registerButton != null : "fx:id=\"registerButton\" was not injected: check the associated fxml file";
         //endregion
 
-        // all @FXML variables will have been injected
-
     }
 
 

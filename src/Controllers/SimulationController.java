@@ -27,6 +27,8 @@ public class SimulationController extends ViewController implements Initializabl
     @FXML private Button previousStepButton;
     @FXML private Label simulationErrorLabel;
     //endregion
+
+    //instance of the market simulation object
     private MarketSimulator marketSimulator;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -43,48 +45,71 @@ public class SimulationController extends ViewController implements Initializabl
         assert simulationErrorLabel != null : "fx:id=\"simulationErrorLabel\" was not injected: check your FXML file 'simulation.fxml'.";
         //endregion
 
+        //hide the next and previous buttons until a simulation is run
         previousStepButton.setVisible(false);
         nextStepButton.setVisible(false);
 
+        //set the choice box options and the default selection
         simulationChoiceBox.setItems(FXCollections.observableArrayList(SimulationType.BULL,SimulationType.NO_GROWTH,SimulationType.BEAR));
         simulationChoiceBox.setValue(SimulationType.BULL);
         stepChoiceBox.setItems(FXCollections.observableArrayList(StepType.YEAR,StepType.MONTH,StepType.DAY));
         stepChoiceBox.setValue(StepType.YEAR);
     }
 
+    /**
+     *
+     */
     @FXML
-    void handleRunSim(ActionEvent event) {
+    void handleRunSim() {
+        //clears the error label for this view
         resetErrorLabel();
+
+        //reset the buttons
         previousStepButton.setVisible(false);
         nextStepButton.setVisible(false);
+
         marketSimulator = new MarketSimulator(main.getPortfolio().getPortfolioValue());
 
         try {
+            //attempt to parse the steps and the percentagge fields
             float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
             int steps = Integer.parseInt(numStepsField.getCharacters().toString());
+
+            //get the enum values from the choice boxes
             SimulationType simulationType = simulationChoiceBox.getValue();
             StepType stepType = stepChoiceBox.getValue();
 
-            ObservableList values =FXCollections.observableArrayList(marketSimulator.runSimulation(percent, steps, stepType, simulationType));
+            //set the simulation output as the output returned from running the simulation
+            ObservableList values = FXCollections.observableArrayList(marketSimulator.runSimulation(percent, steps, stepType, simulationType));
             simResultsList.setItems(values);
 
+            //show the step buttons
             nextStepButton.setVisible(true);
             previousStepButton.setVisible(true);
 
         } catch (Exception e) {
+            //notify the user that there was an issue
             showErrorLabel("Please fill in all fields");
         }
     }
 
+    /**
+     * Action Listener for the previous step button
+     */
     @FXML
-    void handlePreviousStep(ActionEvent event) {
+    void handlePreviousStep() {
+        //clears the error label for this view
         resetErrorLabel();
         float value = marketSimulator.popMemento();
 
+        //capture the simulation output list
         ObservableList values = FXCollections.observableArrayList(value);
 
+        //save the length of the list
         int length = simResultsList.getItems().size() - 1;
         int i;
+
+        //remove the last step from the list
         for (i = length; i > 0; i--) {
             Float removeAmnt = (Float)simResultsList.getItems().get(i);
             if (value == removeAmnt) {
@@ -93,26 +118,37 @@ public class SimulationController extends ViewController implements Initializabl
             simResultsList.getItems().remove(simResultsList.getItems().get(i));
         }
 
+        //hide the previous button if there is no previous step
         if (value == main.getPortfolio().getPortfolioValue()) {
             previousStepButton.setVisible(false);
         }
     }
 
+    /**
+     * Action Listener for the next step button
+     */
     @FXML
-    void handleNextStep(ActionEvent event) {
+    void handleNextStep() {
+        //clears the error label for this view
         resetErrorLabel();
 
         try {
+            //attempt to parse the percent and step fields into nnumbers
             float percent = Float.parseFloat((percentChangeField.getCharacters().toString()));
             int steps = Integer.parseInt(numStepsField.getCharacters().toString());
+
+            //save teh enum selections from the choice boxes
             SimulationType simulationType = simulationChoiceBox.getValue();
             StepType stepType = stepChoiceBox.getValue();
 
+            //set the list to the output of running the simulation
             ObservableList values = FXCollections.observableArrayList(marketSimulator.runSimulation(percent, steps, stepType, simulationType));
             simResultsList.getItems().addAll(values);
 
+            //allow the user to press the previous button
             previousStepButton.setVisible(true);
         } catch (Exception e) {
+            //notify the user that there was an error
             showErrorLabel("Please fill in all fields");
         }
     }
@@ -124,10 +160,16 @@ public class SimulationController extends ViewController implements Initializabl
         marketTab.setDisable(false);
     }
 
+    /** sets the text in the error label for this view
+     * @param text the text to set as the error
+     */
     void showErrorLabel(String text) {
         simulationErrorLabel.setText(text);
     }
 
+    /**
+     * empties the error lable for this view
+     */
     void resetErrorLabel() {
         simulationErrorLabel.setText("");
     }

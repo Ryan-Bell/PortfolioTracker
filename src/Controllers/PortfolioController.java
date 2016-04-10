@@ -346,8 +346,12 @@ public class PortfolioController extends ViewController implements Initializable
         }
     }
 
+    /**
+     * Action listener that attempts to add a selected equity to the portfolio's watchlist
+     */
     @FXML
-    void handleAddToWatchlist(ActionEvent event) {
+    void handleAddToWatchlist() {
+        //add the selected equity to the watchlist
         main.getPortfolio().getWatchEquities().add(equityTable.getSelectionModel().getSelectedItem());
     }
 

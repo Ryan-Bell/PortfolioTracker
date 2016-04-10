@@ -42,7 +42,7 @@ public class RequestYahooAPI {
                 updatedMarketEquities.putAll(this.XMLParser.parseXMLStringToMarketEquityArray(xmlString));
             }
         } catch (Exception e)  {
-            System.out.println("!!! RequestYahooAPI: " + e.getMessage());
+            System.out.println("RequestYahooAPI: " + e.getMessage());
         }
 
         return updatedMarketEquities;

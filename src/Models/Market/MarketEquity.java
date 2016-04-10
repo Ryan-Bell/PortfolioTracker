@@ -77,7 +77,7 @@ public class MarketEquity implements Serializable{
     public String getTriggerStatus(){return triggerStatus;}
     public void setTriggerStatus(String triggerStatus){this.triggerStatus = triggerStatus;}
 
-    public void accept(EquityVisitor visitor){System.out.println("Market Equity accepts");}
+    public void accept(EquityVisitor visitor){}
 
     @Override
     public String toString() {
