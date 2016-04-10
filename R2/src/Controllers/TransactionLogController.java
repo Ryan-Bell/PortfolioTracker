@@ -135,13 +135,6 @@ public class TransactionLogController extends ViewController implements Initiali
         System.out.println("updating this");
         ObservableList transactions =FXCollections.observableArrayList(main.getPortfolio().getTransactionLog());
         transactionList.setItems(transactions);
-
-
-        System.out.println("Length: "+main.getPortfolio().getTransactionLog().size());
-        for (Transaction t:main.getPortfolio().getTransactionLog()
-             ) {
-            System.out.println(t.toString());
-        }
     }
 }
 

@@ -1,23 +1,24 @@
 package Controllers;
 
-import java.net.URL;
-import java.util.*;
-
-import Models.Market.Market;
 import Models.Market.MarketEquity;
 import Models.Market.MatchType;
 import Models.Market.QueryType;
+import Models.Portfolio.CashAccount;
 import Models.Transaction.BuyTransaction;
 import Models.Transaction.BuyWithCashAccount;
-import Models.UndoRedo.UndoRedo;
 import Models.UndoRedo.UndoRedoFunctions;
-import Models.Portfolio.CashAccount;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 public class MarketController extends ViewController implements Initializable {
     //region FXMLFields
@@ -56,16 +57,26 @@ public class MarketController extends ViewController implements Initializable {
         assert addToWatchlistButton != null : "fx:id=\"buyButton\" was not injected: check your FXML file 'market.fxml'.";
         //endregion
 
+        //region SelectBoxes
         tickerChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
         tickerChoiceBox.setValue(MatchType.CONTAINED);
         indexChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
         indexChoiceBox.setValue(MatchType.CONTAINED);
         nameChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
         nameChoiceBox.setValue(MatchType.CONTAINED);
+        //endregion
     }
 
     @FXML
     void handleSearch(ActionEvent event) {
+        /*
+<<<<<<< HEAD
+        searchResultsField.setItems(FXCollections.observableArrayList(
+                main.getMarket().search(
+                        tickerSearchField.getText(), tickerChoiceBox.getValue(),
+                        nameSearchField.getText(), nameChoiceBox.getValue(),
+                        indexSearchField.getText(), indexChoiceBox.getValue())));
+=======*/
         ArrayList<MarketEquity> tickerResults;
         ArrayList<MarketEquity> nameResults;
         ArrayList<MarketEquity> indexResults;
@@ -111,51 +122,42 @@ public class MarketController extends ViewController implements Initializable {
      */
     @FXML
     void handleBuy() {
-        System.out.println(searchResultsField.getSelectionModel().getSelectedItem());
-        if (searchResultsField.getSelectionModel().getSelectedItem() != null){
-            MarketEquity target = searchResultsField.getSelectionModel().getSelectedItem();
-            if (!(numberSharesField.getText().equals(""))){
-                if (!(cashAccountField.getText().equals(""))){
-                    if (main.getPortfolio().getCashAccNameExists(cashAccountField.getText()) != -1){
-                        try{
-                            int shares = Integer.parseInt(numberSharesField.getText());
-                            int index = main.getPortfolio().getCashAccNameExists(cashAccountField.getText());
-                            CashAccount cashAccount = main.getPortfolio().getCashAccounts().get(index);
+        MarketEquity target;
+        if ((target = searchResultsField.getSelectionModel().getSelectedItem()) == null){
+            marketErrorLabel.setText("Please Enter Share to Buy");
+            return;
+        }
 
-                            BuyWithCashAccount newBuy = new BuyWithCashAccount(new BuyTransaction(target,shares,main.getPortfolio()),cashAccount);
-                            main.getPortfolio().addTransaction(newBuy);
-                            UndoRedoFunctions.getInstance().execute(newBuy);
-                        }
-                        catch (NumberFormatException e){
-                            marketErrorLabel.setText("Please Enter Integer Number of Shares");
-                        }
+        if (numberSharesField.getText().equals("")){
+            marketErrorLabel.setText("Please Select Equity");
+            return;
+        }
 
-                    }
-                    else {
-                        marketErrorLabel.setText("Please Enter Valid Cash Account");
-                    }
-                }
-                else{
-                    try{
-                        int shares = Integer.parseInt(numberSharesField.getText());
+        int shares;
+        try {
+            shares = Integer.parseInt(numberSharesField.getText());
+        } catch (Exception e){
+            marketErrorLabel.setText("Please Enter Integer Number of Shares");
+            return;
+        }
 
-                        BuyTransaction newBuy = new BuyTransaction(target,shares,main.getPortfolio());
-                        main.getPortfolio().addTransaction(newBuy);
-                        UndoRedoFunctions.getInstance().execute(newBuy);
-                    }
-                    catch (NumberFormatException e){
-                        marketErrorLabel.setText("Please Enter Integer Number of Shares");
-                    }
-                }
+        if (!(cashAccountField.getText().equals(""))){
+            if (main.getPortfolio().getCashAccNameExists(cashAccountField.getText()) != -1){
+                int index = main.getPortfolio().getCashAccNameExists(cashAccountField.getText());
+                CashAccount cashAccount = main.getPortfolio().getCashAccounts().get(index);
 
-
+                BuyWithCashAccount newBuy = new BuyWithCashAccount(new BuyTransaction(target,shares,main.getPortfolio()),cashAccount);
+                main.getPortfolio().addTransaction(newBuy);
+                UndoRedoFunctions.getInstance().execute(newBuy);
             }
-            else{
-                marketErrorLabel.setText("Please Enter Number of Shares");
+            else {
+                marketErrorLabel.setText("Please Enter Valid Cash Account");
             }
         }
         else{
-            marketErrorLabel.setText("Please Select Equity");
+            BuyTransaction newBuy = new BuyTransaction(target,shares,main.getPortfolio());
+            main.getPortfolio().addTransaction(newBuy);
+            UndoRedoFunctions.getInstance().execute(newBuy);
         }
     }
 

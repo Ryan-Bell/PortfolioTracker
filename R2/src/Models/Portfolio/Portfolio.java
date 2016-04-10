@@ -79,6 +79,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
     public void addTransaction(Transaction transaction){
         transactionLog.add(transaction);
 
+
         setChanged();
         notifyObservers();
     }
