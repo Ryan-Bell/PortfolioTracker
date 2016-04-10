@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import Models.Transaction.Transaction;
+import Models.UndoRedo.UndoRedo;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,7 +70,8 @@ public class TransactionLogController extends ViewController implements Initiali
         resetErrorLabel();
 
         try {
-            undoRedoFunctions.undo();
+            UndoRedo undoneObj = undoRedoFunctions.undo();
+            main.getPortfolio().getTransactionLog().remove(undoneObj);
 
             if (!undoRedoFunctions.isRedoEmpty()) {
                 redoButton.setVisible(true);
@@ -89,7 +91,8 @@ public class TransactionLogController extends ViewController implements Initiali
         resetErrorLabel();
 
         try {
-            undoRedoFunctions.redo();
+            UndoRedo redoneObj = undoRedoFunctions.redo();
+            main.getPortfolio().getTransactionLog().add(redoneObj);
 
             if (!undoRedoFunctions.isUndoEmpty()) {
                 undoButton.setVisible(true);
