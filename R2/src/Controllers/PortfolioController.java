@@ -307,6 +307,10 @@ public class PortfolioController extends ViewController implements Initializable
             //attempt to parse the number of shares
             int numShares = Integer.parseInt(sellSharesField.getText());
 
+            if (numShares < 0) {
+                throw new NullPointerException();
+            }
+
             //capture the currently selected equity from the table
             HoldingEquity equity = equityTable.getSelectionModel().getSelectedItem();
             String accountTarget;
