@@ -25,6 +25,8 @@ public class SellTransaction implements UndoRedo, Serializable {
     //The time this command was created
     private LocalDateTime date;
 
+    public LocalDateTime getDate(){return date;}
+
     //the portfolio to sell equities from
     private Portfolio portfolio;
 

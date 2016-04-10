@@ -27,6 +27,8 @@ public class AddCashAccTransaction implements UndoRedo, Serializable {
 
     //the failure status of this command
     private boolean failed;
+
+    public LocalDateTime getDate(){return date;}
     //endregion
 
     /** Constructor

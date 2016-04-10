@@ -2,10 +2,7 @@ package Controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.NoSuchElementException;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import Models.Transaction.Transaction;
 import Models.UndoRedo.UndoRedo;
@@ -112,8 +109,21 @@ public class TransactionLogController extends ViewController implements Initiali
         resetErrorLabel();
 
         //how to acquire the date from the date picker
-        LocalDate now = startDatePicker.getValue();
-        System.out.println(now);
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+
+
+        ArrayList<Transaction> filteredTransactions = new ArrayList<>();
+        for (Transaction transaction:main.getPortfolio().getTransactionLog()) {
+            LocalDate transactionDate = LocalDate.of(transaction.getDate().getYear(), transaction.getDate().getMonth(), transaction.getDate().getDayOfMonth());
+            if((transactionDate.isAfter(startDate) || transactionDate.isEqual(startDate)) && (transactionDate.isBefore(endDate) || transactionDate.isEqual(endDate))){
+                filteredTransactions.add(transaction);
+            }
+        }
+
+
+        ObservableList transactions =FXCollections.observableArrayList(filteredTransactions);
+        transactionList.setItems(transactions);
 
     }
 
