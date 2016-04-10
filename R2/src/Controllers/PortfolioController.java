@@ -149,6 +149,10 @@ public class PortfolioController extends ViewController implements Initializable
             //try to parse the withdraw from the text field
             float amount = Float.parseFloat(withdrawField.getText());
 
+            if (target == null || amount < 0) {
+                throw new NullPointerException();
+            }
+
             //check that the selected account has enough funds to support the withdrawal
             if (target.sufficientFunds(amount)) {
                 //create and execute a new withdraw transaction
@@ -164,7 +168,7 @@ public class PortfolioController extends ViewController implements Initializable
             }
         } catch (Exception e) {
             //notify the user that the withdraw amount was not a valid number
-            cashAccountError.setText("The withdraw amount is not a valid number");
+            cashAccountError.setText("Please choose a account and enter a valid amount");
         }
     }
 
@@ -176,12 +180,13 @@ public class PortfolioController extends ViewController implements Initializable
         try{
             //capture the cash account that is currently selected in the table
             CashAccount target = cashAccountTable.getSelectionModel().getSelectedItem();
-            if (target == null) {
-                throw new NullPointerException();
-            }
 
             //attempt to parse the deposit amount from the text field
             float amount = Float.parseFloat(depositField.getText());
+
+            if (target == null || amount < 0) {
+                throw new NullPointerException();
+            }
 
             //create and execute a new deposit transaction
             DepositTransaction newDeposit = new DepositTransaction(target, amount);
@@ -192,7 +197,7 @@ public class PortfolioController extends ViewController implements Initializable
             cashAccountTable.refresh();
         } catch (Exception e){
             //notify the user that the amount they entered was not a valid number
-            cashAccountError.setText("The deposit amount is not a valid number");
+            cashAccountError.setText("Please choose a account and enter a valid amount");
         }
     }
 
