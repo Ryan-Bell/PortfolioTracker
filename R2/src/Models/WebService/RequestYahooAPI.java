@@ -10,6 +10,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ *
+ */
 public class RequestYahooAPI {
     ArrayList<MarketEquity> marketEquities;
     DOMParser XMLParser;
@@ -23,6 +26,10 @@ public class RequestYahooAPI {
         this.xmlBreakPointDefault = this.xmlBreakPoint;
     }
 
+    /**
+     * Queries YQL and returns with updated Equities.
+     * @return a hashMap of Equity names mapped to their values
+     */
     public HashMap<String, Float> getUpdatedMarketEquities() {
         HashMap<String, Float> updatedMarketEquities = new HashMap<>();
 
@@ -41,6 +48,11 @@ public class RequestYahooAPI {
         return updatedMarketEquities;
     }
 
+    /**
+     * Queries YQL to get a XML string
+     * @return YQL's resulting XML string
+     * @throws IOException
+     */
     public String getXMLStringFromURL() throws IOException {
         String url = getURLString();
 
@@ -69,15 +81,22 @@ public class RequestYahooAPI {
         return response.toString();
     }
 
+    /**
+     * Appends all the extra info to the Equities URL.
+     * @return the full YQL URL
+     */
     private String getURLString() {
         String beginning = "https://query.yahooapis.com/v1/public/yql?q=select%20LastTradePriceOnly%2Csymbol%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(";
         String middle = packMarketEquitiesToQueryString();
         String end = ")&env=store://datatables.org/alltableswithkeys";
 
-        String url = (beginning + middle + end);
-        return url;
+        return (beginning + middle + end);
     }
 
+    /**
+     * Breaks all the equities into smaller strings so YQL can handle the load.
+     * @return the string of all market equities
+     */
     private String packMarketEquitiesToQueryString() {
         String querySet = "";
 
