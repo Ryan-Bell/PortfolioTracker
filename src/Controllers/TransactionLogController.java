@@ -4,6 +4,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 
+import Models.Transaction.Transaction;
 import Models.UndoRedo.UndoRedo;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
