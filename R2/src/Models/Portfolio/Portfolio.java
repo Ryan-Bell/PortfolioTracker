@@ -84,6 +84,13 @@ public class Portfolio extends Observable implements Observer,Serializable  {
         notifyObservers();
     }
 
+    public void removeTransaction(Transaction transaction){
+        transactionLog.remove(transaction);
+
+        setChanged();
+        notifyObservers();
+    }
+
 
     /**
      * creates and adds a specific number of shares of the given equity to this portfolio

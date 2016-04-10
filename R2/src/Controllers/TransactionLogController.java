@@ -71,7 +71,7 @@ public class TransactionLogController extends ViewController implements Initiali
 
         try {
             UndoRedo undoneObj = undoRedoFunctions.undo();
-            main.getPortfolio().getTransactionLog().remove(undoneObj);
+            main.getPortfolio().removeTransaction(undoneObj);
 
             if (!undoRedoFunctions.isRedoEmpty()) {
                 redoButton.setVisible(true);
@@ -92,7 +92,7 @@ public class TransactionLogController extends ViewController implements Initiali
 
         try {
             UndoRedo redoneObj = undoRedoFunctions.redo();
-            main.getPortfolio().getTransactionLog().add(redoneObj);
+            main.getPortfolio().addTransaction(redoneObj);
 
             if (!undoRedoFunctions.isUndoEmpty()) {
                 undoButton.setVisible(true);
@@ -135,9 +135,9 @@ public class TransactionLogController extends ViewController implements Initiali
 
     @Override
     public void update(Observable o, Object arg){
-        System.out.println("updating this");
         ObservableList transactions =FXCollections.observableArrayList(main.getPortfolio().getTransactionLog());
         transactionList.setItems(transactions);
+
     }
 }
 
