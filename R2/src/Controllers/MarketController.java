@@ -1,16 +1,18 @@
 package Controllers;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
+import Models.Market.MarketEquity;
 import Models.Market.MatchType;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class MarketController extends ViewController implements Initializable {
     //region FXMLFields
@@ -19,7 +21,7 @@ public class MarketController extends ViewController implements Initializable {
     @FXML private Button searchButton;
     @FXML private TextField indexSearchField;
     @FXML private TextField nameSearchField;
-    @FXML private ListView<?> searchResultsField;
+    @FXML private ListView<MarketEquity> searchResultsField;
     @FXML private TextField numberSharesField;
     @FXML private TextField cashAccountField;
     @FXML private Button buyButton;
@@ -45,17 +47,23 @@ public class MarketController extends ViewController implements Initializable {
         assert tickerSearchField != null : "fx:id=\"tickerSearchField\" was not injected: check your FXML file 'market.fxml'.";
         //endregion
 
+        //region SelectBoxes
         tickerChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
         tickerChoiceBox.setValue(MatchType.CONTAINED);
         indexChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
         indexChoiceBox.setValue(MatchType.CONTAINED);
         nameChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
         nameChoiceBox.setValue(MatchType.CONTAINED);
+        //endregion
     }
 
     @FXML
     void handleSearch(ActionEvent event) {
-        System.out.println(tickerChoiceBox.getValue());
+        searchResultsField.setItems(FXCollections.observableArrayList(
+                main.getMarket().search(
+                        tickerSearchField.getText(), tickerChoiceBox.getValue(),
+                        nameSearchField.getText(), nameChoiceBox.getValue(),
+                        indexSearchField.getText(), indexChoiceBox.getValue())));
     }
 
     @FXML
