@@ -20,6 +20,8 @@ public class DepositTransaction implements UndoRedo, Serializable {
 
     //the time this command was created
     private LocalDateTime date;
+
+    public LocalDateTime getDate(){return date;}
     //endregion
 
     /** Constructor

@@ -21,6 +21,8 @@ public class WithdrawTransaction implements UndoRedo, Serializable {
     //the time this command was created
     private LocalDateTime date;
 
+    public LocalDateTime getDate(){return date;}
+
     //the failure status of this command
     private boolean failed;
     //endregion

@@ -42,6 +42,8 @@ public class BuyTransaction implements UndoRedo, Serializable {
      * @return the MarketEquity to be purchased
      */
     public MarketEquity getTarget(){return target;}
+
+    public LocalDateTime getDate(){return date;}
     //endregion
 
     /** Contructor

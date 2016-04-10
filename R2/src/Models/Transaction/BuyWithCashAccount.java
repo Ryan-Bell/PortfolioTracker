@@ -4,6 +4,7 @@ import Models.Portfolio.CashAccount;
 import Models.UndoRedo.UndoRedo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * A command decorator. Decorates BuyTransaction to
@@ -17,6 +18,10 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator implements 
 
     //the cost of the shares purchased
     private float cost;
+
+    private LocalDateTime date;
+
+    public LocalDateTime getDate(){return date;}
     //endregion
 
     /** Constructor
@@ -27,6 +32,7 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator implements 
         //call the parent constuctor with the base buy transaction
         super(decoratorTarget);
         this.cashAccount = cashAccount;
+        this.date = decoratorTarget.getDate();
     }
 
     /**

@@ -6,6 +6,7 @@ import Models.Portfolio.Portfolio;
 import Models.UndoRedo.UndoRedo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * A command decorator. Decorates SellTransaction to
@@ -22,6 +23,10 @@ public class SellWithCashAccount extends ExtendedTransactionDecorator implements
 
     //the meoney being deposited in the cash account
     private float depositAmount;
+
+    private LocalDateTime date;
+
+    public LocalDateTime getDate(){return date;}
     //endregion
 
     /** Constructor
@@ -31,6 +36,7 @@ public class SellWithCashAccount extends ExtendedTransactionDecorator implements
     public SellWithCashAccount(UndoRedo decoratorTarget, CashAccount cashAccount) {
         super(decoratorTarget);
         this.cashAccount = cashAccount;
+        this.date = decoratorTarget.getDate();
     }
 
     /**
