@@ -2,23 +2,18 @@ package Controllers;
 
 import Models.Market.MarketEquity;
 import Models.Market.MatchType;
-import Models.Market.QueryType;
 import Models.Portfolio.CashAccount;
 import Models.Transaction.BuyTransaction;
 import Models.Transaction.BuyWithCashAccount;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutionException;
 
 public class MarketController extends ViewController implements Initializable {
     //region FXMLFields
@@ -69,51 +64,11 @@ public class MarketController extends ViewController implements Initializable {
 
     @FXML
     void handleSearch(ActionEvent event) {
-        /*
-<<<<<<< HEAD
         searchResultsField.setItems(FXCollections.observableArrayList(
                 main.getMarket().search(
                         tickerSearchField.getText(), tickerChoiceBox.getValue(),
                         nameSearchField.getText(), nameChoiceBox.getValue(),
                         indexSearchField.getText(), indexChoiceBox.getValue())));
-=======*/
-        ArrayList<MarketEquity> tickerResults;
-        ArrayList<MarketEquity> nameResults;
-        ArrayList<MarketEquity> indexResults;
-        HashSet<MarketEquity> combinedResults = new HashSet<>();
-        ArrayList<TextField> searchFields = new ArrayList<>();
-        ArrayList<ArrayList<MarketEquity>> searchResults = new ArrayList<>();
-        ObservableList<MarketEquity> finalList;
-
-        //ticker symbol
-        //if(tickerChoiceBox.getValue() == MatchType.CONTAINED)
-        tickerResults = main.getMarket().search(QueryType.TICKER,tickerSearchField.getText(),tickerChoiceBox.getValue());
-
-        //name
-        nameResults = main.getMarket().search(QueryType.NAME,nameSearchField.getText(),nameChoiceBox.getValue());
-
-        //sector or index
-        indexResults =  main.getMarket().search(QueryType.INDEX_OR_SECTOR,indexSearchField.getText(),indexChoiceBox.getValue());
-
-
-        searchFields.add(tickerSearchField);
-        searchFields.add(nameSearchField);
-        searchFields.add(indexSearchField);
-        searchResults.add(tickerResults);
-        searchResults.add(nameResults);
-        searchResults.add(indexResults);
-        int i = 0;
-        for (TextField searchField : searchFields){
-            if (!(searchField.getText().equals(""))){
-                combinedResults.addAll(searchResults.get(i));
-            }
-            i++;
-        }
-        System.out.println(combinedResults.toString());
-        finalList = FXCollections.observableArrayList(combinedResults);
-        searchResultsField.setItems(finalList);
-
-
     }
 
     /**

@@ -15,7 +15,7 @@ public class MarketAverage extends MarketEquity {
      * @param name the name of the average
      */
     public MarketAverage(String name){
-        super(name, 0, "");
+        super(name, 0, name.toUpperCase());
         this.children = new ArrayList<>();
     }
 

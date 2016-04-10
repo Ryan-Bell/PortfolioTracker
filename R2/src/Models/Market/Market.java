@@ -107,7 +107,6 @@ public class Market extends Observable {
                     checkEq((Equity) equity, compFunc, query, results);
                 else
                     checkEq((MarketAverage) equity, compFunc, query, results);
-                break;
             } else {
                 checkEq(equity, compFunc, query, type, results);
             }
@@ -130,7 +129,6 @@ public class Market extends Observable {
     private void checkEq(MarketEquity equity, Comparator<String> comp, String query, QueryType queryType, ArrayList<MarketEquity> results ){
         switch (queryType){
             case TICKER:
-                if (!(equity instanceof Equity)){ return;}
                 if(comp.compare(equity.getTickerSymbol(), query) == 0)
                     results.add(equity);
                 break;
