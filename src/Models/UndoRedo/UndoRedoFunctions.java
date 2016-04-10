@@ -1,9 +1,7 @@
 package Models.UndoRedo;
 
 import java.util.ArrayDeque;
-import java.util.EmptyStackException;
 import java.util.Deque;
-import java.util.NoSuchElementException;
 
 /**
  * Holds functionality for the use of undoing and redoing commands.

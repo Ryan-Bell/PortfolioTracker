@@ -1,6 +1,5 @@
 package Models.Portfolio;
 
-import Models.Market.Market;
 import Models.Market.MarketEquity;
 import Models.Transaction.Transaction;
 import java.io.Serializable;

@@ -2,10 +2,7 @@ package Models.Market;
 
 import Models.WebService.RequestYahooAPI;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Observable;
+import java.util.*;
 
 /**
  * Holds all the information related to
@@ -24,6 +21,7 @@ public class Market extends Observable {
     }
 
     public int getEquityExists(String name){return marketMap.containsKey(name) ? marketMap.get(name) : -1;}
+    public CustomIterator getIterator(){return new MarketIterator();}
     public ArrayList<MarketEquity> getMarketEquities() {return marketEquities;}
 
     /**
@@ -63,7 +61,7 @@ public class Market extends Observable {
 
     }
 
-    public ArrayList<MarketEquity> search(String ticker, MatchType tickerMatch, String name, MatchType nameMatch, String index, MatchType indexMatch){
+    private ArrayList<MarketEquity> search(String ticker, MatchType tickerMatch, String name, MatchType nameMatch, String index, MatchType indexMatch){
         ArrayList<MarketEquity> results1 = null;
         ArrayList<MarketEquity> results2 = null;
         ArrayList<MarketEquity> results3 = null;
@@ -97,7 +95,7 @@ public class Market extends Observable {
      * @param matchType
      * @return  query the Array of matching MarketEquities based on the search params
      */
-    public ArrayList<MarketEquity> search(QueryType type, String query, MatchType matchType) {
+    private ArrayList<MarketEquity> search(QueryType type, String query, MatchType matchType) {
         Comparator<String> compFunc;
         ArrayList<MarketEquity> results = new ArrayList<>();
         compFunc = pickCompFunc(matchType);
@@ -184,5 +182,69 @@ public class Market extends Observable {
 
         setChanged();
         notifyObservers();
+    }
+
+    private class MarketIterator implements CustomIterator{
+
+        //region Fields
+        private int resultsPosition;
+        private boolean paramsSet;
+        private int resultLength;
+        private ArrayList<MarketEquity> results;
+        //endregion
+
+        public MarketIterator(){
+            resultsPosition  = 0;
+        }
+
+        @Override
+        public MarketIterator setSearchParams(String ticker, MatchType tickerMatch, String name, MatchType nameMatch, String index, MatchType indexMatch){
+            results = search(ticker, tickerMatch, name, nameMatch, index, indexMatch);
+            resultLength = results.size();
+            paramsSet = true;
+            return this;
+        }
+
+
+        @Override
+        public boolean hasNext() {
+            return resultsPosition < resultLength;
+        }
+
+        @Override
+        public boolean hasNext(int length){
+            return resultsPosition + length < resultLength;
+        }
+
+        @Override
+        public MarketEquity next() {
+            MarketEquity nextElem = null;
+            if(paramsSet){
+                nextElem = results.get(resultsPosition);
+                resultsPosition++;
+            }
+            return nextElem;
+        }
+
+        @Override
+        public ArrayList<MarketEquity> next(int length){
+            ArrayList<MarketEquity> nextElems = null;
+            if(paramsSet) {
+                nextElems = new ArrayList<MarketEquity>(results.subList(resultsPosition, resultsPosition + length));
+                resultsPosition += length;
+            }
+            return nextElems;
+        }
+
+        @Override
+        public ArrayList<MarketEquity> toEnd(){
+            ArrayList<MarketEquity> nextElems = null;
+            if(paramsSet){
+                nextElems = new ArrayList<MarketEquity>(results.subList(resultsPosition, resultLength - 1));
+                resultsPosition = resultLength;
+            }
+            return nextElems;
+        }
+
     }
 }

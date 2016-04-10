@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.Market.CustomIterator;
 import Models.Market.MarketEquity;
 import Models.Market.MatchType;
 import Models.Portfolio.CashAccount;
@@ -32,6 +33,9 @@ public class MarketController extends ViewController implements Initializable {
     @FXML private ChoiceBox<MatchType> tickerChoiceBox;
     @FXML private Label marketErrorLabel;
     @FXML private Button addToWatchlistButton;
+    @FXML private Button nextButton;
+    private CustomIterator searchIterator;
+    private int resultsPerPage;
     //endregion
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -50,6 +54,7 @@ public class MarketController extends ViewController implements Initializable {
         assert tickerSearchField != null : "fx:id=\"tickerSearchField\" was not injected: check your FXML file 'market.fxml'.";
         assert marketErrorLabel != null : "fx:id=\"marketErrorLabel\" was not injected: check your FXML file 'market.fxml'.";
         assert addToWatchlistButton != null : "fx:id=\"buyButton\" was not injected: check your FXML file 'market.fxml'.";
+        assert nextButton != null : "fx:id=\"nextButton\" was not injected: check your FXML file 'market.fxml'.";
         //endregion
 
         //region SelectBoxes
@@ -60,15 +65,34 @@ public class MarketController extends ViewController implements Initializable {
         nameChoiceBox.setItems(FXCollections.observableArrayList(MatchType.EXACT, MatchType.CONTAINED, MatchType.BEGIN));
         nameChoiceBox.setValue(MatchType.CONTAINED);
         //endregion
+
+        resultsPerPage = 100;
+    }
+
+    @FXML
+    void handleNext(ActionEvent event){
+        if(!searchIterator.hasNext()){
+            marketErrorLabel.setText("There are no more results");
+            return;
+        }
+        if(!searchIterator.hasNext(resultsPerPage)){
+            searchResultsField.setItems(FXCollections.observableArrayList(searchIterator.toEnd()));
+        } else {
+            searchResultsField.setItems(FXCollections.observableArrayList(searchIterator.next(resultsPerPage)));
+        }
     }
 
     @FXML
     void handleSearch(ActionEvent event) {
-        searchResultsField.setItems(FXCollections.observableArrayList(
-                main.getMarket().search(
-                        tickerSearchField.getText(), tickerChoiceBox.getValue(),
-                        nameSearchField.getText(), nameChoiceBox.getValue(),
-                        indexSearchField.getText(), indexChoiceBox.getValue())));
+        searchIterator = main.getMarket().getIterator().setSearchParams(
+                tickerSearchField.getText(), tickerChoiceBox.getValue(),
+                nameSearchField.getText(), nameChoiceBox.getValue(),
+                indexSearchField.getText(), indexChoiceBox.getValue());
+        if(!searchIterator.hasNext(resultsPerPage)) {
+            searchResultsField.setItems(FXCollections.observableArrayList(searchIterator.toEnd()));
+        } else {
+            searchResultsField.setItems(FXCollections.observableArrayList(searchIterator.next(resultsPerPage)));
+        }
     }
 
     /**

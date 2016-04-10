@@ -1,6 +1,5 @@
 package Controllers;
 
-import Models.Market.Market;
 import Models.Market.MarketEquity;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -8,11 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
+
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;

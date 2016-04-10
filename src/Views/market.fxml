@@ -88,6 +88,11 @@
                            <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch" prefWidth="100.0" text="Search" />
                         </children>
                      </HBox>
+                        <BorderPane prefHeight="48.0" prefWidth="780.0">
+                           <right>
+                              <Button fx:id="nextButton" maxWidth="100.0" minWidth="100.0" mnemonicParsing="false" onAction="#handleNext" text="Next" BorderPane.alignment="CENTER" />
+                           </right>
+                        </BorderPane>
                      <Label text="Results:" />
                      <ListView fx:id="searchResultsField" prefHeight="243.0" prefWidth="780.0" />
                         <BorderPane>
