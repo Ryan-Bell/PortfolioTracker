@@ -14,7 +14,7 @@ public interface CustomIterator {
      * @param nameMatch the type of match to preform on the name value
      * @param index the value of the index field
      * @param indexMatch the type of match to preform on the index value
-     * @return
+     * @return the new iterator
      */
     CustomIterator setSearchParams(String ticker, MatchType tickerMatch, String name, MatchType nameMatch, String index, MatchType indexMatch);
 
@@ -29,19 +29,19 @@ public interface CustomIterator {
      */
     boolean hasNext(int length);
 
-    /**
-     * @return
+    /** gives the next element in the results
+     * @return the next element
      */
     MarketEquity next();
 
-    /**
-     * @param length
-     * @return
+    /** returns a list of result items
+     * @param length the number of element to return
+     * @return the list of result items
      */
     ArrayList<MarketEquity> next(int length);
 
-    /**
-     * @return
+    /** gives the remaining items in the result set
+     * @return the remaining list of results
      */
     ArrayList<MarketEquity> toEnd();
 }

@@ -4,12 +4,21 @@ import Models.Portfolio.HoldingEquity;
 import java.util.HashMap;
 
 public class EquityUpdateVisitor implements EquityVisitor {
+
+    //holds the new values pulled from yahoo
     private HashMap<String, Float> newValues;
 
+
+    /** Constructor
+     * @param newValues the updated values from yahoo
+     */
     public EquityUpdateVisitor(HashMap<String, Float> newValues){
         this.newValues = newValues;
     }
 
+    /** updates the value of the visited equity
+     * @param equity the equity that was visited
+     */
     @Override
     public void visit(Equity equity) {
         if(newValues.containsKey(equity.getTickerSymbol())){
@@ -19,6 +28,9 @@ public class EquityUpdateVisitor implements EquityVisitor {
         }
     }
 
+    /** updated the value of the visited market average
+     * @param marketAverage the market average that was visited
+     */
     @Override
     public void visit(MarketAverage marketAverage) {
         for(MarketEquity child:marketAverage.getChildren()) {
@@ -32,8 +44,9 @@ public class EquityUpdateVisitor implements EquityVisitor {
 
     }
 
+    /** This visitor doesn't  do anything to holding equities
+     * @param equity the holding equity that was visited
+     */
     @Override
-    public void visit(HoldingEquity equity) {
-
-    }
+    public void visit(HoldingEquity equity) {}
 }

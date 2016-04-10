@@ -75,6 +75,7 @@ public class LogoutConfirmationController implements Initializable {
         //show the login screen and close this modal
         main.showLogin();
         messageBoxStage.close();
+        System.exit(0);
     }
 
     /**Action listener for the no button
@@ -84,5 +85,6 @@ public class LogoutConfirmationController implements Initializable {
         //show the login screen and close this modal
         main.showLogin();
         messageBoxStage.close();
+        System.exit(0);
     }
 }
