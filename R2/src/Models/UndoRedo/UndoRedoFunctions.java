@@ -34,19 +34,23 @@ public class UndoRedoFunctions {
     /**
      * call to undo the last command
      */
-    public void undo() {
+    public UndoRedo undo() {
         UndoRedo obj = undoStack.pop();
         obj.unExecute();
         pushOnRedoStack(obj);
+
+        return obj;
     }
 
     /**
      * call to redo the last command
      */
-    public void redo() {
+    public UndoRedo redo() {
         UndoRedo obj = redoStack.pop();
         obj.execute();
         pushOnUndoStack(obj);
+
+        return obj;
     }
 
     /**
