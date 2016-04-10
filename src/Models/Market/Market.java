@@ -240,7 +240,7 @@ public class Market extends Observable {
         public ArrayList<MarketEquity> toEnd(){
             ArrayList<MarketEquity> nextElems = null;
             if(paramsSet){
-                nextElems = new ArrayList<MarketEquity>(results.subList(resultsPosition, resultLength - 1));
+                nextElems = new ArrayList<MarketEquity>(results.subList(resultsPosition, resultLength));
                 resultsPosition = resultLength;
             }
             return nextElems;
