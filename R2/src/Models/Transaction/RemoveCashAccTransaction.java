@@ -43,7 +43,20 @@ public class RemoveCashAccTransaction implements UndoRedo, Serializable {
     @Override
     public void execute() {
         //check that the portfolio has the account and remove it or update fallure status
-        if(portfolio.getCashAccNameExists(cashAccount.getName()) != -1) portfolio.removeCashAccount(cashAccount);
+        if(portfolio.getCashAccNameExists(cashAccount.getName()) != -1){
+
+            //Checking name for Redo, since the cashAccount variable will be out of date
+            if(portfolio.getCashAccounts().indexOf(cashAccount) == -1)
+            {
+                for (CashAccount cashA:portfolio.getCashAccounts()) {
+                    if(cashA.getName().equals(cashAccount)){
+                        cashAccount = cashA;
+                    }
+                }
+            }
+
+            portfolio.removeCashAccount(cashAccount);
+        }
         else failed = true;
     }
 
