@@ -84,15 +84,20 @@ public class MarketController extends ViewController implements Initializable {
         }
 
         if (numberSharesField.getText().equals("")){
-            marketErrorLabel.setText("Please Select Equity");
+            marketErrorLabel.setText("Please Select The Number Of Shares");
             return;
         }
 
         int shares;
         try {
             shares = Integer.parseInt(numberSharesField.getText());
+
+            if (shares < 0) {
+                throw new Exception();
+            }
+
         } catch (Exception e){
-            marketErrorLabel.setText("Please Enter Integer Number of Shares");
+            marketErrorLabel.setText("Please Enter A Positive Integer Number of Shares");
             return;
         }
 
