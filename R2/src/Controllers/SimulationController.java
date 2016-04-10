@@ -80,8 +80,18 @@ public class SimulationController extends ViewController implements Initializabl
     void handlePreviousStep(ActionEvent event) {
         resetErrorLabel();
         float value = marketSimulator.popMemento();
-        ObservableList values = FXCollections.observableArrayList("--Back To Previous Simulation--", value);
-        simResultsList.getItems().addAll(values);
+
+        ObservableList values = FXCollections.observableArrayList(value);
+
+        int length = simResultsList.getItems().size() - 1;
+        int i;
+        for (i = length; i > 0; i--) {
+            Float removeAmnt = (Float)simResultsList.getItems().get(i);
+            if (value == removeAmnt) {
+                break;
+            }
+            simResultsList.getItems().remove(simResultsList.getItems().get(i));
+        }
 
         if (value == main.getPortfolio().getPortfolioValue()) {
             previousStepButton.setVisible(false);
