@@ -47,8 +47,6 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator implements 
         else{
             failed = true;
         }
-
-
     }
 
     /**
@@ -64,5 +62,11 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator implements 
 
         //call the unexecute of the undecorated transaction
         transactionToBoDecorated.unExecute();
+    }
+
+    @Override
+    public String toString() {
+        if(failed) return transactionToBoDecorated.toString() + " with account: " + cashAccount;
+        return transactionToBoDecorated.toString()+ " with account: " + cashAccount;
     }
 }
