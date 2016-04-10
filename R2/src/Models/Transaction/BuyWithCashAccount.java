@@ -66,7 +66,7 @@ public class BuyWithCashAccount extends ExtendedTransactionDecorator implements 
 
     @Override
     public String toString() {
-        if(failed) return transactionToBoDecorated.toString() + " with account: " + cashAccount;
-        return transactionToBoDecorated.toString()+ " with account: " + cashAccount;
+        if(failed) return transactionToBoDecorated.toString() + " with account " + cashAccount;
+        return transactionToBoDecorated.toString()+ " with account " + cashAccount;
     }
 }

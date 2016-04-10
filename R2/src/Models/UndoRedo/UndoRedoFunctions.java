@@ -27,12 +27,16 @@ public class UndoRedoFunctions {
         return instance;
     }
 
+    /**
+     * creates a new instance of the UndoRedoFunctions
+     */
     public static void createNewUndoRedoFunctions() {
         instance = new UndoRedoFunctions();
     }
 
     /**
-     * call to undo the last command
+     * Undo's the last command.
+     * @return obj - the undone command
      */
     public UndoRedo undo() {
         UndoRedo obj = undoStack.pop();
@@ -72,18 +76,34 @@ public class UndoRedoFunctions {
         pushOnRedoStack(obj);
     }
 
+    /**
+     * pushing an UndoRedo object to the redo stack.
+     * @param obj - an UndoRedo object
+     */
     public void pushOnRedoStack(UndoRedo obj) {
         this.redoStack.push(obj);
     }
 
+    /**
+     * pushing an UndoRedo object to the undo stack.
+     * @param obj - an UndoRedo object
+     */
     public void pushOnUndoStack(UndoRedo obj) {
         this.undoStack.push(obj);
     }
 
+    /**
+     * True if the undo stack is empty.
+     * @return boolean
+     */
     public boolean isUndoEmpty() {
         return this.undoStack.size() == 0;
     };
 
+    /**
+     * true if the redo stack is empty.
+     * @return boolean
+     */
     public boolean isRedoEmpty() {
         return this.redoStack.size() == 0;
     }

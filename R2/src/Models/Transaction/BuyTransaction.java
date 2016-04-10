@@ -70,8 +70,8 @@ public class BuyTransaction implements UndoRedo, Serializable {
      */
     @Override
     public String toString() {
-        if(failed) return "Could not purchase "+amount+" shares of "+target.getName()+"on "+date;
-        return "Purchased "+amount+" shares of "+target.getName()+"on "+date;
+        if(failed) return "Could not purchase " + amount + " shares of " + target.getName() + "on " + date;
+        return "Purchased " + amount + " shares of "+target.getName() + "on " + date;
     }
 
     /**
@@ -83,6 +83,7 @@ public class BuyTransaction implements UndoRedo, Serializable {
         if(failed) return;
 
         //remove the equity from the portfolio that was added by the execute method
+
         portfolio.sellEquity((HoldingEquity)target, amount);
     }
 }
