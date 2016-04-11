@@ -44,7 +44,7 @@ public class LogoutConfirmationController implements Initializable {
         try {
             //create the scene by loading it in without the extended loader
             messageBoxStage = new Stage();
-            AnchorPane page = FXMLLoader.load(LogoutConfirmationController.class.getResource("../Views/LogoutConfirmation.fxml"));
+            AnchorPane page = FXMLLoader.load(LogoutConfirmationController.class.getResource("/Views/LogoutConfirmation.fxml"));
             Scene scene = new Scene(page);
             messageBoxStage.setScene(scene);
             messageBoxStage.setTitle("Confirm Logout");
