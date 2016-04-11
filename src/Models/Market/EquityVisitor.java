@@ -7,18 +7,18 @@ import Models.Portfolio.HoldingEquity;
  */
 public interface EquityVisitor {
 
-    /** visit method that
-     * @param equity
+    /** visit method that handles equities
+     * @param equity the equity being handled
      */
     void visit(Equity equity);
 
-    /**
-     * @param marketAverage
+    /** visit method that handles averages
+     * @param marketAverage the average being handled
      */
     void visit(MarketAverage marketAverage);
 
-    /**
-     * @param equity
+    /** visit method that handles holdings
+     * @param equity the holding being handled
      */
     void visit(HoldingEquity equity);
 }

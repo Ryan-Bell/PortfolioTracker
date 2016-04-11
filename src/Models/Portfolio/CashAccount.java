@@ -23,22 +23,48 @@ public class CashAccount implements Serializable {
         this.dateAdded = LocalDateTime.now();
     }
 
+    //region GetterSetter
+
+    /** Getter for name
+     * @return the name of the account
+     */
     public String getName() {
         return name;
     }
 
+    /** Getter for the balance
+     * @return the account balance
+     */
     public float getBalance() {
         return balance;
     }
 
+    /** Getter for the date
+     * @return the date the account was added
+     */
+    public LocalDateTime getDateAdded() {
+        return dateAdded;
+    }
+
+    /** Setter for the balance of balance
+     * @param balance the balance to set thee account to
+     */
     public void setBalance(float balance) {
         this.balance = balance;
     }
+    //endregion
 
+    /** checks that the account has sufficient funds
+     * @param amount the amount to check sufffeciency for
+     * @return whether there are enough funds or not
+     */
     public boolean sufficientFunds(float amount){
         return this.getBalance() - amount >= 0;
     }
 
+    /** Handles decreasing account funds
+     * @param amount the amount to decrease by
+     */
     public void withdraw(float amount){
         float newBalance;
         newBalance = this.getBalance() - amount;
@@ -46,15 +72,16 @@ public class CashAccount implements Serializable {
 
     }
 
+    /** Handles increasing account funds
+     * @param amount the amount too increase by
+     */
     public void deposit(float amount){
         float newBalance;
         newBalance = this.getBalance() + amount;
         setBalance(newBalance);
     }
 
-    public LocalDateTime getDateAdded() {
-        return dateAdded;
-    }
+
 
     @Override
     public String toString(){

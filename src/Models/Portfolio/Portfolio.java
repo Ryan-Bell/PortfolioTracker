@@ -12,6 +12,7 @@ import java.util.Observer;
  * Contains user equityholdings and cash accounts.
  */
 public class Portfolio extends Observable implements Observer,Serializable  {
+    //region Fields
     private ArrayList<HoldingEquity> holdingEquities;
     private ArrayList<CashAccount> cashAccounts;
     private ArrayList<Transaction> transactionLog;
@@ -20,6 +21,7 @@ public class Portfolio extends Observable implements Observer,Serializable  {
     private HashMap<String, Integer> cashAccountNames;
     private HashMap<String, Integer> equityNames;
     private ArrayList<MarketEquity> watchEquities;
+    //endregion
 
     //Used to denote serialized version
     private static final long serialVersionUID = 681129221878275270L;
@@ -47,25 +49,49 @@ public class Portfolio extends Observable implements Observer,Serializable  {
 
 
     }
+    //region GetterSetter
 
+    /** Getter for the cash account list
+     * @return the list of cash accounts
+     */
     public ArrayList<CashAccount> getCashAccounts() {
         return cashAccounts;
     }
 
+    /** Returns the index of a cash account by name
+     * @param name the name to search for
+     * @return  the index of the cash acccount or -1
+     */
     public int getCashAccNameExists(String name){return cashAccountNames.containsKey(name) ? cashAccountNames.get(name) : -1;}
 
+    /** Returns the index of a equity by name
+     * @param name the name to search for
+     * @return the index of the equity or -1
+     */
     public int getEquityNameExists(String name){return equityNames.containsKey(name) ? equityNames.get(name) : -1;}
 
+    /** Getter for the transaction log
+     * @return the transaction list
+     */
     public ArrayList<Transaction> getTransactionLog() {
         return transactionLog;
     }
 
+    /** Getter for the holding equities
+     * @return the list of hodings
+     */
     public ArrayList<HoldingEquity> getHoldingEquities() {
         return holdingEquities;
     }
 
+    /** Getter for the watchlist
+     * @return the list of watch equities
+     */
     public ArrayList<MarketEquity> getWatchEquities(){return watchEquities;}
 
+    /** Setter for list of watched equities
+     * @param watchEquities the list to set to
+     */
     public void setWatchEquities(ArrayList<MarketEquity> watchEquities){this.watchEquities = watchEquities;}
 
     /**
@@ -73,19 +99,31 @@ public class Portfolio extends Observable implements Observer,Serializable  {
      * @return the password
      */
     public String getPassword(){ return hashedPass; }
-    public String getId(){ return id; }
 
+    /** Getter for the id
+     * @return the id of the portfolio
+     */
+    public String getId(){ return id; }
+    //endregion
+
+    /** Adds a transaction to the transaction log
+     * @param transaction  the transaction to add
+     */
     public void addTransaction(Transaction transaction){
         transactionLog.add(transaction);
 
-
+        //notify the observers that the log has changed
         setChanged();
         notifyObservers();
     }
 
+    /** Removed a transaction from the transaction log
+     * @param transaction the transaction to remove
+     */
     public void removeTransaction(Transaction transaction){
         transactionLog.remove(transaction);
 
+        //notify the observers that the log has changed
         setChanged();
         notifyObservers();
     }

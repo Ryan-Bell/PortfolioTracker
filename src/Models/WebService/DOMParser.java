@@ -48,9 +48,7 @@ public class DOMParser {
                         float updatedValue = -1;
                         try {
                             updatedValue = Float.parseFloat(cNode.getLastChild().getTextContent().trim());
-                        } catch (Exception e) {
-//                            System.out.println("DOMParser " + e.getMessage());
-                        }
+                        } catch (Exception e) {}
                         YQLMarketEquities.put(tickerSymbol, updatedValue);
                     }
                 }
