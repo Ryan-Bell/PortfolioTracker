@@ -2,7 +2,10 @@ package Models.Market;
 
 import Models.WebService.RequestYahooAPI;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Observable;
 
 /**
  * Holds all the information related to

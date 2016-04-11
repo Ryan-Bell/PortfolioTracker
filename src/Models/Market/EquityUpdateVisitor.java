@@ -1,6 +1,7 @@
 package Models.Market;
 
 import Models.Portfolio.HoldingEquity;
+
 import java.util.HashMap;
 
 public class EquityUpdateVisitor implements EquityVisitor {

@@ -2,8 +2,6 @@ package Controllers;
 
 import Models.FileIO.PortfolioIO;
 import Models.UndoRedo.UndoRedoFunctions;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 

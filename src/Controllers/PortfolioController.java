@@ -6,7 +6,6 @@ import Models.Portfolio.ObserveType;
 import Models.Transaction.*;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;

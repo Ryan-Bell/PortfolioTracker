@@ -1,17 +1,16 @@
 package Controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import Models.MarketSimulation.MarketSimulator;
 import Models.MarketSimulation.SimulationType;
 import Models.MarketSimulation.StepType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class SimulationController extends ViewController implements Initializable{
     //region FXMLFields

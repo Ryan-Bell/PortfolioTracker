@@ -8,7 +8,6 @@ import Models.Transaction.BuyTransaction;
 import Models.Transaction.BuyWithCashAccount;
 import Models.UndoRedo.UndoRedoFunctions;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;

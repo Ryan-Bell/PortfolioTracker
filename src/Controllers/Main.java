@@ -218,7 +218,6 @@ public class Main extends Application {
     private Scene createScene(String filePrefix){
         try {
             //load in the file using the extended loader
-            FXMLLoaderExtended loader = new FXMLLoaderExtended(getClass().getResource("../Views/" + filePrefix + ".fxml"));
 
             //return the scene created after passing reference to main into the load method
             return new Scene(loader.load(this));

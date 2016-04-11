@@ -1,5 +1,8 @@
 package Controllers;
 
+import Models.FileIO.PortfolioIO;
+import Models.FileIO.UserAuthentication;
+import Models.Portfolio.Portfolio;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,9 +12,6 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import Models.FileIO.UserAuthentication;
-import Models.Portfolio.Portfolio;
-import Models.FileIO.PortfolioIO;
 
 
 public class LoginController extends ViewController implements Initializable  {
