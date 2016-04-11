@@ -133,6 +133,11 @@ public class TransactionLogController extends ViewController implements Initiali
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
 
+        if (startDate == null || endDate == null) {
+            showErrorLabel("Please pick a date");
+            return;
+        }
+
 
         //list to store all applicable log items
         ArrayList<Transaction> filteredTransactions = new ArrayList<>();
