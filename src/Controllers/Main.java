@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.FileIO.FXMLLoaderExtended;
 import Models.FileIO.Parser;
+import Models.FileIO.PortfolioIO;
 import Models.Market.Market;
 import Models.Portfolio.Portfolio;
 import javafx.application.Application;
@@ -240,6 +241,10 @@ public class Main extends Application {
 
     //entry point to launch application
     public static void main(String[] args) {
-        launch(args);
+        if (args.length > 1 && args[0].equals("-delete")){
+            PortfolioIO.deleteId(args[1]);
+        } else {
+            launch(args);
+        }
     }
 }
